@@ -5,8 +5,66 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:CVAVT"
         mc:Ignorable="d"
-        Title="MainWindow" Height="450" Width="800">
+        Title="CVAVT" Height="450" Width="800">
     <Grid>
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="63*"/>
+            <ColumnDefinition Width="381*"/>
+            <ColumnDefinition Width="75*"/>
+            <ColumnDefinition Width="281*"/>
+        </Grid.ColumnDefinitions>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="27*"/>
+            <RowDefinition Height="383*"/>
+            <RowDefinition Height="24*"/>
+        </Grid.RowDefinitions>
+        <DataGrid  Grid.ColumnSpan="4" Margin="31,27,24,0" Grid.RowSpan="2">
+            <DataGrid.Columns>
+                <DataGridTextColumn Header="Titel"></DataGridTextColumn>
+                <DataGridTextColumn Header="Leiter"></DataGridTextColumn>
+                <DataGridTextColumn Header="Art"></DataGridTextColumn>
+                <DataGridTextColumn Header="Datum"></DataGridTextColumn>
+                <DataGridTextColumn Header="Uhrzeit"></DataGridTextColumn>
+                <DataGridTextColumn Header="Max Teilnehmer"></DataGridTextColumn>
+                <DataGridTextColumn Header="Vorwissen"></DataGridTextColumn>
+                <DataGridTextColumn Header="Information"></DataGridTextColumn>
+                <DataGridTemplateColumn Header="Edit">
+                    <DataGridTemplateColumn.CellTemplate>
+                        <DataTemplate>
+                            <!--<Button Content="Edit" Click="Button_Click"/>-->
+                            <Button Content="Edit"></Button>
+                        </DataTemplate>
+                    </DataGridTemplateColumn.CellTemplate>
+                </DataGridTemplateColumn>
+                <DataGridTemplateColumn Header="Teilnehmer">
+                    <DataGridTemplateColumn.CellTemplate>
+                        <DataTemplate>
+                            <!--<Button Content="Hinzufügen" Click="Button_Click"/>-->
+                            <Button Content="Edit"></Button>
+                        </DataTemplate>
+                    </DataGridTemplateColumn.CellTemplate>
+                </DataGridTemplateColumn>
+                <DataGridTemplateColumn Header="Löschen">
+                    <DataGridTemplateColumn.CellTemplate>
+                        <DataTemplate>
+                            <!--<Button Content="Aktivität Löschen" Click="Button_Click"/>-->
+                            <Button Content="Edit"></Button>
+                        </DataTemplate>
+                    </DataGridTemplateColumn.CellTemplate>
+                </DataGridTemplateColumn>
 
+
+
+            </DataGrid.Columns>
+        </DataGrid>
+        <Menu Grid.ColumnSpan="2" Margin="0,0,306,0">
+            <MenuItem Header="Optionen">
+                <MenuItem Header="Beenden"></MenuItem>
+            </MenuItem>
+            <MenuItem Header="Aktivitäten">
+                <MenuItem Header="Neue Aktivität"></MenuItem>
+            </MenuItem>
+        </Menu>
+        <CheckBox Grid.Column="3" Content="Vergangene Einblenden" HorizontalAlignment="Left" Margin="110,0,0,0" VerticalAlignment="Center"/>
     </Grid>
 </Window>
