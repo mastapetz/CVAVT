@@ -10,28 +10,18 @@ using System.Windows.Documents;
 using System.Windows.Input;
 using System.Windows.Media;
 using System.Windows.Media.Imaging;
-using System.Windows.Navigation;
 using System.Windows.Shapes;
-using CVAVT.ViewModels;
-using CVAVT.Views;
 
-namespace CVAVT
+namespace CVAVT.Views
 {
     /// <summary>
-    /// Interaction logic for MainWindow.xaml
+    /// Interaction logic for NeuerTeilnehmer.xaml
     /// </summary>
-    public partial class MainWindow : Window
+    public partial class NeuerTeilnehmer : Window
     {
-        private MainWindowViewModel _viewModel;
-
-        public MainWindow()
+        public NeuerTeilnehmer()
         {
             InitializeComponent();
-            _viewModel = new MainWindowViewModel();
-            this.DataContext = _viewModel;
-
-            //_viewModel.OnRequestCloseWindow += (sender, args) => this.Close();
-
         }
     }
 }

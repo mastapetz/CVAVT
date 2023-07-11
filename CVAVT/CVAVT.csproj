@@ -7,4 +7,10 @@
     <UseWPF>true</UseWPF>
   </PropertyGroup>
 
+  <ItemGroup>
+    <Reference Include="WpfLibrary">
+      <HintPath>..\..\Aufbaukurs\Tag14\WpfLibrary\bin\Debug\net7.0-windows\WpfLibrary.dll</HintPath>
+    </Reference>
+  </ItemGroup>
+
 </Project>

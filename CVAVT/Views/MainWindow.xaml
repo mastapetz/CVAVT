@@ -57,12 +57,18 @@
 
             </DataGrid.Columns>
         </DataGrid>
-        <Menu Grid.ColumnSpan="2" Margin="0,0,306,0">
+        <Menu Grid.ColumnSpan="3" Margin="0,0,306,0">
             <MenuItem Header="Optionen">
                 <MenuItem Header="Beenden"></MenuItem>
             </MenuItem>
             <MenuItem Header="Aktivitäten">
                 <MenuItem Header="Neue Aktivität"></MenuItem>
+            </MenuItem>
+
+        </Menu>
+        <Menu Grid.Column="4">
+            <MenuItem Header="Teilnehmer">
+                <MenuItem Command="{Binding NeuTeilnehmerCmd}" Header="Neuer Teilnehmer"></MenuItem>
             </MenuItem>
         </Menu>
         <CheckBox Grid.Column="3" Content="Vergangene Einblenden" HorizontalAlignment="Left" Margin="110,0,0,0" VerticalAlignment="Center"/>
