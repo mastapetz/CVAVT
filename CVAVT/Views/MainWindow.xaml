@@ -62,13 +62,14 @@
                 <MenuItem Header="Beenden"></MenuItem>
             </MenuItem>
             <MenuItem Header="Aktivitäten">
-                <MenuItem Header="Neue Aktivität"></MenuItem>
+                <MenuItem Command="{Binding NeuAktivitaetCmd}" Header="Neue Aktivität"></MenuItem>
             </MenuItem>
 
         </Menu>
         <Menu Grid.Column="4">
-            <MenuItem Header="Teilnehmer">
+            <MenuItem Header="Testing">
                 <MenuItem Command="{Binding NeuTeilnehmerCmd}" Header="Neuer Teilnehmer"></MenuItem>
+                <MenuItem Command="{Binding NeuAktivitaetCmd}" Header="Neue Aktivität"></MenuItem>
             </MenuItem>
         </Menu>
         <CheckBox Grid.Column="3" Content="Vergangene Einblenden" HorizontalAlignment="Left" Margin="110,0,0,0" VerticalAlignment="Center"/>
