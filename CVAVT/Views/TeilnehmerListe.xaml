@@ -1,0 +1,56 @@
+﻿<Window x:Class="CVAVT.Views.TeilnehmerListe"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:CVAVT.Views"
+        mc:Ignorable="d"
+        Title="Teilnehmer Liste" Height="400" Width="400">
+    <Grid>
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="79*"/>
+            <ColumnDefinition Width="96*"/>
+            <ColumnDefinition Width="146*"/>
+            <ColumnDefinition Width="79*"/>
+        </Grid.ColumnDefinitions>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="25*"/>
+            <RowDefinition Height="141*"/>
+            <RowDefinition Height="138*"/>
+            <RowDefinition Height="80*"/>
+        </Grid.RowDefinitions>
+
+        <DataGrid Grid.Row="1" Grid.Column="1" Grid.RowSpan="2" Grid.ColumnSpan="2" >
+            <DataGrid.Columns>
+                <DataGridTextColumn Header="Name" Width="50*"></DataGridTextColumn>
+                <DataGridTemplateColumn Header="Löschen" Width="25*">
+                    <DataGridTemplateColumn.CellTemplate>
+                        <DataTemplate>
+                            <!--<Button Content="Edit" Click="Button_Click"/>-->
+                            <Button Content="Löschen"></Button>
+                        </DataTemplate>
+                    </DataGridTemplateColumn.CellTemplate>
+                </DataGridTemplateColumn>
+                <DataGridTemplateColumn Header="Ändern" Width="25*">
+                    <DataGridTemplateColumn.CellTemplate>
+                        <DataTemplate>
+                            <!--<Button Content="Edit" Click="Button_Click"/>-->
+                            <Button Content="Ändern"></Button>
+                        </DataTemplate>
+                    </DataGridTemplateColumn.CellTemplate>
+                </DataGridTemplateColumn>
+
+            </DataGrid.Columns>
+        </DataGrid>
+        <Menu Grid.Row="0" Grid.Column="0" Grid.ColumnSpan="1" >
+            <MenuItem Header="Optionen">
+                <MenuItem Header="Export"></MenuItem>
+                <MenuItem Header="Beenden"></MenuItem>
+            </MenuItem>
+
+
+
+        </Menu>
+
+    </Grid>
+</Window>
