@@ -5,22 +5,23 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:CVAVT.Views"
         mc:Ignorable="d"
-        Title="Teilnehmer Liste" Height="400" Width="400">
+        Title="Teilnehmer Liste" Height="400" Width="450">
     <Grid>
         <Grid.ColumnDefinitions>
-            <ColumnDefinition Width="79*"/>
-            <ColumnDefinition Width="96*"/>
-            <ColumnDefinition Width="146*"/>
-            <ColumnDefinition Width="79*"/>
+            <ColumnDefinition Width="130*"/>
+            <ColumnDefinition Width="0*"/>
+            <ColumnDefinition Width="109*"/>
+            <ColumnDefinition Width="177*"/>
+            <ColumnDefinition Width="34*"/>
         </Grid.ColumnDefinitions>
         <Grid.RowDefinitions>
             <RowDefinition Height="25*"/>
-            <RowDefinition Height="141*"/>
-            <RowDefinition Height="138*"/>
-            <RowDefinition Height="80*"/>
+            <RowDefinition Height="40*"/>
+            <RowDefinition Height="279*"/>
+            <RowDefinition Height="40*"/>
         </Grid.RowDefinitions>
 
-        <DataGrid Grid.Row="1" Grid.Column="1" Grid.RowSpan="2" Grid.ColumnSpan="2" >
+        <DataGrid Grid.Column="2" Grid.RowSpan="3" Grid.ColumnSpan="2" Margin="0,25,0,0" >
             <DataGrid.Columns>
                 <DataGridTextColumn Header="Name" Width="50*"></DataGridTextColumn>
                 <DataGridTemplateColumn Header="Löschen" Width="25*">
@@ -51,6 +52,23 @@
 
 
         </Menu>
+        <Grid Grid.Row="1" Margin="0,40,0,0" Grid.RowSpan="2">
+            <Grid.RowDefinitions>
+                <RowDefinition Height="49*"/>
+                <RowDefinition Height="49*"/>
+                <RowDefinition Height="45*"/>
+                <RowDefinition Height="45*"/>
+                <RowDefinition Height="45*"/>
+            </Grid.RowDefinitions>
+            <Button Content="Neuer Teilnehmer" HorizontalAlignment="Center"  Grid.Row="2" VerticalAlignment="Center" Width="110"/>
+            <Button Content="Export Liste" HorizontalAlignment="Center"  Grid.Row="3" VerticalAlignment="Center" Width="110"/>
+            <Button Content="Schließen" HorizontalAlignment="Center"  Grid.Row="4" VerticalAlignment="Center" Width="110"/>
+            <Label Content="Ist" HorizontalAlignment="Left" Margin="10,0,0,0" VerticalAlignment="Center"/>
+            <TextBox HorizontalAlignment="Left"  TextWrapping="Wrap" Text="IST" VerticalAlignment="Center" Width="46" Margin="56,0,0,0"/>
+            <Label Content="Max" HorizontalAlignment="Left" Margin="10,0,0,0" Grid.Row="1" VerticalAlignment="Center"/>
+            <TextBox HorizontalAlignment="Left"  TextWrapping="Wrap" Text="MAX" Grid.Row="1" VerticalAlignment="Center" Width="46" Margin="56,0,0,0"/>
+
+        </Grid>
 
     </Grid>
 </Window>
