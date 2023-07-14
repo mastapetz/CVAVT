@@ -13,8 +13,14 @@ namespace CVAVT.ViewModels
     {
         // Neuer Teilnehmer
         public ICommand NeuTeilnehmerCmd { get; set; }
+
+        // Neue Aktivität
         public ICommand NeuAktivitaetCmd { get; set; }
+
+        // Edit Aktivität
         public ICommand EditAktiviaetCmd { get; set; }
+
+        // Teilnehmer Liste Zeigen
         public ICommand ShowTeilnehmerCmd { get; set; }
 
         // Konstruktor
@@ -22,7 +28,7 @@ namespace CVAVT.ViewModels
         {
             NeuTeilnehmerCmd = new WpfLibrary.RelayCommand(NeuerTeilnehmerMenu);
             NeuAktivitaetCmd = new WpfLibrary.RelayCommand(NeuAktivitaet);
-            EditAktiviaetCmd = new WpfLibrary.RelayCommand(EditAcitvitaet);
+            EditAktiviaetCmd = new WpfLibrary.RelayCommand(EditAktivitaet);
             ShowTeilnehmerCmd = new WpfLibrary.RelayCommand(ShowTeilnehmer);
         }
 
@@ -32,7 +38,7 @@ namespace CVAVT.ViewModels
             window.Show();
         }
 
-        private void EditAcitvitaet()
+        private void EditAktivitaet()
         {
             EditActivityWindow window = new EditActivityWindow();
             window.ShowDialog();
