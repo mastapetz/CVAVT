@@ -18,8 +18,8 @@ namespace CVAVT.ViewModels
         public ICommand TeilnehmerEditCmd { get; set; }
 
         // Properties
-        public int IstTeilnehmer { get; set; }
-        public int MaxTeilnehmer { get; set; }
+        public int TeilnehmerIst { get; set; }
+        public int TeilnehmerMax { get; set; }
         public string TeilnehmerName { get; set; }
 
         // Konstruktor

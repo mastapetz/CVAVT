@@ -23,6 +23,9 @@ namespace CVAVT.ViewModels
         // Teilnehmer Liste Zeigen
         public ICommand ShowTeilnehmerCmd { get; set; }
 
+        // Program Beenden
+        public ICommand BeendenCmd { get; set; }
+
         // Konstruktor
         public MainWindowViewModel()
         {
@@ -30,6 +33,12 @@ namespace CVAVT.ViewModels
             NeuAktivitaetCmd = new WpfLibrary.RelayCommand(NeuAktivitaet);
             EditAktiviaetCmd = new WpfLibrary.RelayCommand(EditAktivitaet);
             ShowTeilnehmerCmd = new WpfLibrary.RelayCommand(ShowTeilnehmer);
+            BeendenCmd = new WpfLibrary.RelayCommand(Schliessen);
+        }
+
+        private void Schliessen()
+        {
+            throw new NotImplementedException();
         }
 
         private void ShowTeilnehmer()

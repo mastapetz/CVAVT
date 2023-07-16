@@ -10,9 +10,9 @@ namespace CVAVT.ViewModels
     internal class NeuerTeilnehmerViewModel : WpfLibrary.BaseViewModel
     {
         // Commands
-        public ICommand EditVerwerfenCmd { get; set; }
+        public ICommand EingabeVerwerfenCmd { get; set; }
         public ICommand NaechsterTeilnehmerCmd { get; set; }
-        public ICommand EditSpeichernCmd { get; set; }
+        public ICommand EingabeSpeichernCmd { get; set; }
 
         // Properties
         public string AktivitaetenName { get; set; }
@@ -23,12 +23,13 @@ namespace CVAVT.ViewModels
         // Konstruktor
         public NeuerTeilnehmerViewModel()
         {
-            EditVerwerfenCmd = new WpfLibrary.RelayCommand(EditVerwerfen);
+            EingabeVerwerfenCmd = new WpfLibrary.RelayCommand(EingabeVerwerfen);
             NaechsterTeilnehmerCmd = new WpfLibrary.RelayCommand(NaechsterTeilnehmer);
-            EditSpeichernCmd = new WpfLibrary.RelayCommand(EditSpeichern);
+            EingabeSpeichernCmd = new WpfLibrary.RelayCommand(EingabeSpeichern);
         }
 
-        private void EditVerwerfen()
+        // Alter Name EditVerwerfen
+        private void EingabeVerwerfen()
         {
             throw new NotImplementedException();
         }
@@ -37,8 +38,9 @@ namespace CVAVT.ViewModels
         {
             throw new NotImplementedException();
         }
+        // Alter Name EditSpeichern
 
-        private void EditSpeichern()
+        private void EingabeSpeichern()
         {
             throw new NotImplementedException();
         }
