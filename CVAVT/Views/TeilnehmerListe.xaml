@@ -61,8 +61,8 @@
                 <RowDefinition Height="45*"/>
             </Grid.RowDefinitions>
             <Button Content="Neuer Teilnehmer" HorizontalAlignment="Center"  Grid.Row="2" VerticalAlignment="Center" Width="110"/>
-            <Button Content="Export Liste" HorizontalAlignment="Center"  Grid.Row="3" VerticalAlignment="Center" Width="110"/>
-            <Button Content="Schließen" HorizontalAlignment="Center"  Grid.Row="4" VerticalAlignment="Center" Width="110"/>
+            <Button Content="Export Liste" HorizontalAlignment="Center"  Grid.Row="3" VerticalAlignment="Center" Width="110" Background="Green"/>
+            <Button Content="Schließen" HorizontalAlignment="Center"  Grid.Row="4" VerticalAlignment="Center" Width="110" Background="Red"/>
             <Label Content="Ist" HorizontalAlignment="Left" Margin="10,0,0,0" VerticalAlignment="Center"/>
             <TextBox HorizontalAlignment="Left"  TextWrapping="Wrap" Text="IST" VerticalAlignment="Center" Width="46" Margin="56,0,0,0"/>
             <Label Content="Max" HorizontalAlignment="Left" Margin="10,0,0,0" Grid.Row="1" VerticalAlignment="Center"/>
