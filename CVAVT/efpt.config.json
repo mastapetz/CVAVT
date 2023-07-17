@@ -1,0 +1,73 @@
+﻿{
+   "CodeGenerationMode": 3,
+   "ContextClassName": "CVAVTContext",
+   "ContextNamespace": null,
+   "DefaultDacpacSchema": null,
+   "FilterSchemas": false,
+   "IncludeConnectionString": false,
+   "ModelNamespace": null,
+   "OutputContextPath": null,
+   "OutputPath": "Models",
+   "PreserveCasingWithRegex": true,
+   "ProjectRootNamespace": "CVAVT",
+   "Schemas": null,
+   "SelectedHandlebarsLanguage": 0,
+   "SelectedToBeGenerated": 0,
+   "Tables": [
+      {
+         "Name": "[dbo].[ActivitaetKategorie]",
+         "ObjectType": 0
+      },
+      {
+         "Name": "[dbo].[Aktivitaet]",
+         "ObjectType": 0
+      },
+      {
+         "Name": "[dbo].[Kategorie]",
+         "ObjectType": 0
+      },
+      {
+         "Name": "[dbo].[Leiter]",
+         "ObjectType": 0
+      },
+      {
+         "Name": "[dbo].[Teilnehmer]",
+         "ObjectType": 0
+      },
+      {
+         "Name": "[dbo].[ZeigeAllesSortiertNachLeiter]",
+         "ObjectType": 3
+      },
+      {
+         "Name": "[dbo].[ZeigeAllesWichtige]",
+         "ObjectType": 3
+      },
+      {
+         "Name": "[dbo].[ZeigeNachLeiter2]",
+         "ObjectType": 3
+      },
+      {
+         "Name": "[dbo].[ZeigeTeilnehmerListe]",
+         "ObjectType": 3
+      }
+   ],
+   "UiHint": "desktop-0o4sdsg\\sqlexpress.CVAVT.dbo",
+   "UncountableWords": null,
+   "UseBoolPropertiesWithoutDefaultSql": false,
+   "UseDatabaseNames": false,
+   "UseDateOnlyTimeOnly": false,
+   "UseDbContextSplitting": false,
+   "UseFluentApiOnly": true,
+   "UseHandleBars": false,
+   "UseHierarchyId": false,
+   "UseInflector": false,
+   "UseLegacyPluralizer": false,
+   "UseManyToManyEntity": true,
+   "UseNoDefaultConstructor": false,
+   "UseNoObjectFilter": false,
+   "UseNodaTime": false,
+   "UseNullableReferences": false,
+   "UseSchemaFolders": false,
+   "UseSpatial": false,
+   "UseT4": false
+}
