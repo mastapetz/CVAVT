@@ -79,6 +79,7 @@
         <Menu Grid.Column="3">
             <MenuItem Header="Testing">
                 <MenuItem Command="{Binding NeuTeilnehmerCmd}" Header="Neuer Teilnehmer"></MenuItem>
+                <MenuItem Command="{Binding NeuLeiterCmd}" Header="Neuer Leiter"></MenuItem>
                 <MenuItem Command="{Binding NeuAktivitaetCmd}" Header="Neue Aktivität"></MenuItem>
                 <MenuItem Command="{Binding EditAktiviaetCmd}" Header="Edit Aktivität"></MenuItem>
                 <MenuItem Command="{Binding ShowTeilnehmerCmd}" Header="Teilnehmer Anzeigen"></MenuItem>
