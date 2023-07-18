@@ -1,0 +1,39 @@
+﻿<Window x:Class="CVAVT.Views.NeuerLeiter"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:CVAVT.Views"
+        mc:Ignorable="d"
+        Title="Neuer Leiter" Height="190" Width="380">
+    <Grid>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="24"/>
+            <RowDefinition Height="9*"/>
+
+            <RowDefinition Height="53*"/>
+            <RowDefinition Height="98*"/>
+
+
+        </Grid.RowDefinitions>
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="64"/>
+            <ColumnDefinition Width="169*"/>
+            <ColumnDefinition Width="167*"/>
+            <!--<ColumnDefinition Width="11*"/>-->
+            <!--<ColumnDefinition Width="94*"/>-->
+            <!--<ColumnDefinition Width="45*"/>-->
+            <!--<ColumnDefinition Width="51*"/>-->
+        </Grid.ColumnDefinitions>
+        <Menu Margin="0,0,3,1">
+            <MenuItem Header="Optionen">
+                <MenuItem Header="Speichern"></MenuItem>
+                <MenuItem Header="Abbrechen"></MenuItem>
+            </MenuItem>
+        </Menu>
+        <Label Grid.Column="1" Grid.Row="2" Content="Leiter Name" HorizontalAlignment="Center"  VerticalAlignment="Center" Width="130" Height="26"/>
+        <TextBox Grid.Column="2" Grid.Row="2"  HorizontalAlignment="Center" Margin="0,13,0,0" TextWrapping="Wrap" Text="LEITERNAME" VerticalAlignment="Top" Width="130" Height="18"/>
+        <Button Grid.Row="3" Grid.Column="1" Content="Änderungen Verwerfen" HorizontalAlignment="Center"  VerticalAlignment="Center" Width="130"  Height="30"  />
+        <Button Grid.Row="3" Grid.Column="2"  Content="Änderungen Speichern"  HorizontalAlignment="Center"   VerticalAlignment="Center" Width="130" Height="30"/>
+    </Grid>
+</Window>
