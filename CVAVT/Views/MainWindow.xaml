@@ -5,7 +5,7 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:CVAVT"
         mc:Ignorable="d"
-        Title="CVAVT" Height="450" Width="800">
+        Title="CVAVT" Height="450" Width="900">
     <Grid>
         <Grid.ColumnDefinitions>
             <ColumnDefinition Width="63*"/>
@@ -20,15 +20,17 @@
         </Grid.RowDefinitions>
         <DataGrid  Grid.ColumnSpan="4" Margin="31,27,24,0" Grid.RowSpan="2">
             <DataGrid.Columns>
-                <DataGridTextColumn Header="Titel"></DataGridTextColumn>
-                <DataGridTextColumn Header="Leiter"></DataGridTextColumn>
-                <DataGridTextColumn Header="Art"></DataGridTextColumn>
-                <DataGridTextColumn Header="Datum"></DataGridTextColumn>
-                <DataGridTextColumn Header="Uhrzeit"></DataGridTextColumn>
-                <DataGridTextColumn Header="Max Teilnehmer"></DataGridTextColumn>
-                <DataGridTextColumn Header="Vorwissen"></DataGridTextColumn>
-                <DataGridTextColumn Header="Information"></DataGridTextColumn>
-                <DataGridTemplateColumn Header="Ändern">
+                <DataGridTextColumn Binding="{Binding AktivitaetenName}" Header="Aktivitäten Name" Width="105"></DataGridTextColumn>
+                <DataGridTextColumn Binding="{Binding AktivitaetenArt}" Header="Art" Width="30"></DataGridTextColumn>
+                <DataGridTextColumn Binding="{Binding LeiterIdfkNavigation.LeiterName}" Header="Leiter" Width="40"></DataGridTextColumn>
+                <DataGridTextColumn Binding="{Binding AktivitaetenDatum}" Header="Datum" Width="90"></DataGridTextColumn>
+                <DataGridTextColumn Binding="{Binding AktivitaetenZeit}" Header="Uhrzeit" Width="80"></DataGridTextColumn>
+                <DataGridTextColumn Binding="{Binding AktivitaetenDauer}" Header="Dauer" Width="45"></DataGridTextColumn>
+                <DataGridTextColumn Binding="{Binding AktivitaetenIstTeilnehmer}" Header="Ist" Width="25"></DataGridTextColumn>
+                <DataGridTextColumn Binding="{Binding AktivitaetenMaxTeilnehmer}" Header="Max" Width="35"></DataGridTextColumn>
+                <DataGridTextColumn Binding="{Binding AktivitaetenVorwissenNoetig}" Header="Vorwissen" Width="65"></DataGridTextColumn>
+                <DataGridTextColumn Binding="{Binding AktivitaetenInformation}" Header="Information" Width="100"></DataGridTextColumn>
+                <DataGridTemplateColumn Header="Ändern" Width="50">
                     <DataGridTemplateColumn.CellTemplate>
                         <DataTemplate>
                             <!--<Button Content="Edit" Click="Button_Click"/>-->
@@ -36,7 +38,7 @@
                         </DataTemplate>
                     </DataGridTemplateColumn.CellTemplate>
                 </DataGridTemplateColumn>
-                <DataGridTemplateColumn Header="Teilnehmer">
+                <DataGridTemplateColumn Header="Teilnehmer" Width="70">
                     <DataGridTemplateColumn.CellTemplate>
                         <DataTemplate>
                             <!--<Button Content="Hinzufügen" Click="Button_Click"/>-->
@@ -44,7 +46,7 @@
                         </DataTemplate>
                     </DataGridTemplateColumn.CellTemplate>
                 </DataGridTemplateColumn>
-                <DataGridTemplateColumn Header="Liste">
+                <DataGridTemplateColumn Header="Liste" Width="35">
                     <DataGridTemplateColumn.CellTemplate>
                         <DataTemplate>
                             <!--<Button Content="Liste Anzeigen" Click="Button_Click"/>-->
@@ -52,11 +54,11 @@
                         </DataTemplate>
                     </DataGridTemplateColumn.CellTemplate>
                 </DataGridTemplateColumn>
-                <DataGridTemplateColumn Header="Löschen">
+                <DataGridTemplateColumn Header="Löschen" Width="55">
                     <DataGridTemplateColumn.CellTemplate>
                         <DataTemplate>
                             <!--<Button Content="Aktivität Löschen" Click="Button_Click"/>-->
-                            <Button Content="Edit"></Button>
+                            <Button Content="Edit" Command="{Binding EditAktiviaetCmd}"></Button>
                         </DataTemplate>
                     </DataGridTemplateColumn.CellTemplate>
                 </DataGridTemplateColumn>
