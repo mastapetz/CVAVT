@@ -8,6 +8,7 @@ namespace CVAVT.Models;
 
 public partial class CVAVTContext : DbContext
 {
+    public CVAVTContext() { }
     public CVAVTContext(DbContextOptions<CVAVTContext> options)
         : base(options)
     {
@@ -22,14 +23,6 @@ public partial class CVAVTContext : DbContext
     public virtual DbSet<Leiter> Leiter { get; set; }
 
     public virtual DbSet<Teilnehmer> Teilnehmer { get; set; }
-
-    public virtual DbSet<ZeigeAllesSortiertNachLeiter> ZeigeAllesSortiertNachLeiter { get; set; }
-
-    public virtual DbSet<ZeigeAllesWichtige> ZeigeAllesWichtige { get; set; }
-
-    public virtual DbSet<ZeigeNachLeiter2> ZeigeNachLeiter2 { get; set; }
-
-    public virtual DbSet<ZeigeTeilnehmerListe> ZeigeTeilnehmerListe { get; set; }
 
     protected override void OnModelCreating(ModelBuilder modelBuilder)
     {
@@ -53,11 +46,9 @@ public partial class CVAVTContext : DbContext
 
         modelBuilder.Entity<Aktivitaet>(entity =>
         {
-            entity.HasKey(e => e.AktivitaetenId);
+            entity.HasKey(e => e.AktivitaetenId).HasName("PK__Aktivita__68838C520C3AFF0F");
 
-            entity.Property(e => e.AktivitaetenId)
-                .ValueGeneratedNever()
-                .HasColumnName("AktivitaetenID");
+            entity.Property(e => e.AktivitaetenId).HasColumnName("AktivitaetenID");
             entity.Property(e => e.AktivitaetenArt)
                 .IsRequired()
                 .HasMaxLength(50);
@@ -77,9 +68,9 @@ public partial class CVAVTContext : DbContext
 
         modelBuilder.Entity<Kategorie>(entity =>
         {
-            entity.Property(e => e.KategorieId)
-                .ValueGeneratedNever()
-                .HasColumnName("KategorieID");
+            entity.HasKey(e => e.KategorieId).HasName("PK__Kategori__32DA9122EF254834");
+
+            entity.Property(e => e.KategorieId).HasColumnName("KategorieID");
             entity.Property(e => e.KategorieName)
                 .IsRequired()
                 .HasMaxLength(50);
@@ -87,9 +78,9 @@ public partial class CVAVTContext : DbContext
 
         modelBuilder.Entity<Leiter>(entity =>
         {
-            entity.Property(e => e.LeiterId)
-                .ValueGeneratedNever()
-                .HasColumnName("LeiterID");
+            entity.HasKey(e => e.LeiterId).HasName("PK__Leiter__AFA09D08EC4C1CFA");
+
+            entity.Property(e => e.LeiterId).HasColumnName("LeiterID");
             entity.Property(e => e.LeiterName)
                 .IsRequired()
                 .HasMaxLength(50);
@@ -97,9 +88,9 @@ public partial class CVAVTContext : DbContext
 
         modelBuilder.Entity<Teilnehmer>(entity =>
         {
-            entity.Property(e => e.TeilnehmerId)
-                .ValueGeneratedNever()
-                .HasColumnName("TeilnehmerID");
+            entity.HasKey(e => e.TeilnehmerId).HasName("PK__Teilnehm__EF4CA5C6F765B838");
+
+            entity.Property(e => e.TeilnehmerId).HasColumnName("TeilnehmerID");
             entity.Property(e => e.AktivitaetIdfk).HasColumnName("AktivitaetIDFK");
             entity.Property(e => e.TeilnehmerName)
                 .IsRequired()
@@ -109,84 +100,6 @@ public partial class CVAVTContext : DbContext
                 .HasForeignKey(d => d.AktivitaetIdfk)
                 .OnDelete(DeleteBehavior.ClientSetNull)
                 .HasConstraintName("FK_Teilnehmer_Aktivitaet");
-        });
-
-        modelBuilder.Entity<ZeigeAllesSortiertNachLeiter>(entity =>
-        {
-            entity
-                .HasNoKey()
-                .ToView("ZeigeAllesSortiertNachLeiter");
-
-            entity.Property(e => e.AktivitaetenArt)
-                .IsRequired()
-                .HasMaxLength(50);
-            entity.Property(e => e.AktivitaetenDatum).HasColumnType("date");
-            entity.Property(e => e.AktivitaetenInformation).HasMaxLength(100);
-            entity.Property(e => e.AktivitaetenName)
-                .IsRequired()
-                .HasMaxLength(50);
-            entity.Property(e => e.AktivitaetenZeit).HasColumnType("datetime");
-            entity.Property(e => e.KategorieName)
-                .IsRequired()
-                .HasMaxLength(50);
-            entity.Property(e => e.LeiterName)
-                .IsRequired()
-                .HasMaxLength(50);
-        });
-
-        modelBuilder.Entity<ZeigeAllesWichtige>(entity =>
-        {
-            entity
-                .HasNoKey()
-                .ToView("ZeigeAllesWichtige");
-
-            entity.Property(e => e.AktivitaetenArt)
-                .IsRequired()
-                .HasMaxLength(50);
-            entity.Property(e => e.AktivitaetenDatum).HasColumnType("date");
-            entity.Property(e => e.AktivitaetenInformation).HasMaxLength(100);
-            entity.Property(e => e.AktivitaetenName)
-                .IsRequired()
-                .HasMaxLength(50);
-            entity.Property(e => e.AktivitaetenZeit).HasColumnType("datetime");
-            entity.Property(e => e.KategorieName)
-                .IsRequired()
-                .HasMaxLength(50);
-            entity.Property(e => e.LeiterName)
-                .IsRequired()
-                .HasMaxLength(50);
-            entity.Property(e => e.TeilnehmerName)
-                .IsRequired()
-                .HasMaxLength(50);
-        });
-
-        modelBuilder.Entity<ZeigeNachLeiter2>(entity =>
-        {
-            entity
-                .HasNoKey()
-                .ToView("ZeigeNachLeiter2");
-
-            entity.Property(e => e.AktivitaetenDatum).HasColumnType("date");
-            entity.Property(e => e.AktivitaetenName)
-                .IsRequired()
-                .HasMaxLength(50);
-            entity.Property(e => e.LeiterName)
-                .IsRequired()
-                .HasMaxLength(50);
-        });
-
-        modelBuilder.Entity<ZeigeTeilnehmerListe>(entity =>
-        {
-            entity
-                .HasNoKey()
-                .ToView("ZeigeTeilnehmerListe");
-
-            entity.Property(e => e.AktivitaetenName)
-                .IsRequired()
-                .HasMaxLength(50);
-            entity.Property(e => e.TeilnehmerName)
-                .IsRequired()
-                .HasMaxLength(50);
         });
 
         OnModelCreatingPartial(modelBuilder);

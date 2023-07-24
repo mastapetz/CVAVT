@@ -8,6 +8,8 @@ using System.Windows.Input;
 using CVAVT.Models;
 using CVAVT.ViewModels;
 using CVAVT.Views;
+using Microsoft.EntityFrameworkCore;
+using Microsoft.IdentityModel.Tokens;
 
 namespace CVAVT.ViewModels
 {
@@ -34,6 +36,9 @@ namespace CVAVT.ViewModels
         // Properties
         public ObservableCollection<Aktivitaet> AktivitaetenListe { get; set; }
         public Aktivitaet SelectedAktivitaet { get; set; }
+
+        private int _position;
+        private const int Anzahl = 10;
         // Aktivitaet  Properties
         public string AktivitaetenName { get; set; }
         public string AktivitaetenLeiter { get; set; }
@@ -48,12 +53,14 @@ namespace CVAVT.ViewModels
         // Konstruktor
         public MainWindowViewModel()
         {
+            AktivitaetenListe = new ObservableCollection<Aktivitaet>();
             NeuTeilnehmerCmd = new WpfLibrary.RelayCommand(NeuerTeilnehmerMenu);
             NeuLeiterCmd = new WpfLibrary.RelayCommand(NeuLeiter);
             NeuAktivitaetCmd = new WpfLibrary.RelayCommand(NeuAktivitaet);
             EditAktiviaetCmd = new WpfLibrary.RelayCommand(EditAktivitaet);
             ShowTeilnehmerCmd = new WpfLibrary.RelayCommand(ShowTeilnehmer);
             BeendenCmd = new WpfLibrary.RelayCommand(Schliessen);
+            FillList();
         }
 
         private void Schliessen()
@@ -95,6 +102,27 @@ namespace CVAVT.ViewModels
 
         // ------------------------------------------------------
 
+        private void FillList()
+        {
+            AktivitaetenListe.Clear();
+            // DB zugriff
+            using (CVAVTContext context = new CVAVTContext())
+            {
+                var aktivitaeten = context.Aktivitaet.Include(a => a.LeiterIdfkNavigation)
+                    .Where(p => AktivitaetenName.IsNullOrEmpty() ? true : p.AktivitaetenName.StartsWith(AktivitaetenName))
+                    //.Where(p => AktivitaetenName.IsNullOrEmpty() ? true : p.AktivitaetenName.StartsWith(AktivitaetenName))
+                    //.Where(p => AktivitaetenLeiter.IsNullOrEmpty() ? true : p.AktivitaetenLeiter.StartsWith(AktivitaetenLeiter))
+                    //.IsNullOrEmpty() ? true : p.AktivitaetenLeiter.StartsWith(AktivitaetenLeiter))
+                    .Skip(_position).Take(Anzahl);
+
+
+                foreach (Aktivitaet aktivity in aktivitaeten)
+                {
+                    AktivitaetenListe.Add(aktivity);
+                }
+            }
+
+        }
 
     }
 }

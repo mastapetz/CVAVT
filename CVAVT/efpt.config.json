@@ -33,22 +33,6 @@
       {
          "Name": "[dbo].[Teilnehmer]",
          "ObjectType": 0
-      },
-      {
-         "Name": "[dbo].[ZeigeAllesSortiertNachLeiter]",
-         "ObjectType": 3
-      },
-      {
-         "Name": "[dbo].[ZeigeAllesWichtige]",
-         "ObjectType": 3
-      },
-      {
-         "Name": "[dbo].[ZeigeNachLeiter2]",
-         "ObjectType": 3
-      },
-      {
-         "Name": "[dbo].[ZeigeTeilnehmerListe]",
-         "ObjectType": 3
       }
    ],
    "UiHint": "desktop-0o4sdsg\\sqlexpress.CVAVT.dbo",
