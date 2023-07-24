@@ -1,9 +1,11 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Collections.ObjectModel;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Input;
+using CVAVT.Models;
 using CVAVT.ViewModels;
 using CVAVT.Views;
 
@@ -30,6 +32,8 @@ namespace CVAVT.ViewModels
         public ICommand BeendenCmd { get; set; }
 
         // Properties
+        public ObservableCollection<Aktivitaet> AktivitaetenListe { get; set; }
+        public Aktivitaet SelectedAktivitaet { get; set; }
         // Aktivitaet  Properties
         public string AktivitaetenName { get; set; }
         public string AktivitaetenLeiter { get; set; }
@@ -88,5 +92,9 @@ namespace CVAVT.ViewModels
             window.ShowDialog();
 
         }
+
+        // ------------------------------------------------------
+
+
     }
 }
