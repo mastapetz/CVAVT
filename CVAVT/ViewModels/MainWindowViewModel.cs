@@ -111,8 +111,7 @@ namespace CVAVT.ViewModels
                 var aktivitaeten = context.Aktivitaet.Include(a => a.LeiterIdfkNavigation)
                     .Where(p => AktivitaetenName.IsNullOrEmpty() ? true : p.AktivitaetenName.StartsWith(AktivitaetenName))
                     .Where(p => AktivitaetenArt.IsNullOrEmpty() ? true : p.AktivitaetenArt.StartsWith(AktivitaetenArt))
-                    //.Where(p => AktivitaetenLeiter.IsNullOrEmpty() ? true : p.AktivitaetenLeiter.StartsWith(AktivitaetenLeiter))
-                    //.IsNullOrEmpty() ? true : p.AktivitaetenLeiter.StartsWith(AktivitaetenLeiter))
+
                     .Skip(_position).Take(Anzahl);
 
 
