@@ -80,7 +80,7 @@ namespace CVAVT.ViewModels
 
 
         /// <summary>
-        /// Verlassen schließt das Fenster
+        /// Funktion Verlassen schließt das Fenster
         /// </summary>
         private void Verlassen()
         {
@@ -120,7 +120,9 @@ namespace CVAVT.ViewModels
             }
 
         }
-
+        /// <summary>
+        /// Verlässt ohne Änderungen zu Speichern
+        /// </summary>
         private void EditAbbrechen()
         {
             Verlassen();
