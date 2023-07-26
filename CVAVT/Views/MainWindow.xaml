@@ -19,7 +19,8 @@
             <RowDefinition Height="51*"/>
         </Grid.RowDefinitions>
         <!--DataGrid benötigt ItemsSource um mit dem Rest etwas anfangen zu können-->
-        <DataGrid ItemsSource="{Binding AktivitaetenListe}"  Grid.ColumnSpan="4" Margin="31,27,24,0" Grid.RowSpan="2">
+        <DataGrid ItemsSource="{Binding AktivitaetenListe}" CanUserAddRows="False" AutoGenerateColumns="False"
+                  SelectedItem="{Binding SelectedAktivitaet}" Grid.ColumnSpan="4" Margin="31,27,24,0" Grid.RowSpan="2">
             <DataGrid.Columns>
                 <DataGridTextColumn Binding="{Binding AktivitaetenName}" Header="Aktivitäten Name" Width="105"></DataGridTextColumn>
                 <DataGridTextColumn Binding="{Binding AktivitaetenArt}" Header="Art" Width="30"></DataGridTextColumn>
@@ -34,32 +35,36 @@
                 <DataGridTemplateColumn Header="Ändern" Width="50">
                     <DataGridTemplateColumn.CellTemplate>
                         <DataTemplate>
-                            <!--<Button Content="Edit" Click="Button_Click"/>-->
-                            <Button Content="Ändern" Command="{Binding EditAktiviaetCmd}"></Button>
+                            <Button Content="Ändern" ToolTip="Aktivität Ändern"
+                                    Command="{Binding DataContext.EditAktivitaetCmd, RelativeSource={RelativeSource FindAncestor, AncestorType={x:Type DataGrid}}}">
+                            </Button>
                         </DataTemplate>
                     </DataGridTemplateColumn.CellTemplate>
                 </DataGridTemplateColumn>
                 <DataGridTemplateColumn Header="Teilnehmer" Width="70">
                     <DataGridTemplateColumn.CellTemplate>
                         <DataTemplate>
-                            <!--<Button Content="Hinzufügen" Click="Button_Click"/>-->
-                            <Button Content="Hinzufügen" Command="{Binding NeuTeilnehmerCmd}"></Button>
+                            <Button Content="Ändern" ToolTip="Teilnehmer Hinzufügen"
+                                    Command="{Binding DataContext.NeuTeilnehmerCmd, RelativeSource={RelativeSource FindAncestor, AncestorType={x:Type DataGrid}}}">
+                            </Button>
                         </DataTemplate>
                     </DataGridTemplateColumn.CellTemplate>
                 </DataGridTemplateColumn>
                 <DataGridTemplateColumn Header="Liste" Width="35">
                     <DataGridTemplateColumn.CellTemplate>
                         <DataTemplate>
-                            <!--<Button Content="Liste Anzeigen" Click="Button_Click"/>-->
-                            <Button Content="Liste Anzeigen" Command="{Binding ShowTeilnehmerCmd}"></Button>
+                            <Button Content="Liste Anzeigen" ToolTip="Teilnehmerliste Anzeigen"
+                                    Command="{Binding DataContext.ShowTeilnehmerCmd, RelativeSource={RelativeSource FindAncestor, AncestorType={x:Type DataGrid}}}">
+                            </Button>
                         </DataTemplate>
                     </DataGridTemplateColumn.CellTemplate>
                 </DataGridTemplateColumn>
                 <DataGridTemplateColumn Header="Löschen" Width="55">
                     <DataGridTemplateColumn.CellTemplate>
                         <DataTemplate>
-                            <!--<Button Content="Aktivität Löschen" Click="Button_Click"/>-->
-                            <Button Content="Löschen" Command="{Binding EditAktiviaetCmd}"></Button>
+                            <Button Content="Löschen" ToolTip="Aktivität Löschen"
+                                    Command="{Binding DataContext.AktivitaetLoeschenCmd, RelativeSource={RelativeSource FindAncestor, AncestorType={x:Type DataGrid}}}">
+                            </Button>
                         </DataTemplate>
                     </DataGridTemplateColumn.CellTemplate>
                 </DataGridTemplateColumn>

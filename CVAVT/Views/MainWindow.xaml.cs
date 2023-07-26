@@ -30,7 +30,7 @@ namespace CVAVT
             _viewModel = new MainWindowViewModel();
             this.DataContext = _viewModel;
 
-            //_viewModel.OnRequestCloseWindow += (sender, args) => this.Close();
+            _viewModel.OnRequestCloseWindow += (sender, args) => this.Close();
 
         }
     }
