@@ -1,6 +1,7 @@
 ﻿using CVAVT.Models;
 using System;
 using System.Collections.Generic;
+using System.Collections.ObjectModel;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -29,13 +30,34 @@ namespace CVAVT.ViewModels
         public int AktivitaetenMaxTeilnehmer { get; set; }
         public bool AktivitaetenVorwissenNoetig { get; set; }
         public string AktivitaetenInformation { get; set; }
+        public ObservableCollection<Aktivitaet> AktivitaetenListe { get; set; }
+        public ObservableCollection<Leiter> LeiterListe { get; set; }
+        public Aktivitaet SelectedAktivitaet { get; set; }
 
         // Konstruktor
         public EditAktivitaetViewModel(Aktivitaet aktiv)
         {
+            LeiterListe = new ObservableCollection<Leiter>();
             AktivitaetEditCmd = new WpfLibrary.RelayCommand(AktivitaetEdit);
             EditAbbrechenCmd = new WpfLibrary.RelayCommand(EditAbbrechen);
+
+            // DB Verbindung zum füllen
+            using (CVAVTContext context = new CVAVTContext())
+            {
+                var leiterListe = context.Leiter.OrderBy(l => l.LeiterName);
+                foreach (var leiter in leiterListe)
+                {
+                    LeiterListe.Add(leiter);
+                }
+            }
+            if (aktiv != null)
+            {
+
+            }
         }
+
+
+
 
         private void AktivitaetEdit()
         {
