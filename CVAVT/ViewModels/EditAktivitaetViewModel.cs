@@ -1,4 +1,5 @@
-﻿using System;
+﻿using CVAVT.Models;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -15,6 +16,9 @@ namespace CVAVT.ViewModels
         // Anlegen Abbrechen
         public ICommand EditAbbrechenCmd { get; set; }
 
+        // Event dient zur Entkopplung zwischen ViewModel und View haben
+        public event EventHandler OnRequestCloseWin;
+
         // Aktivitaet  Properties
         public string AktivitaetenName { get; set; }
         public string AktivitaetenLeiter { get; set; }
@@ -27,7 +31,7 @@ namespace CVAVT.ViewModels
         public string AktivitaetenInformation { get; set; }
 
         // Konstruktor
-        public EditAktivitaetViewModel()
+        public EditAktivitaetViewModel(Aktivitaet aktiv)
         {
             AktivitaetEditCmd = new WpfLibrary.RelayCommand(AktivitaetEdit);
             EditAbbrechenCmd = new WpfLibrary.RelayCommand(EditAbbrechen);

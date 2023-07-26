@@ -129,7 +129,7 @@ namespace CVAVT.ViewModels
 
         private void EditAktivitaet()
         {
-            EditActivityWindow window = new EditActivityWindow();
+            EditActivityWindow window = new EditActivityWindow(SelectedAktivitaet);
             window.ShowDialog();
         }
 
