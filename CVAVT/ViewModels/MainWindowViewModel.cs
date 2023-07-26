@@ -33,7 +33,6 @@ namespace CVAVT.ViewModels
 
         // Aktivität Löschen
         public ICommand AktivitaetLoeschenCmd { get; set; }
-        //public ICommand TeilnehmerLoeschenCmd { get; set; }
 
         // Program Beenden
         public ICommand BeendenCmd { get; set; }
@@ -66,7 +65,6 @@ namespace CVAVT.ViewModels
             NeuAktivitaetCmd = new WpfLibrary.RelayCommand(NeuAktivitaet);
             EditAktivitaetCmd = new WpfLibrary.RelayCommand(EditAktivitaet);
             ShowTeilnehmerCmd = new WpfLibrary.RelayCommand(ShowTeilnehmer);
-            //TeilnehmerLoeschenCmd = new WpfLibrary.RelayCommand(TeilnehmerLoeschen);
             AktivitaetLoeschenCmd = new WpfLibrary.RelayCommand(AktivitaetLoeschen);
             BeendenCmd = new WpfLibrary.RelayCommand(Schliessen);
             FillList();
@@ -81,10 +79,7 @@ namespace CVAVT.ViewModels
                 OnRequestCloseWindow(this, new EventArgs());
         }
 
-        //private void TeilnehmerLoeschen()
-        //{
-        //    throw new NotImplementedException();
-        //}
+
 
         private void AktivitaetLoeschen()
         {
