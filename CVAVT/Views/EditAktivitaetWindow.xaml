@@ -49,28 +49,30 @@
 
         </Menu>
         <Label Grid.Column="1" Content="Aktivitäten Name" HorizontalAlignment="Center" Grid.Row="2" VerticalAlignment="Center" Height="26" Width="115"/>
-        <TextBox Grid.Column="2" HorizontalAlignment="Center"  Grid.Row="2" TextWrapping="Wrap" Text="AKTIVITÄT NAME" VerticalAlignment="Center"  Width="168" Height="18"/>
+        <TextBox Text="{Binding AktivitaetName}" Grid.Column="2" HorizontalAlignment="Center"  Grid.Row="2" TextWrapping="Wrap" VerticalAlignment="Center"  Width="168" Height="18"/>
         <Label Grid.Column="1" Content="Aktivitäten Leiter" HorizontalAlignment="Center" Grid.Row="4" VerticalAlignment="Center" Height="26" Width="114"/>
         <ComboBox ItemsSource="{Binding LeiterListe}" SelectedItem="{Binding Path=SelectedItem, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" Grid.Column="2" HorizontalAlignment="Center" Grid.Row="4" VerticalAlignment="Center" Width="168" />
-
+        <!-- Alte Lösung-->
         <!--<TextBox Grid.Column="2" HorizontalAlignment="Center"  Grid.Row="4" TextWrapping="Wrap" 
         Text="AKTIVITÄT LEITER" VerticalAlignment="Center"  Width="168" Height="18"/> -->
+        <!-- ************************************************ -->
         <Label Grid.Column="1" Content="Aktivitäten Art" HorizontalAlignment="Center" Grid.Row="6" VerticalAlignment="Center" Height="26" Width="114"/>
-        <TextBox Grid.Column="2" HorizontalAlignment="Center"  Grid.Row="6" TextWrapping="Wrap" Text="AKTIVITÄT ART" VerticalAlignment="Center"  Width="168" Height="18"/>
+        <TextBox Text="{Binding AktivitaetenArt}" Grid.Column="2" HorizontalAlignment="Center"  Grid.Row="6" TextWrapping="Wrap"  VerticalAlignment="Center"  Width="168" Height="18"/>
         <Label Grid.Column="1" Content="Aktivitäten Datum" HorizontalAlignment="Center" Grid.Row="8" VerticalAlignment="Center" Height="26" Width="114"/>
-        <TextBox Grid.Column="2" HorizontalAlignment="Center"  Grid.Row="8" TextWrapping="Wrap" Text="AKTIVITÄT DATUM" VerticalAlignment="Center"  Width="168" Height="18"/>
+        <TextBox Text="{Binding AktivitaetenDatum}" Grid.Column="2" HorizontalAlignment="Center"  Grid.Row="8" TextWrapping="Wrap" VerticalAlignment="Center"  Width="168" Height="18"/>
         <Label Grid.Column="1" Content="Aktivitäten Uhrzeit" HorizontalAlignment="Center" Grid.Row="10" VerticalAlignment="Center" Height="26" Width="114"/>
-        <TextBox Grid.Column="2" HorizontalAlignment="Center"  Grid.Row="10" TextWrapping="Wrap" Text="AKTIVITÄT ZEIT" VerticalAlignment="Center"  Width="168" Height="18"/>
+        <TextBox Text="{Binding AktivitaetenZeit}" Grid.Column="2" HorizontalAlignment="Center"  Grid.Row="10" TextWrapping="Wrap"  VerticalAlignment="Center"  Width="168" Height="18"/>
         <Label Grid.Column="1" Content="Geplante Dauer" HorizontalAlignment="Center" Grid.Row="12" VerticalAlignment="Center" Height="26" Width="114"/>
-        <TextBox Grid.Column="2" HorizontalAlignment="Center"  Grid.Row="12" TextWrapping="Wrap" Text="DAUER" VerticalAlignment="Center"  Width="168" Height="18"/>
+        <TextBox Text="{Binding AktivitaetenDauer}" Grid.Column="2" HorizontalAlignment="Center"  Grid.Row="12" TextWrapping="Wrap" VerticalAlignment="Center"  Width="168" Height="18"/>
         <Label Grid.Column="1" Content="Teilnehmer Max" HorizontalAlignment="Center" Grid.Row="14" VerticalAlignment="Center" Height="26" Width="114"/>
-        <TextBox Grid.Column="2" HorizontalAlignment="Center"  Grid.Row="14" TextWrapping="Wrap" Text="TEILNEHMER MAX" VerticalAlignment="Center"  Width="168" Height="18"/>
+        <TextBox Text="{Binding AktivitaetenMaxTeilnehmer}" Grid.Column="2" HorizontalAlignment="Center"  Grid.Row="14" TextWrapping="Wrap"  VerticalAlignment="Center"  Width="168" Height="18"/>
         <Label Grid.Column="1" Content="Vorwissen Nötig" HorizontalAlignment="Center" Grid.Row="16" VerticalAlignment="Center" Height="26" Width="114"/>
-        <TextBox Grid.Column="2" HorizontalAlignment="Center"  Grid.Row="16" TextWrapping="Wrap" Text="VORWISSEN" VerticalAlignment="Center"  Width="168" Height="18"/>
+        <CheckBox IsChecked="{Binding AktivitaetenVorwissenNoetig, Mode=TwoWay}" Grid.Column="2"  Grid.Row="16" HorizontalAlignment="Center" VerticalAlignment="Center" Height="18" />
+        <!--<TextBox Grid.Column="2" HorizontalAlignment="Center"  Grid.Row="16" TextWrapping="Wrap" Text="VORWISSEN" VerticalAlignment="Center"  Width="168" Height="18"/>-->
         <Label Grid.Column="1" Content="Informationen" HorizontalAlignment="Center" Grid.Row="18" VerticalAlignment="Top" Height="26" Width="114" Margin="0,10,0,0"/>
 
         <Border BorderBrush="Black" BorderThickness="1" Grid.Column="2" Grid.Row="18"  Height="180" Width="168">
-            <TextBlock Grid.Column="2" HorizontalAlignment="Center" Grid.Row="18" TextWrapping="Wrap" Text="INFORMATIONEN" VerticalAlignment="Center" Height="175" Width="160"/>
+            <TextBlock Text="{Binding AktivitaetenInformation}" Grid.Column="2" HorizontalAlignment="Center" Grid.Row="18" TextWrapping="Wrap"  VerticalAlignment="Center" Height="175" Width="160"/>
         </Border>
         <Button Background="Red"  Grid.Column="1" Content="Abbrechen" HorizontalAlignment="Center" Grid.Row="22" VerticalAlignment="Center" Height="32" Width="111"/>
         <Button Background="Green"  Grid.Column="2" Content="Speichern" HorizontalAlignment="Center" Grid.Row="22" VerticalAlignment="Center" Height="32" Width="111"/>
