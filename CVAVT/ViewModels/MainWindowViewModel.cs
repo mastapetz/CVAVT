@@ -4,6 +4,7 @@ using System.Collections.ObjectModel;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using System.Windows;
 using System.Windows.Input;
 using CVAVT.Models;
 using CVAVT.ViewModels;
@@ -30,15 +31,21 @@ namespace CVAVT.ViewModels
         // Teilnehmer Liste Zeigen
         public ICommand ShowTeilnehmerCmd { get; set; }
 
+        // Aktivität Löschen
+        public ICommand AktivitaetLoeschenCmd { get; set; }
+        //public ICommand TeilnehmerLoeschenCmd { get; set; }
+
         // Program Beenden
         public ICommand BeendenCmd { get; set; }
 
         // Properties
         public ObservableCollection<Aktivitaet> AktivitaetenListe { get; set; }
         public Aktivitaet SelectedAktivitaet { get; set; }
-
+        // Zum Blättern
         private int _position;
         private const int Anzahl = 10;
+        // Event zum Schließen
+        public event EventHandler OnRequestCloseWindow;
         // Aktivitaet  Properties
         public string AktivitaetenName { get; set; }
         public string AktivitaetenLeiter { get; set; }
@@ -59,13 +66,59 @@ namespace CVAVT.ViewModels
             NeuAktivitaetCmd = new WpfLibrary.RelayCommand(NeuAktivitaet);
             EditAktiviaetCmd = new WpfLibrary.RelayCommand(EditAktivitaet);
             ShowTeilnehmerCmd = new WpfLibrary.RelayCommand(ShowTeilnehmer);
+            //TeilnehmerLoeschenCmd = new WpfLibrary.RelayCommand(TeilnehmerLoeschen);
+            AktivitaetLoeschenCmd = new WpfLibrary.RelayCommand(AktivitaetLoeschen);
             BeendenCmd = new WpfLibrary.RelayCommand(Schliessen);
             FillList();
         }
 
+
+
         private void Schliessen()
         {
-            throw new NotImplementedException();
+            if (OnRequestCloseWindow != null)
+                // Delegate wird aufgerufen
+                OnRequestCloseWindow(this, new EventArgs());
+        }
+
+        //private void TeilnehmerLoeschen()
+        //{
+        //    throw new NotImplementedException();
+        //}
+
+        private void AktivitaetLoeschen()
+        {
+            // Benutzer fragen ob wirklich gelöscht werden soll
+            // Show() hat 3 Parameter
+            // 1) Text der Messagebox
+            // 2) Window Titel
+            // 3) Definition der Buttons
+
+            MessageBoxResult result = MessageBox.Show("Aktivität Wirklich Löschen?\nLöscht auch alle Teilnehmer", "Löschen Bestätigen", MessageBoxButton.YesNo);
+            if (result == MessageBoxResult.Yes)
+            {
+                // Verknüpfte Teilnehmerdatensätze löschen
+                using (CVAVTContext context = new CVAVTContext())
+                {
+                    var teilnehmer = context.Teilnehmer.Where(t => t.AktivitaetIdfk == SelectedAktivitaet.AktivitaetenId);
+                    context.Teilnehmer.RemoveRange(teilnehmer);
+                    context.SaveChanges();
+                }
+                // Datensatz löschen
+                using (CVAVTContext context = new CVAVTContext())
+                {
+                    // Suchvorgang in DB nach entsprechenden Eintrag
+                    Aktivitaet aktiv = context.Aktivitaet.Where(a => a.AktivitaetenId == SelectedAktivitaet.AktivitaetenId).FirstOrDefault();
+                    if (aktiv != null)
+                    {
+                        context.Aktivitaet.Remove(aktiv);
+                        context.SaveChanges();
+                    }
+                }
+                // Neu Laden der Liste
+                FillList();
+
+            }
         }
 
         private void ShowTeilnehmer()
