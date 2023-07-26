@@ -12,7 +12,7 @@ namespace CVAVT.ViewModels
     internal class EditAktivitaetViewModel : WpfLibrary.BaseViewModel
     {
         // Commands
-        public ICommand AktivitaetEditCmd { get; set; }
+        public ICommand EditSaveCmd { get; set; }
         public ICommand EditAbbrechenCmd { get; set; }
 
         // Event dient zur Entkopplung zwischen ViewModel und View 
@@ -48,7 +48,7 @@ namespace CVAVT.ViewModels
         public EditAktivitaetViewModel(Aktivitaet aktivitaet)
         {
             LeiterListe = new ObservableCollection<Leiter>();
-            AktivitaetEditCmd = new WpfLibrary.RelayCommand(AktivitaetEdit);
+            EditSaveCmd = new WpfLibrary.RelayCommand(EditSave);
             EditAbbrechenCmd = new WpfLibrary.RelayCommand(EditAbbrechen);
 
             // DB Verbindung zum füllen derLeiter Liste
@@ -93,9 +93,9 @@ namespace CVAVT.ViewModels
 
 
         /// <summary>
-        /// AktivitaetEdit ist das Command zum Speichern der Änderungen
+        /// EditSave ist das Command zum Speichern der Änderungen
         /// </summary>
-        private void AktivitaetEdit()
+        private void EditSave()
         {
             using (CVAVTContext context = new CVAVTContext())
             {
