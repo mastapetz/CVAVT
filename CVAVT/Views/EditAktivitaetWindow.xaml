@@ -51,7 +51,11 @@
         <Label Grid.Column="1" Content="Aktivitäten Name" HorizontalAlignment="Center" Grid.Row="2" VerticalAlignment="Center" Height="26" Width="115"/>
         <TextBox Text="{Binding AktivitaetName}" Grid.Column="2" HorizontalAlignment="Center"  Grid.Row="2" TextWrapping="Wrap" VerticalAlignment="Center"  Width="168" Height="18"/>
         <Label Grid.Column="1" Content="Aktivitäten Leiter" HorizontalAlignment="Center" Grid.Row="4" VerticalAlignment="Center" Height="26" Width="114"/>
-        <ComboBox ItemsSource="{Binding LeiterListe}" SelectedItem="{Binding Path=SelectedItem, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" Grid.Column="2" HorizontalAlignment="Center" Grid.Row="4" VerticalAlignment="Center" Width="168" />
+        <ComboBox ItemsSource="{Binding LeiterListe}" SelectedItem="{Binding Path=SelectedLeiter, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" Grid.Column="2" HorizontalAlignment="Center" Grid.Row="4" VerticalAlignment="Center" Width="168" />
+        <!--
+            <ComboBox ItemsSource="{Binding LeiterListe}" SelectedItem="{Binding Path=SelectedItem, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
+            Grid.Column="2" HorizontalAlignment="Center" Grid.Row="4" VerticalAlignment="Center" Width="168" />
+        -->
         <!-- Alte Lösung-->
         <!--<TextBox Grid.Column="2" HorizontalAlignment="Center"  Grid.Row="4" TextWrapping="Wrap" 
         Text="AKTIVITÄT LEITER" VerticalAlignment="Center"  Width="168" Height="18"/> -->
