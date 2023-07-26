@@ -26,20 +26,8 @@ namespace CVAVT.ViewModels
         public int? AktivitaetenMaxTeilnehmer { get; set; }
         public bool AktivitaetenVorwissenNoetig { get; set; }
         public string AktivitaetenInformation { get; set; }
-        //public ObservableCollection<Aktivitaet> AktivitaetenListe { get; set; }
-        private Aktivitaet _aktivitaet;
 
-        /*
-         * public Aktivitaet SelectedAktivitaet
-         * {
-         *   get { return _aktivitaet; }
-         *   set
-         *   {
-         *       _aktivitaet = value;
-         *   }
-         * }
-         * 
-         */
+        private Aktivitaet _aktivitaet;
 
         // Für Leiter Combobox
         public ObservableCollection<Leiter> LeiterListe { get; set; }
@@ -88,10 +76,6 @@ namespace CVAVT.ViewModels
                 AktivitaetenInformation = aktivitaet.AktivitaetenInformation;
             }
             _aktivitaet = aktivitaet;
-
-            /* 
-             * SelectedAktivitaet = selectedAktivitaet;
-             */
         }
 
 
