@@ -19,8 +19,8 @@
             <RowDefinition Height="51*"/>
         </Grid.RowDefinitions>
         <!--DataGrid benötigt ItemsSource um mit dem Rest etwas anfangen zu können-->
-        <DataGrid ItemsSource="{Binding AktivitaetenListe}" CanUserAddRows="False" AutoGenerateColumns="False"
-                  SelectedItem="{Binding SelectedAktivitaet}" Grid.ColumnSpan="4" Margin="31,27,24,0" Grid.RowSpan="2">
+        <DataGrid ItemsSource="{Binding AktivitaetenListe}" SelectedItem="{Binding SelectedAktivitaet}" CanUserAddRows="False" AutoGenerateColumns="False"
+                   Grid.ColumnSpan="4" Margin="31,27,24,0" Grid.RowSpan="2">
             <DataGrid.Columns>
                 <DataGridTextColumn Binding="{Binding AktivitaetenName}" Header="Aktivitäten Name" Width="105"></DataGridTextColumn>
                 <DataGridTextColumn Binding="{Binding AktivitaetenArt}" Header="Art" Width="30"></DataGridTextColumn>
