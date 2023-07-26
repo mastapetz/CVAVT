@@ -44,7 +44,7 @@
                 <DataGridTemplateColumn Header="Teilnehmer" Width="70">
                     <DataGridTemplateColumn.CellTemplate>
                         <DataTemplate>
-                            <Button Content="Ändern" ToolTip="Teilnehmer Hinzufügen"
+                            <Button Content="Hinzufügen" ToolTip="Teilnehmer Hinzufügen"
                                     Command="{Binding DataContext.NeuTeilnehmerCmd, RelativeSource={RelativeSource FindAncestor, AncestorType={x:Type DataGrid}}}">
                             </Button>
                         </DataTemplate>

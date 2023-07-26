@@ -1,4 +1,6 @@
-﻿using System;
+﻿using CVAVT.Models;
+using CVAVT.ViewModels;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -17,11 +19,19 @@ namespace CVAVT.Views
     /// <summary>
     /// Interaction logic for EditActivityWindow.xaml
     /// </summary>
+
     public partial class EditActivityWindow : Window
     {
-        public EditActivityWindow()
+        private EditAktivitaetViewModel _viewModel;
+        public EditActivityWindow(Aktivitaet aktiv)
         {
             InitializeComponent();
+            _viewModel = new EditAktivitaetViewModel(aktiv);
+            this.DataContext = _viewModel;
+
+            // Registrierung am Event
+            // Wir registrieren eine Lamda-Expression
+            _viewModel.OnRequestCloseWin += (sender, args) => this.Close();
         }
     }
 }
