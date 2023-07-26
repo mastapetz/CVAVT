@@ -11,37 +11,59 @@ namespace CVAVT.ViewModels
 {
     internal class EditAktivitaetViewModel : WpfLibrary.BaseViewModel
     {
-        // AktiviaetAnlegen
+        // Commands
         public ICommand AktivitaetEditCmd { get; set; }
-
-        // Anlegen Abbrechen
         public ICommand EditAbbrechenCmd { get; set; }
 
-        // Event dient zur Entkopplung zwischen ViewModel und View haben
+        // Event dient zur Entkopplung zwischen ViewModel und View 
         public event EventHandler OnRequestCloseWin;
-
         // Aktivitaet  Properties
         public string AktivitaetenName { get; set; }
-        public string AktivitaetenLeiter { get; set; }
         public string AktivitaetenArt { get; set; }
-        public DateOnly AktivitaetenDatum { get; set; }
-        public TimeOnly AktivitaetenZeit { get; set; }
+        public DateTime AktivitaetenDatum { get; set; }
+        public DateTime AktivitaetenZeit { get; set; }
         public double AktivitaetenDauer { get; set; }
-        public int AktivitaetenMaxTeilnehmer { get; set; }
+        public int? AktivitaetenMaxTeilnehmer { get; set; }
         public bool AktivitaetenVorwissenNoetig { get; set; }
         public string AktivitaetenInformation { get; set; }
-        public ObservableCollection<Aktivitaet> AktivitaetenListe { get; set; }
+        //public ObservableCollection<Aktivitaet> AktivitaetenListe { get; set; }
+        private Aktivitaet _aktivitaet;
+
+        /*
+         * public Aktivitaet SelectedAktivitaet
+         * {
+         *   get { return _aktivitaet; }
+         *   set
+         *   {
+         *       _aktivitaet = value;
+         *   }
+         * }
+         * 
+         */
+
+        // Für Leiter Combobox
         public ObservableCollection<Leiter> LeiterListe { get; set; }
-        public Aktivitaet SelectedAktivitaet { get; set; }
+        private Leiter _leiter;
+        public Leiter SelectedLeiter
+        {
+            get { return _leiter; }
+            set
+            {
+                _leiter = value;
+                OnPropertyChanged("SelectedLeiter");
+            }
+        }
+        // -------------------------------
+
 
         // Konstruktor
-        public EditAktivitaetViewModel(Aktivitaet aktiv)
+        public EditAktivitaetViewModel(Aktivitaet aktivitaet)
         {
             LeiterListe = new ObservableCollection<Leiter>();
             AktivitaetEditCmd = new WpfLibrary.RelayCommand(AktivitaetEdit);
             EditAbbrechenCmd = new WpfLibrary.RelayCommand(EditAbbrechen);
 
-            // DB Verbindung zum füllen
+            // DB Verbindung zum füllen derLeiter Liste
             using (CVAVTContext context = new CVAVTContext())
             {
                 var leiterListe = context.Leiter.OrderBy(l => l.LeiterName);
@@ -50,24 +72,76 @@ namespace CVAVT.ViewModels
                     LeiterListe.Add(leiter);
                 }
             }
-            if (aktiv != null)
+            if (aktivitaet != null)
             {
-
+                // Die Daten aus aktivität werden in die Properties geschrieben
+                AktivitaetenName = aktivitaet.AktivitaetenName;
+                // Für Combobox
+                SelectedLeiter = aktivitaet.LeiterIdfkNavigation;
+                // ----
+                AktivitaetenArt = aktivitaet.AktivitaetenArt;
+                AktivitaetenDatum = aktivitaet.AktivitaetenDatum;
+                AktivitaetenZeit = aktivitaet.AktivitaetenZeit;
+                AktivitaetenDauer = aktivitaet.AktivitaetenDauer;
+                AktivitaetenMaxTeilnehmer = aktivitaet.AktivitaetenMaxTeilnehmer;
+                AktivitaetenVorwissenNoetig = aktivitaet.AktivitaetenVorwissenNoetig;
+                AktivitaetenInformation = aktivitaet.AktivitaetenInformation;
             }
+            _aktivitaet = aktivitaet;
+
+            /* 
+             * SelectedAktivitaet = selectedAktivitaet;
+             */
         }
 
 
+        /// <summary>
+        /// Verlassen schließt das Fenster
+        /// </summary>
+        private void Verlassen()
+        {
+            // Window schließen
+            if (OnRequestCloseWin != null)
+                // Delegate wird aufgerufen
+                OnRequestCloseWin(this, new EventArgs());
+
+        }
 
 
+        /// <summary>
+        /// AktivitaetEdit ist das Command zum Speichern der Änderungen
+        /// </summary>
         private void AktivitaetEdit()
         {
-            throw new NotImplementedException();
+            using (CVAVTContext context = new CVAVTContext())
+            {
+                Aktivitaet aktivEd = context.Aktivitaet.Where(a => a.AktivitaetenId == _aktivitaet.AktivitaetenId).FirstOrDefault();
+                if (aktivEd != null)
+                {
+                    aktivEd.AktivitaetenName = AktivitaetenName;
+                    // Für Combobox
+                    aktivEd.LeiterIdfk = SelectedLeiter.LeiterId;
+                    // ----
+                    aktivEd.AktivitaetenArt = AktivitaetenArt;
+                    aktivEd.AktivitaetenDatum = AktivitaetenDatum;
+                    aktivEd.AktivitaetenZeit = AktivitaetenZeit;
+                    aktivEd.AktivitaetenDauer = AktivitaetenDauer;
+                    aktivEd.AktivitaetenMaxTeilnehmer = AktivitaetenMaxTeilnehmer;
+                    aktivEd.AktivitaetenVorwissenNoetig = AktivitaetenVorwissenNoetig;
+                    aktivEd.AktivitaetenInformation = AktivitaetenInformation;
+                    context.SaveChanges();
+
+                }
+                Verlassen();
+            }
+
         }
 
         private void EditAbbrechen()
         {
-            throw new NotImplementedException();
+            Verlassen();
         }
+
 
     }
 }
