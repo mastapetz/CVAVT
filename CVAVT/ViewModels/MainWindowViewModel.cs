@@ -98,10 +98,9 @@ namespace CVAVT.ViewModels
                     var teilnehmer = context.Teilnehmer.Where(t => t.AktivitaetIdfk == SelectedAktivitaet.AktivitaetenId);
                     context.Teilnehmer.RemoveRange(teilnehmer);
                     context.SaveChanges();
-                }
-                // Datensatz löschen
-                using (CVAVTContext context = new CVAVTContext())
-                {
+
+                    // Datensatz löschen
+
                     // Suchvorgang in DB nach entsprechenden Eintrag
                     Aktivitaet aktiv = context.Aktivitaet.Where(a => a.AktivitaetenId == SelectedAktivitaet.AktivitaetenId).FirstOrDefault();
                     if (aktiv != null)
