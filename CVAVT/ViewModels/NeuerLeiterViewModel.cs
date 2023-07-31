@@ -5,7 +5,9 @@ using System.Collections.ObjectModel;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using System.Windows.Documents;
 using System.Windows.Input;
+using System.Windows.Media;
 
 namespace CVAVT.ViewModels
 {
@@ -16,15 +18,22 @@ namespace CVAVT.ViewModels
         public ICommand EingabeSpeichernCmd { get; set; }
 
         // Event zum Schließen
-        public event EventHandler OnRequestCloseWin;
-        // Properties
-        //public string LeiterName { get; set; }
-        public ObservableCollection<Leiter> LeiterListe { get; set; }
+        public event EventHandler OnRequestCloseWindow;
+        // Properties für Leiternamen
+        private string _leiterName;
+        public string LeiterName
+        {
+            get { return _leiterName; }
+            set
+            {
+                _leiterName = value;
+                OnPropertyChanged(nameof(LeiterName));
+            }
+        }
 
         // Konstruktor
         public NeuerLeiterViewModel()
         {
-            LeiterListe = new ObservableCollection<Leiter>();
             EingabeVerwerfenCmd = new WpfLibrary.RelayCommand(EingabeVerwerfen);
             EingabeSpeichernCmd = new WpfLibrary.RelayCommand(EingabeSpeichern);
         }
@@ -34,9 +43,9 @@ namespace CVAVT.ViewModels
         private void Verlassen()
         {
             // Window schließen
-            if (OnRequestCloseWin != null)
+            if (OnRequestCloseWindow != null)
                 // Delegate wird aufgerufen
-                OnRequestCloseWin(this, new EventArgs());
+                OnRequestCloseWindow(this, new EventArgs());
 
         }
         private void EingabeVerwerfen()
@@ -48,7 +57,26 @@ namespace CVAVT.ViewModels
 
         private void EingabeSpeichern()
         {
-            throw new NotImplementedException();
+            //Leiter neuerLeiter = new Leiter();
+            //Erzeugt eine neue Instanz von Leiter, und LeiterName wird den Standardwert null haben(falls LeiterName ein string ist).
+
+            // Leiter neuerLeiter = new Leiter { LeiterName = LeiterName };
+            // Erzeugt eine neue Instanz von Leiter und weist LeiterName den Wert von LeiterName im ViewModel zu
+
+            Leiter neuerLeiter = new Leiter
+            {
+                LeiterName = LeiterName
+            };
+
+
+            using (CVAVTContext context = new CVAVTContext())
+            {
+                context.Leiter.Add(neuerLeiter);
+                context.SaveChanges();
+            }
+
+            Verlassen();
+
         }
 
     }
