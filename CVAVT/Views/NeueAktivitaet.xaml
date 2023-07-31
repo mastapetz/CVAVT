@@ -70,7 +70,7 @@
         <Border BorderBrush="Black" BorderThickness="1" Grid.Column="2" Grid.Row="18"  Height="180" Width="168">
             <TextBox Text="{Binding AktivitaetenInformation}" Grid.Column="2" HorizontalAlignment="Center" Grid.Row="18" TextWrapping="Wrap"  VerticalAlignment="Center" Height="175" Width="160"/>
         </Border>
-        <Button Background="Red"  Grid.Column="1" Content="Abbrechen" HorizontalAlignment="Center" Grid.Row="22" VerticalAlignment="Center" Height="32" Width="111"/>
-        <Button Background="Green"  Grid.Column="2" Content="Speichern" HorizontalAlignment="Center" Grid.Row="22" VerticalAlignment="Center" Height="32" Width="111"/>
+        <Button Command="{Binding AnlegenAbbrechenCmd}" Background="Red"  Grid.Column="1" Content="Abbrechen" HorizontalAlignment="Center" Grid.Row="22" VerticalAlignment="Center" Height="32" Width="111"/>
+        <Button Command="{Binding AktivitaetAnlegenCmd}"  Background="Green"  Grid.Column="2" Content="Speichern" HorizontalAlignment="Center" Grid.Row="22" VerticalAlignment="Center" Height="32" Width="111"/>
     </Grid>
 </Window>
