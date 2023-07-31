@@ -131,7 +131,7 @@ namespace CVAVT.ViewModels
 
         private void NeuerTeilnehmerMenu()
         {
-            NeuerTeilnehmer window = new NeuerTeilnehmer();
+            NeuerTeilnehmer window = new NeuerTeilnehmer(SelectedAktivitaet, null);
             window.ShowDialog();
 
         }
