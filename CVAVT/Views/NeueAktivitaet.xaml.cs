@@ -1,4 +1,6 @@
-﻿using System;
+﻿using CVAVT.Models;
+using CVAVT.ViewModels;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -19,9 +21,16 @@ namespace CVAVT.Views
     /// </summary>
     public partial class NeueAktivitaet : Window
     {
-        public NeueAktivitaet()
+        private NeueAktivitaetViewModel _viewModel;
+        public NeueAktivitaet(Aktivitaet aktiv)
         {
             InitializeComponent();
+            _viewModel = new NeueAktivitaetViewModel(aktiv);
+            this.DataContext = _viewModel;
+
+            // Registrierung am Event
+            // Wir registrieren eine Lamda-Expression
+            _viewModel.OnRequestCloseWin += (sender, args) => this.Close();
         }
     }
 }
