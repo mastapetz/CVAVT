@@ -51,7 +51,7 @@
         <Label Grid.Column="1" Content="Aktivitäten Name" HorizontalAlignment="Center" Grid.Row="2" VerticalAlignment="Center" Height="26" Width="115"/>
         <TextBox Grid.Column="2" HorizontalAlignment="Center"  Grid.Row="2" TextWrapping="Wrap" Text="AKTIVITÄT NAME" VerticalAlignment="Center"  Width="168" Height="18"/>
         <Label Grid.Column="1" Content="Aktivitäten Leiter" HorizontalAlignment="Center" Grid.Row="4" VerticalAlignment="Center" Height="26" Width="114"/>
-        <TextBox Grid.Column="2" HorizontalAlignment="Center"  Grid.Row="4" TextWrapping="Wrap" Text="AKTIVITÄT LEITER" VerticalAlignment="Center"  Width="168" Height="18"/>
+        <ComboBox ItemsSource="{Binding LeiterListe}" SelectedItem="{Binding Path=SelectedLeiter, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" Grid.Column="2" HorizontalAlignment="Center" Grid.Row="4" VerticalAlignment="Center" Width="168" />
         <Label Grid.Column="1" Content="Aktivitäten Art" HorizontalAlignment="Center" Grid.Row="6" VerticalAlignment="Center" Height="26" Width="114"/>
         <TextBox Grid.Column="2" HorizontalAlignment="Center"  Grid.Row="6" TextWrapping="Wrap" Text="AKTIVITÄT ART" VerticalAlignment="Center"  Width="168" Height="18"/>
         <Label Grid.Column="1" Content="Aktivitäten Datum" HorizontalAlignment="Center" Grid.Row="8" VerticalAlignment="Center" Height="26" Width="114"/>
