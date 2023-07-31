@@ -22,6 +22,8 @@ namespace CVAVT.ViewModels
         public int TeilnehmerMax { get; set; }
         public string TeilnehmerName { get; set; }
 
+        public event EventHandler OnRequestCloseWindow;
+
         // Konstruktor
 
         public TeilnehmerListeViewModel()
