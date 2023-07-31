@@ -144,8 +144,9 @@ namespace CVAVT.ViewModels
 
         private void NeuAktivitaet()
         {
-            NeueAktivitaet window = new NeueAktivitaet();
+            NeueAktivitaet window = new NeueAktivitaet(null);
             window.ShowDialog();
+            FillList();
 
         }
 
