@@ -32,8 +32,9 @@
             </MenuItem>
         </Menu>
         <Label Grid.Column="1" Grid.Row="2" Content="Leiter Name" HorizontalAlignment="Center"  VerticalAlignment="Center" Width="130" Height="26"/>
-        <TextBox Grid.Column="2" Grid.Row="2"  HorizontalAlignment="Center" Margin="0,13,0,0" TextWrapping="Wrap" Text="LEITERNAME" VerticalAlignment="Top" Width="130" Height="18"/>
-        <Button Grid.Row="3" Grid.Column="1" Content="Änderungen Verwerfen" HorizontalAlignment="Center"  VerticalAlignment="Center" Width="130"  Height="30"  />
-        <Button Grid.Row="3" Grid.Column="2"  Content="Änderungen Speichern"  HorizontalAlignment="Center"   VerticalAlignment="Center" Width="130" Height="30"/>
+        <TextBox Grid.Column="2" Grid.Row="2"  HorizontalAlignment="Center"
+                 Margin="0,13,0,0" TextWrapping="Wrap" Text="{Binding LeiterName}" VerticalAlignment="Top" Width="130" Height="18"/>
+        <Button Command="{Binding EingabeVerwerfenCmd}" Grid.Row="3" Grid.Column="1" Content="Änderungen Verwerfen" HorizontalAlignment="Center"  VerticalAlignment="Center" Width="130"  Height="30"  />
+        <Button Command="{Binding EingabeSpeichernCmd}" Grid.Row="3" Grid.Column="2"  Content="Änderungen Speichern"  HorizontalAlignment="Center"   VerticalAlignment="Center" Width="130" Height="30"/>
     </Grid>
 </Window>
