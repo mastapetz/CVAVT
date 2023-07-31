@@ -1,4 +1,5 @@
-﻿using System;
+﻿using CVAVT.Models;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -17,17 +18,32 @@ namespace CVAVT.ViewModels
         // Properties
         public string AktivitaetenName { get; set; }
         public string TeilnehmerName { get; set; }
-        public int TeilnehmerIst { get; }
-        public int TeilnehmerMax { get; }
+        public int AktivitaetenIstTeilnehmer { get; set; }
+        public int? AktivitaetenMaxTeilnehmer { get; set; }
 
         public event EventHandler OnRequestCloseWindow;
 
         // Konstruktor
-        public NeuerTeilnehmerViewModel()
+        public NeuerTeilnehmerViewModel(Aktivitaet aktivitaet, Teilnehmer teilnehmer)
         {
             EingabeVerwerfenCmd = new WpfLibrary.RelayCommand(EingabeVerwerfen);
             NaechsterTeilnehmerCmd = new WpfLibrary.RelayCommand(NaechsterTeilnehmer);
             EingabeSpeichernCmd = new WpfLibrary.RelayCommand(EingabeSpeichern);
+            using (CVAVTContext context = new CVAVTContext())
+            {
+                if (aktivitaet != null)
+                {
+                    // Die Daten aus aktivität werden in die Properties geschrieben
+                    AktivitaetenName = aktivitaet.AktivitaetenName;
+
+                    AktivitaetenMaxTeilnehmer = aktivitaet.AktivitaetenMaxTeilnehmer;
+                }
+                if (teilnehmer != null)
+                {
+                    TeilnehmerName = teilnehmer.TeilnehmerName;
+                }
+            }
+
         }
         /// <summary>
         /// Funktion Verlassen schließt das Fenster

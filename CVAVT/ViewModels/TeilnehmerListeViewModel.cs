@@ -1,4 +1,5 @@
-﻿using CVAVT.Views;
+﻿using CVAVT.Models;
+using CVAVT.Views;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -23,6 +24,7 @@ namespace CVAVT.ViewModels
         public string TeilnehmerName { get; set; }
 
         public event EventHandler OnRequestCloseWindow;
+        public Aktivitaet SelectedAktivitaet { get; set; }
 
         // Konstruktor
 
@@ -37,7 +39,7 @@ namespace CVAVT.ViewModels
 
         private void NeuerTeilnehmerMenu()
         {
-            NeuerTeilnehmer window = new NeuerTeilnehmer();
+            NeuerTeilnehmer window = new NeuerTeilnehmer(SelectedAktivitaet, null);
             window.ShowDialog();
         }
 
