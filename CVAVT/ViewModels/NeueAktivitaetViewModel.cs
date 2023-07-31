@@ -60,22 +60,22 @@ namespace CVAVT.ViewModels
                     LeiterListe.Add(leiter);
                 }
             }
-            if (_aktivitaet == null)
-            {
+            //if (_aktivitaet == null)
+            //{
 
-                // Objekt Füllen
-                AktivitaetenName = aktivitaet.AktivitaetenName;
-                // Für Combobox
-                SelectedLeiter = aktivitaet.LeiterIdfkNavigation;
-                // ----
-                AktivitaetenArt = aktivitaet.AktivitaetenArt;
-                AktivitaetenDatum = aktivitaet.AktivitaetenDatum;
-                AktivitaetenZeit = aktivitaet.AktivitaetenZeit;
-                AktivitaetenDauer = aktivitaet.AktivitaetenDauer;
-                AktivitaetenMaxTeilnehmer = aktivitaet.AktivitaetenMaxTeilnehmer;
-                AktivitaetenVorwissenNoetig = aktivitaet.AktivitaetenVorwissenNoetig;
-                AktivitaetenInformation = aktivitaet.AktivitaetenInformation;
-            }
+            //    // Objekt Füllen
+            //    AktivitaetenName = aktivitaet.AktivitaetenName;
+            //    // Für Combobox
+            //    SelectedLeiter = aktivitaet.LeiterIdfkNavigation;
+            //    // ----
+            //    AktivitaetenArt = aktivitaet.AktivitaetenArt;
+            //    AktivitaetenDatum = aktivitaet.AktivitaetenDatum;
+            //    AktivitaetenZeit = aktivitaet.AktivitaetenZeit;
+            //    AktivitaetenDauer = aktivitaet.AktivitaetenDauer;
+            //    AktivitaetenMaxTeilnehmer = aktivitaet.AktivitaetenMaxTeilnehmer;
+            //    AktivitaetenVorwissenNoetig = aktivitaet.AktivitaetenVorwissenNoetig;
+            //    AktivitaetenInformation = aktivitaet.AktivitaetenInformation;
+            //}
             _aktivitaet = aktivitaet;
         }
         /// <summary>
@@ -101,7 +101,8 @@ namespace CVAVT.ViewModels
                     // Objekt Füllen
                     aktivitaet.AktivitaetenName = AktivitaetenName;
                     // Für Combobox
-                    SelectedLeiter = aktivitaet.LeiterIdfkNavigation;
+                    // LeiterId wird LeiterIdfk zugewisen
+                    aktivitaet.LeiterIdfk = SelectedLeiter.LeiterId;
                     // ----
                     aktivitaet.AktivitaetenArt = AktivitaetenArt;
                     aktivitaet.AktivitaetenDatum = AktivitaetenDatum;
