@@ -1,4 +1,5 @@
-﻿using System;
+﻿using CVAVT.ViewModels;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -19,9 +20,15 @@ namespace CVAVT.Views
     /// </summary>
     public partial class NeuerTeilnehmer : Window
     {
+        private NeuerTeilnehmerViewModel _viewModel;
         public NeuerTeilnehmer()
         {
             InitializeComponent();
+            _viewModel = new NeuerTeilnehmerViewModel();
+            this.DataContext = _viewModel;
+
+            _viewModel.OnRequestCloseWindow += (sender, args) => this.Close();
+
         }
     }
 }
