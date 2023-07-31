@@ -1,4 +1,5 @@
-﻿using System;
+﻿using CVAVT.Models;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -9,6 +10,8 @@ namespace CVAVT.ViewModels
 {
     internal class NeueAktivitaetViewModel : WpfLibrary.BaseViewModel
     {
+        // Event dient zur Entkopplung zwischen ViewModel und View 
+        public event EventHandler OnRequestCloseWin;
         // AktiviaetAnlegen
         public ICommand AktivitaetAnlegenCmd { get; set; }
 
@@ -27,7 +30,7 @@ namespace CVAVT.ViewModels
         public string AktivitaetenInformation { get; set; }
 
         // Konstruktor
-        public NeueAktivitaetViewModel()
+        public NeueAktivitaetViewModel(Aktivitaet aktivitaet)
         {
             AktivitaetAnlegenCmd = new WpfLibrary.RelayCommand(AktivitaetAnlegen);
             AnlegenAbbrechenCmd = new WpfLibrary.RelayCommand(AnlegenAbbrechen);
