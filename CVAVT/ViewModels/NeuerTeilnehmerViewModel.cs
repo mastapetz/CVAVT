@@ -20,6 +20,8 @@ namespace CVAVT.ViewModels
         public int TeilnehmerIst { get; }
         public int TeilnehmerMax { get; }
 
+        public event EventHandler OnRequestCloseWindow;
+
         // Konstruktor
         public NeuerTeilnehmerViewModel()
         {
@@ -27,11 +29,22 @@ namespace CVAVT.ViewModels
             NaechsterTeilnehmerCmd = new WpfLibrary.RelayCommand(NaechsterTeilnehmer);
             EingabeSpeichernCmd = new WpfLibrary.RelayCommand(EingabeSpeichern);
         }
+        /// <summary>
+        /// Funktion Verlassen schließt das Fenster
+        /// </summary>
+        private void Verlassen()
+        {
+            // Window schließen
+            if (OnRequestCloseWindow != null)
+                // Delegate wird aufgerufen
+                OnRequestCloseWindow(this, new EventArgs());
+
+        }
 
         // Alter Name EditVerwerfen
         private void EingabeVerwerfen()
         {
-            throw new NotImplementedException();
+            Verlassen();
         }
 
         private void NaechsterTeilnehmer()
