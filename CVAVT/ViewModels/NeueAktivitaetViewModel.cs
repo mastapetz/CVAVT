@@ -60,22 +60,7 @@ namespace CVAVT.ViewModels
                     LeiterListe.Add(leiter);
                 }
             }
-            //if (_aktivitaet == null)
-            //{
 
-            //    // Objekt Füllen
-            //    AktivitaetenName = aktivitaet.AktivitaetenName;
-            //    // Für Combobox
-            //    SelectedLeiter = aktivitaet.LeiterIdfkNavigation;
-            //    // ----
-            //    AktivitaetenArt = aktivitaet.AktivitaetenArt;
-            //    AktivitaetenDatum = aktivitaet.AktivitaetenDatum;
-            //    AktivitaetenZeit = aktivitaet.AktivitaetenZeit;
-            //    AktivitaetenDauer = aktivitaet.AktivitaetenDauer;
-            //    AktivitaetenMaxTeilnehmer = aktivitaet.AktivitaetenMaxTeilnehmer;
-            //    AktivitaetenVorwissenNoetig = aktivitaet.AktivitaetenVorwissenNoetig;
-            //    AktivitaetenInformation = aktivitaet.AktivitaetenInformation;
-            //}
             _aktivitaet = aktivitaet;
         }
         /// <summary>
