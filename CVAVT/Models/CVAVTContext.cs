@@ -24,6 +24,8 @@ public partial class CVAVTContext : DbContext
 
     public virtual DbSet<Teilnehmer> Teilnehmer { get; set; }
 
+    public virtual DbSet<ViewTeilnehmerIstAnzahl> ViewTeilnehmerIstAnzahl { get; set; }
+
     protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
 #warning To protect potentially sensitive information in your connection string, you should move it out of source code. You can avoid scaffolding the connection string by using the Name= syntax to read it from configuration - see https://go.microsoft.com/fwlink/?linkid=2131148. For more guidance on storing connection strings, see http://go.microsoft.com/fwlink/?LinkId=723263.
         => optionsBuilder.UseSqlServer("Data Source=DESKTOP-0O4SDSG\\SQLEXPRESS;Initial Catalog=CVAVT;Integrated Security=True; Encrypt=False");
@@ -104,6 +106,15 @@ public partial class CVAVTContext : DbContext
                 .HasForeignKey(d => d.AktivitaetIdfk)
                 .OnDelete(DeleteBehavior.ClientSetNull)
                 .HasConstraintName("FK_Teilnehmer_Aktivitaet");
+        });
+
+        modelBuilder.Entity<ViewTeilnehmerIstAnzahl>(entity =>
+        {
+            entity
+                .HasNoKey()
+                .ToView("ViewTeilnehmerIstAnzahl");
+
+            entity.Property(e => e.AktivitaetIdfk).HasColumnName("AktivitaetIDFK");
         });
 
         OnModelCreatingPartial(modelBuilder);
