@@ -3,6 +3,7 @@ using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.Linq;
+using System.Runtime.ConstrainedExecution;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Input;
@@ -46,6 +47,8 @@ namespace CVAVT.ViewModels
         // Konstruktor
         public NeueAktivitaetViewModel(Aktivitaet aktivitaet)
         {
+
+
             LeiterListe = new ObservableCollection<Leiter>();
             AktivitaetAnlegenCmd = new WpfLibrary.RelayCommand(AktivitaetAnlegen);
             AnlegenAbbrechenCmd = new WpfLibrary.RelayCommand(AnlegenAbbrechen);
@@ -61,7 +64,17 @@ namespace CVAVT.ViewModels
                 }
             }
 
-            _aktivitaet = aktivitaet;
+            //// Wenn aktivitaet null ist, wird ein neues Aktivitaet-Objekt erstellt
+            //if (aktivitaet == null)
+            //{
+            //    _aktivitaet = new Aktivitaet();
+            //}
+            //else
+            //{
+            //    _aktivitaet = aktivitaet;
+            //}
+
+            //_aktivitaet = aktivitaet;
         }
         /// <summary>
         /// Funktion Verlassen schließt das Fenster
@@ -82,20 +95,23 @@ namespace CVAVT.ViewModels
                 if (_aktivitaet == null)
                 {
                     // Neuer Eintrag in DB
-                    Aktivitaet aktivitaet = new Aktivitaet();
-                    // Objekt Füllen
-                    aktivitaet.AktivitaetenName = AktivitaetenName;
-                    // Für Combobox
-                    // LeiterId wird LeiterIdfk zugewisen
-                    aktivitaet.LeiterIdfk = SelectedLeiter.LeiterId;
-                    // ----
-                    aktivitaet.AktivitaetenArt = AktivitaetenArt;
-                    aktivitaet.AktivitaetenDatum = AktivitaetenDatum;
-                    aktivitaet.AktivitaetenZeit = AktivitaetenZeit;
-                    aktivitaet.AktivitaetenDauer = AktivitaetenDauer;
-                    aktivitaet.AktivitaetenMaxTeilnehmer = AktivitaetenMaxTeilnehmer;
-                    aktivitaet.AktivitaetenVorwissenNoetig = AktivitaetenVorwissenNoetig;
-                    aktivitaet.AktivitaetenInformation = AktivitaetenInformation;
+                    // das Aktivitaet-Objekt direkt während der Initialisierung erstellt und seine Eigenschaften werden in derselben Zeile zugewiesen
+                    Aktivitaet aktivitaet = new Aktivitaet
+                    {
+                        // Objekt Füllen
+                        AktivitaetenName = AktivitaetenName,
+                        // Für Combobox
+                        // LeiterId wird LeiterIdfk zugewisen
+                        LeiterIdfk = SelectedLeiter.LeiterId,
+                        // ----
+                        AktivitaetenArt = AktivitaetenArt,
+                        AktivitaetenDatum = AktivitaetenDatum,
+                        AktivitaetenZeit = AktivitaetenZeit,
+                        AktivitaetenDauer = AktivitaetenDauer,
+                        AktivitaetenMaxTeilnehmer = AktivitaetenMaxTeilnehmer,
+                        AktivitaetenVorwissenNoetig = AktivitaetenVorwissenNoetig,
+                        AktivitaetenInformation = AktivitaetenInformation,
+                    };
                     context.Aktivitaet.Add(aktivitaet);
                     context.SaveChanges();
                 }
