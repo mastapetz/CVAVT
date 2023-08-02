@@ -40,7 +40,7 @@
         <TextBox Text="{Binding AktivitaetenIstTeilnehmer}" Grid.Column="2" HorizontalAlignment="Center" Grid.Row="6" TextWrapping="Wrap" TextAlignment="Center" VerticalAlignment="Center" Width="50" Height="18"/>
         <TextBox Text="{Binding AktivitaetenMaxTeilnehmer}" Grid.Column="4" HorizontalAlignment="Center" Grid.Row="6" TextWrapping="Wrap"  TextAlignment="Center" VerticalAlignment="Center" Width="50" Height="17"/>
         <Button Command="{Binding EingabeVerwerfenCmd}" Content="Änderungen Verwerfen" HorizontalAlignment="Left" Margin="10,35,0,0" Grid.Row="7" VerticalAlignment="Top" Width="131" RenderTransformOrigin="0.522,0.507" Grid.ColumnSpan="2" Height="30"/>
-        <Button Content="Nächster Teilnehmer" HorizontalAlignment="Left" Margin="75,35,0,0" Grid.Row="7" VerticalAlignment="Top" Width="131" Grid.ColumnSpan="3" Height="30" Grid.Column="1"/>
-        <Button Grid.Column="3" Content="Änderungen Speichern" Grid.ColumnSpan="3" HorizontalAlignment="Left" Margin="72,35,0,0" Grid.Row="7" VerticalAlignment="Top" Width="131" Height="30"/>
+        <Button Command="{Binding NaechsterTeilnehmerCmd}" Content="Nächster Teilnehmer" HorizontalAlignment="Left" Margin="75,35,0,0" Grid.Row="7" VerticalAlignment="Top" Width="131" Grid.ColumnSpan="3" Height="30" Grid.Column="1"/>
+        <Button Command="{Binding EingabeSpeichernCmd}" Grid.Column="3" Content="Änderungen Speichern" Grid.ColumnSpan="3" HorizontalAlignment="Left" Margin="72,35,0,0" Grid.Row="7" VerticalAlignment="Top" Width="131" Height="30"/>
     </Grid>
 </Window>
