@@ -35,10 +35,10 @@
         <Label Content="Teilnehmer Name" HorizontalAlignment="Left" Grid.Row="4" VerticalAlignment="Center" Grid.ColumnSpan="3" Width="136" Height="26" Margin="84,0,0,0"/>
         <Label Grid.Column="1" Content="Teilnehmer" HorizontalAlignment="Center" Grid.Row="6" VerticalAlignment="Center" Width="82" Height="26"/>
         <Label Grid.Column="3" Content="Maximum" HorizontalAlignment="Left" Margin="30,0,0,0" Grid.Row="6" VerticalAlignment="Center" Height="26" Width="62"/>
-        <TextBox Grid.Column="2" Grid.ColumnSpan="4" HorizontalAlignment="Left" Grid.Row="2" TextWrapping="Wrap" TextAlignment="Center" Text="{Binding AktivitaetenName}" VerticalAlignment="Center" Width="156" Height="18" Margin="47,0,0,0"/>
-        <TextBox Grid.Column="2" Grid.ColumnSpan="4" HorizontalAlignment="Left" Margin="47,13,0,0" Grid.Row="4" TextWrapping="Wrap" Text="{Binding TeilnehmerName}" VerticalAlignment="Top" Width="156" Height="18"/>
-        <TextBox Grid.Column="2" HorizontalAlignment="Center" Grid.Row="6" TextWrapping="Wrap" Text="IST" TextAlignment="Center" VerticalAlignment="Center" Width="50" Height="18"/>
-        <TextBox Grid.Column="4" HorizontalAlignment="Center" Grid.Row="6" TextWrapping="Wrap" Text="{Binding AktivitaetenMaxTeilnehmer }" TextAlignment="Center" VerticalAlignment="Center" Width="50" Height="17"/>
+        <TextBox Text="{Binding AktivitaetenName}" Grid.Column="2" Grid.ColumnSpan="4" HorizontalAlignment="Left" Grid.Row="2" TextWrapping="Wrap" TextAlignment="Center"  VerticalAlignment="Center" Width="156" Height="18" Margin="47,0,0,0"/>
+        <TextBox Text="{Binding TeilnehmerName}" Grid.Column="2" Grid.ColumnSpan="4" HorizontalAlignment="Left" Margin="47,13,0,0" Grid.Row="4" TextWrapping="Wrap"  VerticalAlignment="Top" Width="156" Height="18"/>
+        <TextBox Text="{Binding AktivitaetenIstTeilnehmer}" Grid.Column="2" HorizontalAlignment="Center" Grid.Row="6" TextWrapping="Wrap" TextAlignment="Center" VerticalAlignment="Center" Width="50" Height="18"/>
+        <TextBox Text="{Binding AktivitaetenMaxTeilnehmer}" Grid.Column="4" HorizontalAlignment="Center" Grid.Row="6" TextWrapping="Wrap"  TextAlignment="Center" VerticalAlignment="Center" Width="50" Height="17"/>
         <Button Command="{Binding EingabeVerwerfenCmd}" Content="Änderungen Verwerfen" HorizontalAlignment="Left" Margin="10,35,0,0" Grid.Row="7" VerticalAlignment="Top" Width="131" RenderTransformOrigin="0.522,0.507" Grid.ColumnSpan="2" Height="30"/>
         <Button Content="Nächster Teilnehmer" HorizontalAlignment="Left" Margin="75,35,0,0" Grid.Row="7" VerticalAlignment="Top" Width="131" Grid.ColumnSpan="3" Height="30" Grid.Column="1"/>
         <Button Grid.Column="3" Content="Änderungen Speichern" Grid.ColumnSpan="3" HorizontalAlignment="Left" Margin="72,35,0,0" Grid.Row="7" VerticalAlignment="Top" Width="131" Height="30"/>
