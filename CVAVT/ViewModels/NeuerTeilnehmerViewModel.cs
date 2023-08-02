@@ -18,7 +18,29 @@ namespace CVAVT.ViewModels
         // Properties
         public string AktivitaetenName { get; set; }
         public string TeilnehmerName { get; set; }
-        public int AktivitaetenIstTeilnehmer { get; set; }
+
+        // für Ausgewählte Aktivität
+        private Aktivitaet _selectedAktivitaet;
+        public Aktivitaet SelectedAktivitaet
+        {
+            get { return _selectedAktivitaet; }
+            set
+            {
+                _selectedAktivitaet = value;
+                OnPropertyChanged("SelectedAktivitaet");
+            }
+        }
+
+        private int _aktivitaetenIstTeilnehmer;
+        public int AktivitaetenIstTeilnehmer
+        {
+            get { return _aktivitaetenIstTeilnehmer; }
+            set
+            {
+                _aktivitaetenIstTeilnehmer = value;
+                OnPropertyChanged("AktivitaetenIstTeilnehmer");
+            }
+        }
         public int? AktivitaetenMaxTeilnehmer { get; set; }
 
         public event EventHandler OnRequestCloseWindow;
@@ -29,14 +51,23 @@ namespace CVAVT.ViewModels
             EingabeVerwerfenCmd = new WpfLibrary.RelayCommand(EingabeVerwerfen);
             NaechsterTeilnehmerCmd = new WpfLibrary.RelayCommand(NaechsterTeilnehmer);
             EingabeSpeichernCmd = new WpfLibrary.RelayCommand(EingabeSpeichern);
+            // für ausgewählte aktivität
+            SelectedAktivitaet = aktivitaet;
+
             using (CVAVTContext context = new CVAVTContext())
             {
-                if (aktivitaet != null)
+                if (aktivitaet == null)
+                {
+                    throw new ArgumentNullException(nameof(aktivitaet), "Aktivitaet darf nicht null sein.");
+                }
+                else
                 {
                     // Die Daten aus aktivität werden in die Properties geschrieben
                     AktivitaetenName = aktivitaet.AktivitaetenName;
 
                     AktivitaetenMaxTeilnehmer = aktivitaet.AktivitaetenMaxTeilnehmer;
+
+                    AktivitaetenIstTeilnehmer = context.Teilnehmer.Count(t => t.AktivitaetIdfk == aktivitaet.AktivitaetenId);
                 }
                 if (teilnehmer != null)
                 {
@@ -71,7 +102,19 @@ namespace CVAVT.ViewModels
 
         private void EingabeSpeichern()
         {
-            throw new NotImplementedException();
+            using (CVAVTContext context = new CVAVTContext())
+            {
+
+                // Neuer Eintrag
+                Teilnehmer teilnehmer = new Teilnehmer();
+                teilnehmer.TeilnehmerName = TeilnehmerName;
+                teilnehmer.AktivitaetIdfk = SelectedAktivitaet.AktivitaetenId;
+                context.Teilnehmer.Add(teilnehmer);
+                context.SaveChanges();
+
+            }
+            Verlassen();
+
         }
     }
 }
