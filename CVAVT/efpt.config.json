@@ -33,6 +33,10 @@
       {
          "Name": "[dbo].[Teilnehmer]",
          "ObjectType": 0
+      },
+      {
+         "Name": "[dbo].[ViewTeilnehmerIstAnzahl]",
+         "ObjectType": 3
       }
    ],
    "UiHint": "desktop-0o4sdsg\\sqlexpress.CVAVT.dbo",
