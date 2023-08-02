@@ -8,7 +8,7 @@ namespace CVAVT.Models;
 
 public partial class CVAVTContext : DbContext
 {
-    public CVAVTContext() { }
+    //public CVAVTContext() { }
     public CVAVTContext(DbContextOptions<CVAVTContext> options)
         : base(options)
     {
