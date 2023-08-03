@@ -39,6 +39,7 @@ namespace CVAVT.ViewModels
 
         // Properties
         public ObservableCollection<Aktivitaet> AktivitaetenListe { get; set; }
+
         public Aktivitaet SelectedAktivitaet { get; set; }
         // Zum Blättern
         // buttons fehlen noch
