@@ -21,22 +21,25 @@
             <RowDefinition Height="40*"/>
         </Grid.RowDefinitions>
 
-        <DataGrid Grid.Column="2" Grid.RowSpan="3" Grid.ColumnSpan="2" Margin="0,25,0,0" >
+        <DataGrid ItemsSource="{Binding TeilnehmerListe}" SelectedItem="{Binding SelectedTeilnehmer}" CanUserAddRows="False" AutoGenerateColumns="False"
+                  Grid.Column="2" Grid.RowSpan="3" Grid.ColumnSpan="2" Margin="0,25,0,0" >
             <DataGrid.Columns>
-                <DataGridTextColumn Header="Name" Width="50*"></DataGridTextColumn>
+                <DataGridTextColumn Binding="{Binding TeilnehmerName}" Header="Name" Width="50*"></DataGridTextColumn>
                 <DataGridTemplateColumn Header="Löschen" Width="25*">
                     <DataGridTemplateColumn.CellTemplate>
                         <DataTemplate>
-                            <!--<Button Content="Edit" Click="Button_Click"/>-->
-                            <Button Content="Löschen"></Button>
+                            <Button Content="Löschen" ToolTip="Teilnehmer Löschen"
+                                    Command="{Binding DataContext.TeilnehmerLoeschenCmd , RelativeSource={RelativeSource FindAncestor, AncestorType={x:Type DataGrid}}}">
+                            </Button>
                         </DataTemplate>
                     </DataGridTemplateColumn.CellTemplate>
                 </DataGridTemplateColumn>
                 <DataGridTemplateColumn Header="Ändern" Width="25*">
                     <DataGridTemplateColumn.CellTemplate>
                         <DataTemplate>
-                            <!--<Button Content="Edit" Click="Button_Click"/>-->
-                            <Button Content="Ändern"></Button>
+                            <Button Content="Ändern" ToolTip="Teilnehmer Ändern"
+                                    Command="{Binding DataContext.TeilnehmerEditCmd, RelativeSource={RelativeSource FindAncestor, AncestorType={x:Type DataGrid}}}">
+                            </Button>
                         </DataTemplate>
                     </DataGridTemplateColumn.CellTemplate>
                 </DataGridTemplateColumn>
@@ -60,13 +63,13 @@
                 <RowDefinition Height="45*"/>
                 <RowDefinition Height="45*"/>
             </Grid.RowDefinitions>
-            <Button Content="Neuer Teilnehmer" HorizontalAlignment="Center"  Grid.Row="2" VerticalAlignment="Center" Width="110"/>
-            <Button Content="Export Liste" HorizontalAlignment="Center"  Grid.Row="3" VerticalAlignment="Center" Width="110" Background="Green"/>
-            <Button Content="Schließen" HorizontalAlignment="Center"  Grid.Row="4" VerticalAlignment="Center" Width="110" Background="Red"/>
+            <Button Command="{Binding NeuTeilnehmerCmd}" Content="Neuer Teilnehmer" HorizontalAlignment="Center"  Grid.Row="2" VerticalAlignment="Center" Width="110"/>
+            <Button Command="{Binding ExportListeCmd}" Content="Export Liste" HorizontalAlignment="Center"  Grid.Row="3" VerticalAlignment="Center" Width="110" Background="Green"/>
+            <Button Command="{Binding SchliessenCmd}" Content="Schließen" HorizontalAlignment="Center"  Grid.Row="4" VerticalAlignment="Center" Width="110" Background="Red"/>
             <Label Content="Ist" HorizontalAlignment="Left" Margin="10,0,0,0" VerticalAlignment="Center"/>
-            <TextBox HorizontalAlignment="Left"  TextWrapping="Wrap" Text="IST" VerticalAlignment="Center" Width="46" Margin="56,0,0,0"/>
+            <TextBox  Text="{Binding AktivitaetenIstTeilnehmer}" HorizontalAlignment="Left"  TextWrapping="Wrap" VerticalAlignment="Center" Width="46" Margin="56,0,0,0"/>
             <Label Content="Max" HorizontalAlignment="Left" Margin="10,0,0,0" Grid.Row="1" VerticalAlignment="Center"/>
-            <TextBox HorizontalAlignment="Left"  TextWrapping="Wrap" Text="MAX" Grid.Row="1" VerticalAlignment="Center" Width="46" Margin="56,0,0,0"/>
+            <TextBox Text="{Binding AktivitaetenMaxTeilnehmer}" HorizontalAlignment="Left"  TextWrapping="Wrap" Grid.Row="1" VerticalAlignment="Center" Width="46" Margin="56,0,0,0"/>
 
         </Grid>
 

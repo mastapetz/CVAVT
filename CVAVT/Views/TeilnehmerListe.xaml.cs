@@ -1,4 +1,6 @@
-﻿using System;
+﻿using CVAVT.Models;
+using CVAVT.ViewModels;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -19,9 +21,18 @@ namespace CVAVT.Views
     /// </summary>
     public partial class TeilnehmerListe : Window
     {
-        public TeilnehmerListe()
+        private TeilnehmerListeViewModel _viewModel;
+
+        public TeilnehmerListe(Aktivitaet aktiv)
         {
             InitializeComponent();
+            _viewModel = new TeilnehmerListeViewModel(aktiv);
+
+
+            this.DataContext = _viewModel;
+            // Registrierung am Event
+            // Wir registrieren eine Lamda-Expression
+            _viewModel.OnRequestCloseWindow += (sender, args) => this.Close();
         }
     }
 }
