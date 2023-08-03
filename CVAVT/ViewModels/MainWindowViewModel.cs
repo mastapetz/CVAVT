@@ -125,12 +125,7 @@ namespace CVAVT.ViewModels
             FillList();
         }
 
-        //// änderung für update
-        //private void NeuerTeilnehmerMenu()
-        //{
-        //    NeuerTeilnehmer window = new NeuerTeilnehmer(SelectedAktivitaet, null, _viewModel);
-        //    window.ShowDialog();
-        //}
+
 
         private void NeuerTeilnehmerMenu()
         {
