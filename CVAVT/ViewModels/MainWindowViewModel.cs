@@ -168,6 +168,13 @@ namespace CVAVT.ViewModels
                     AktivitaetenListe.Add(aktivity);
                 }
             }
+            // Aktualisiere die Anzahl der Ist-Teilnehmer für die ausgewählte Aktivität
+            if (SelectedAktivitaet != null)
+            {
+                AktivitaetenIstTeilnehmer = SelectedAktivitaet.AktivitaetenIstTeilnehmer;
+            }
+
+
 
         }
 
