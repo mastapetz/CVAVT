@@ -21,6 +21,23 @@ namespace CVAVT.Views
     /// </summary>
     public partial class NeuerTeilnehmer : Window
     {
+
+        //// änderung für Update Liste
+        //private NeuerTeilnehmerViewModel _viewModel;
+        //private TeilnehmerListeViewModel _teilnehmerListeViewModel;
+
+        //public NeuerTeilnehmer(Aktivitaet aktiv, Teilnehmer teilnehmer, TeilnehmerListeViewModel teilnehmerListeViewModel)
+        //{
+        //    InitializeComponent();
+        //    _viewModel = new NeuerTeilnehmerViewModel(aktiv, teilnehmer);
+        //    _teilnehmerListeViewModel = teilnehmerListeViewModel;
+        //    this.DataContext = _viewModel;
+
+        //    _viewModel.OnRequestCloseWindow += (sender, args) => this.Close();
+        //}
+
+
+
         private NeuerTeilnehmerViewModel _viewModel;
         public NeuerTeilnehmer(Aktivitaet aktiv, Teilnehmer teilnehmer)
         {

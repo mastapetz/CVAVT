@@ -17,7 +17,24 @@ namespace CVAVT.ViewModels
 
         // Properties
         public string AktivitaetenName { get; set; }
-        public string TeilnehmerName { get; set; }
+
+        // damit nächster Teilnehmer das Propertychange versteht
+        private string _teilnehmerName;
+        public string TeilnehmerName
+        {
+            get { return _teilnehmerName; }
+            set
+            {
+                if (_teilnehmerName != value)
+                {
+                    _teilnehmerName = value;
+                    OnPropertyChanged("TeilnehmerName");
+                }
+            }
+        }
+
+        //public string TeilnehmerName { get; set; }
+
 
         // für Ausgewählte Aktivität
         private Aktivitaet _selectedAktivitaet;
@@ -37,13 +54,24 @@ namespace CVAVT.ViewModels
             get { return _aktivitaetenIstTeilnehmer; }
             set
             {
-                _aktivitaetenIstTeilnehmer = value;
-                OnPropertyChanged("AktivitaetenIstTeilnehmer");
+                // if Anweisung zum aktualisieren der  Ist Teilnehmer
+                if (_aktivitaetenIstTeilnehmer != value)
+                {
+                    _aktivitaetenIstTeilnehmer = value;
+                    OnPropertyChanged("AktivitaetenIstTeilnehmer");
+                }
+
+                // ohne aktualisierung der Ist Teilnehmer
+                //_aktivitaetenIstTeilnehmer = value;
+                //OnPropertyChanged("AktivitaetenIstTeilnehmer");
             }
         }
         public int? AktivitaetenMaxTeilnehmer { get; set; }
 
         public event EventHandler OnRequestCloseWindow;
+
+        // für update
+        private TeilnehmerListeViewModel _teilnehmerListeViewModel;
 
         // Konstruktor
         public NeuerTeilnehmerViewModel(Aktivitaet aktivitaet, Teilnehmer teilnehmer)
@@ -53,6 +81,8 @@ namespace CVAVT.ViewModels
             EingabeSpeichernCmd = new WpfLibrary.RelayCommand(EingabeSpeichern);
             // für ausgewählte aktivität
             SelectedAktivitaet = aktivitaet;
+
+
 
             using (CVAVTContext context = new CVAVTContext())
             {
@@ -87,20 +117,7 @@ namespace CVAVT.ViewModels
                 OnRequestCloseWindow(this, new EventArgs());
 
         }
-
-        // Alter Name EditVerwerfen
-        private void EingabeVerwerfen()
-        {
-            Verlassen();
-        }
-
-        private void NaechsterTeilnehmer()
-        {
-            throw new NotImplementedException();
-        }
-        // Alter Name EditSpeichern
-
-        private void EingabeSpeichern()
+        private void SaveTeilnehmer()
         {
             using (CVAVTContext context = new CVAVTContext())
             {
@@ -112,7 +129,35 @@ namespace CVAVT.ViewModels
                 context.Teilnehmer.Add(teilnehmer);
                 context.SaveChanges();
 
+                AktivitaetenIstTeilnehmer = context.Teilnehmer.Count(t => t.AktivitaetIdfk == SelectedAktivitaet.AktivitaetenId);
+
+
             }
+            //für Listen update
+            //_teilnehmerListeViewModel.UpdateTeilnehmerListe();
+        }
+        private void ClearTeilnehmerName()
+        {
+            TeilnehmerName = string.Empty;
+        }
+
+        // Alter Name EditVerwerfen
+        private void EingabeVerwerfen()
+        {
+            Verlassen();
+        }
+
+        private void NaechsterTeilnehmer()
+        {
+            SaveTeilnehmer();
+            ClearTeilnehmerName();
+        }
+        // Alter Name EditSpeichern
+
+
+        private void EingabeSpeichern()
+        {
+            SaveTeilnehmer();
             Verlassen();
 
         }
