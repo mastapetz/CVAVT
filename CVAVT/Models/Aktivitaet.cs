@@ -2,6 +2,7 @@
 #nullable disable
 using System;
 using System.Collections.Generic;
+using System.Linq;
 
 namespace CVAVT.Models;
 
@@ -32,4 +33,25 @@ public partial class Aktivitaet
     public virtual Leiter LeiterIdfkNavigation { get; set; }
 
     public virtual ICollection<Teilnehmer> Teilnehmer { get; set; } = new List<Teilnehmer>();
+
+
+    // Um Ist auch im Mainwindow anzuzeigen
+    public int AktivitaetenIstTeilnehmer
+    {
+        get
+        {
+            using (CVAVTContext context = new CVAVTContext())
+            {
+                var viewTeilnehmer = context.ViewTeilnehmerIstAnzahl
+                    .FirstOrDefault(v => v.AktivitaetIdfk == this.AktivitaetenId);
+
+                if (viewTeilnehmer != null)
+                {
+                    return viewTeilnehmer.TeilnehmerIstAnzahl ?? 0;
+                }
+
+                return 0;
+            }
+        }
+    }
 }
