@@ -48,14 +48,9 @@ namespace CVAVT.ViewModels
         public event EventHandler OnRequestCloseWindow;
         // Aktivitaet  Properties
         public string AktivitaetenName { get; set; }
-        public string AktivitaetenLeiter { get; set; }
         public string AktivitaetenArt { get; set; }
-        public DateOnly AktivitaetenDatum { get; set; }
-        public TimeOnly AktivitaetenZeit { get; set; }
-        public double AktivitaetenDauer { get; set; }
-        public int AktivitaetenIstTeilnehmer { get; set; }
 
-        public string AktivitaetenInformation { get; set; }
+        public int AktivitaetenIstTeilnehmer { get; set; }
 
         // Konstruktor
         public MainWindowViewModel()
