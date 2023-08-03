@@ -41,6 +41,7 @@ namespace CVAVT.ViewModels
         public ObservableCollection<Aktivitaet> AktivitaetenListe { get; set; }
         public Aktivitaet SelectedAktivitaet { get; set; }
         // Zum Blättern
+        // buttons fehlen noch
         private int _position;
         private const int Anzahl = 10;
         // Event zum Schließen
@@ -117,7 +118,7 @@ namespace CVAVT.ViewModels
 
         private void ShowTeilnehmer()
         {
-            TeilnehmerListe window = new TeilnehmerListe();
+            TeilnehmerListe window = new TeilnehmerListe(SelectedAktivitaet);
             window.Show();
         }
 
@@ -128,6 +129,13 @@ namespace CVAVT.ViewModels
             window.ShowDialog();
             FillList();
         }
+
+        //// änderung für update
+        //private void NeuerTeilnehmerMenu()
+        //{
+        //    NeuerTeilnehmer window = new NeuerTeilnehmer(SelectedAktivitaet, null, _viewModel);
+        //    window.ShowDialog();
+        //}
 
         private void NeuerTeilnehmerMenu()
         {
