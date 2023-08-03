@@ -53,8 +53,8 @@ namespace CVAVT.ViewModels
         public DateOnly AktivitaetenDatum { get; set; }
         public TimeOnly AktivitaetenZeit { get; set; }
         public double AktivitaetenDauer { get; set; }
-        public int AktivitaetenMaxTeilnehmer { get; set; }
-        public bool AktivitaetenVorwissenNoetig { get; set; }
+        public int AktivitaetenIstTeilnehmer { get; set; }
+
         public string AktivitaetenInformation { get; set; }
 
         // Konstruktor
