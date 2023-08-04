@@ -48,8 +48,8 @@
         </DataGrid>
         <Menu Grid.Row="0" Grid.Column="0" Grid.ColumnSpan="1" >
             <MenuItem Header="Optionen">
-                <MenuItem Header="Export"></MenuItem>
-                <MenuItem Header="Beenden"></MenuItem>
+                <MenuItem Header="Export" Command="{Binding ExportListeCmd}"></MenuItem>
+                <MenuItem Header="Beenden" Command="{Binding SchliessenCmd}" ></MenuItem>
             </MenuItem>
 
 
