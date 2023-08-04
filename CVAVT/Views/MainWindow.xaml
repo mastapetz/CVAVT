@@ -81,12 +81,6 @@
 
                 <MenuItem Command="{Binding BeendenCmd}" Header="Beenden"></MenuItem>
             </MenuItem>
-            <!--
-            Consolidiert in Optionen
-            <MenuItem Header="Aktivitäten">
-                <MenuItem Command="{Binding NeuAktivitaetCmd}" Header="Neue Aktivität"></MenuItem>
-            </MenuItem>
-            -->
 
 
         </Menu>
