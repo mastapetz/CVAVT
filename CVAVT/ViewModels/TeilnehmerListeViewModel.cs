@@ -137,7 +137,23 @@ namespace CVAVT.ViewModels
 
         private void TeilnehmerEdit()
         {
-            throw new NotImplementedException();
+            using (CVAVTContext context = new CVAVTContext())
+            {
+                // Sicherheitsabfrage: eine Zeile wurde selektiert
+                if (SelectedTeilnehmer == null)
+                {
+                    MessageBox.Show("Keine Zeile wurde selektiert", "Fehler");
+                    return;
+                }
+                Teilnehmer nameEdit = context.Teilnehmer.Where(n => n.TeilnehmerId == SelectedTeilnehmer.TeilnehmerId).FirstOrDefault();
+                if (nameEdit != null)
+                {
+                    // Ändern des Namens
+                    nameEdit.TeilnehmerName = SelectedTeilnehmer.TeilnehmerName;
+                    context.SaveChanges();
+                }
+            }
+
         }
 
         // Füllen der Teilnehmerliste
