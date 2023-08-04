@@ -73,7 +73,6 @@ namespace CVAVT.ViewModels
                 OnPropertyChanged("SelectedTeilnehmer");
             }
         }
-        //public Teilnehmer SelectedTeilnehmer { get; set; }
 
         // für Ausgewählte Aktivität
         private Aktivitaet _selectedAktivitaet;
@@ -96,7 +95,9 @@ namespace CVAVT.ViewModels
             //NeuTeilnehmerCmd = new WpfLibrary.RelayCommand(NeuerTeilnehmerMenu);
             SchliessenCmd = new WpfLibrary.RelayCommand(Schliessen);
             TeilnehmerLoeschenCmd = new WpfLibrary.RelayCommand(TeilnehmerLoeschen);
-            TeilnehmerEditCmd = new WpfLibrary.RelayCommand(TeilnehmerEdit);
+
+            //TeilnehmerEditCmd = new WpfLibrary.RelayCommand(TeilnehmerEdit);
+
             // für ausgewählte aktivität
             SelectedAktivitaet = aktivitaet;
             // optional
@@ -165,21 +166,6 @@ namespace CVAVT.ViewModels
             }
         }
 
-        private void TeilnehmerEdit()
-        {
-            using (CVAVTContext context = new CVAVTContext())
-            {
-                Teilnehmer nameEdit = context.Teilnehmer.Where(n => n.TeilnehmerId == SelectedTeilnehmer.TeilnehmerId).FirstOrDefault();
-                if (nameEdit != null)
-                {
-                    // Ändern des Namens
-                    nameEdit.TeilnehmerName = SelectedTeilnehmer.TeilnehmerName;
-                    context.SaveChanges();
-                }
-            }
-
-        }
-
         // Füllen der Teilnehmerliste
         private void FillList()
         {
@@ -227,6 +213,26 @@ namespace CVAVT.ViewModels
         //            AktivitaetenIstTeilnehmer = TeilnehmerListe.Count;
         //        }
         //    }
+        //}
+
+        //private void TeilnehmerEdit()
+        //{
+        //    using (CVAVTContext context = new CVAVTContext())
+        //    {
+        //        Teilnehmer nameEdit = context.Teilnehmer.Where(n => n.TeilnehmerId == SelectedTeilnehmer.TeilnehmerId).FirstOrDefault();
+        //        if (nameEdit != null)
+        //        {
+        //            // Ändern des Namens
+        //            nameEdit.TeilnehmerName = SelectedTeilnehmer.TeilnehmerName;
+
+        //            // Speichern der Änderungen in der Datenbank
+        //            context.Entry(nameEdit).State = EntityState.Modified;
+
+        //            context.SaveChanges();
+        //        }
+        //    }
+        //    FillList();
+
         //}
 
     }
