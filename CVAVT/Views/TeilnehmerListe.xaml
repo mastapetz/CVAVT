@@ -67,9 +67,9 @@
             <Button Command="{Binding ExportListeCmd}" Content="Export Liste" HorizontalAlignment="Center"  Grid.Row="3" VerticalAlignment="Center" Width="110" Background="Green"/>
             <Button Command="{Binding SchliessenCmd}" Content="Schließen" HorizontalAlignment="Center"  Grid.Row="4" VerticalAlignment="Center" Width="110" Background="Red"/>
             <Label Content="Ist" HorizontalAlignment="Left" Margin="10,0,0,0" VerticalAlignment="Center"/>
-            <TextBox  Text="{Binding AktivitaetenIstTeilnehmer}" HorizontalAlignment="Left"  TextWrapping="Wrap" VerticalAlignment="Center" Width="46" Margin="56,0,0,0"/>
+            <TextBox  Text="{Binding AktivitaetenIstTeilnehmer,  Mode=OneWay}" HorizontalAlignment="Left"  TextWrapping="Wrap" VerticalAlignment="Center" Width="46" Margin="56,0,0,0"/>
             <Label Content="Max" HorizontalAlignment="Left" Margin="10,0,0,0" Grid.Row="1" VerticalAlignment="Center"/>
-            <TextBox Text="{Binding AktivitaetenMaxTeilnehmer}" HorizontalAlignment="Left"  TextWrapping="Wrap" Grid.Row="1" VerticalAlignment="Center" Width="46" Margin="56,0,0,0"/>
+            <TextBox Text="{Binding AktivitaetenMaxTeilnehmer,  Mode=OneWay}" HorizontalAlignment="Left"  TextWrapping="Wrap" Grid.Row="1" VerticalAlignment="Center" Width="46" Margin="56,0,0,0"/>
 
         </Grid>
 
