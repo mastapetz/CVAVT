@@ -24,6 +24,23 @@ namespace CVAVT.ViewModels
 
         // Eventhandler
         public event EventHandler OnRequestCloseWindow;
+        // Für das Ende der Zellenbearbeitung
+        public void DataGrid_CellEditEnding(object sender, DataGridCellEditEndingEventArgs e)
+        {
+            if (e.EditAction == DataGridEditAction.Commit)
+            {
+                var editedTeilnehmer = e.Row.Item as Teilnehmer;
+                if (editedTeilnehmer != null)
+                {
+                    // Änderungen speichern
+                    using (CVAVTContext context = new CVAVTContext())
+                    {
+                        context.Entry(editedTeilnehmer).State = EntityState.Modified;
+                        context.SaveChanges();
+                    }
+                }
+            }
+        }
 
         // Properties
         private int _aktivitaetenIstTeilnehmer;
