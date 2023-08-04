@@ -37,7 +37,7 @@
                         </DataTemplate>
                     </DataGridTemplateColumn.CellTemplate>
                 </DataGridTemplateColumn>
-                <DataGridTemplateColumn Header="Ändern" Width="25*">
+                <!--<DataGridTemplateColumn Header="Ändern" Width="25*">
                     <DataGridTemplateColumn.CellTemplate>
                         <DataTemplate>
                             <Button Content="Ändern" ToolTip="Teilnehmer Ändern"
