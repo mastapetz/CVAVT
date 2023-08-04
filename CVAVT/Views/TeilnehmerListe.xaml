@@ -64,8 +64,8 @@
                 <RowDefinition Height="45*"/>
             </Grid.RowDefinitions>
             <!--<Button Command="{Binding NeuTeilnehmerCmd}" Content="Neuer Teilnehmer" HorizontalAlignment="Center"  Grid.Row="2" VerticalAlignment="Center" Width="110"/>-->
-            <Button Command="{Binding ExportListeCmd}" Content="Export Liste" HorizontalAlignment="Center"  Grid.Row="3" VerticalAlignment="Center" Width="110" Background="Green"/>
-            <Button Command="{Binding SchliessenCmd}" Content="Schließen" HorizontalAlignment="Center"  Grid.Row="4" VerticalAlignment="Center" Width="110" Background="Red"/>
+            <Button Command="{Binding ExportListeCmd}" ToolTip="Liste Exportieren" Content="Export Liste" HorizontalAlignment="Center"  Grid.Row="3" VerticalAlignment="Center" Width="110" Background="Green"/>
+            <Button Command="{Binding SchliessenCmd}" ToolTip="Fenster Schließen" Content="Schließen" HorizontalAlignment="Center"  Grid.Row="4" VerticalAlignment="Center" Width="110" Background="Red"/>
             <Label Content="Ist" HorizontalAlignment="Left" Margin="10,0,0,0" VerticalAlignment="Center"/>
             <TextBox  Text="{Binding AktivitaetenIstTeilnehmer,  Mode=OneWay}" HorizontalAlignment="Left"  TextWrapping="Wrap" VerticalAlignment="Center" Width="46" Margin="56,0,0,0"/>
             <Label Content="Max" HorizontalAlignment="Left" Margin="10,0,0,0" Grid.Row="1" VerticalAlignment="Center"/>
