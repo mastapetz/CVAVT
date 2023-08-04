@@ -182,6 +182,9 @@ namespace CVAVT.ViewModels
                 }
             }
 
+            // Setzen Sie das erste Element der Liste als das ausgewählte Teilnehmerobjekt.
+            SelectedTeilnehmer = TeilnehmerListe.FirstOrDefault();
+
         }
 
         // Zum Updaten der Ist anzahl nach hinzufügen eines neuen Teilnehmers
