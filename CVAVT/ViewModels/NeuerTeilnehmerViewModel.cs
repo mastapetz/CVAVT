@@ -71,7 +71,7 @@ namespace CVAVT.ViewModels
         public event EventHandler OnRequestCloseWindow;
 
         // für update
-        private TeilnehmerListeViewModel _teilnehmerListeViewModel;
+        //private TeilnehmerListeViewModel _teilnehmerListeViewModel;
 
         // Konstruktor
         public NeuerTeilnehmerViewModel(Aktivitaet aktivitaet, Teilnehmer teilnehmer)
