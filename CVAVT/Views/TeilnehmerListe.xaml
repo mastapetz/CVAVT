@@ -37,15 +37,6 @@
                         </DataTemplate>
                     </DataGridTemplateColumn.CellTemplate>
                 </DataGridTemplateColumn>
-                <!--<DataGridTemplateColumn Header="Ändern" Width="25*">
-                    <DataGridTemplateColumn.CellTemplate>
-                        <DataTemplate>
-                            <Button Content="Ändern" ToolTip="Teilnehmer Ändern"
-                                    Command="{Binding DataContext.TeilnehmerEditCmd, RelativeSource={RelativeSource FindAncestor, AncestorType={x:Type DataGrid}}}">
-                            </Button>
-                        </DataTemplate>
-                    </DataGridTemplateColumn.CellTemplate>
-                </DataGridTemplateColumn>-->
 
             </DataGrid.Columns>
         </DataGrid>

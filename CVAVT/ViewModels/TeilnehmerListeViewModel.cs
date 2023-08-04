@@ -17,11 +17,9 @@ namespace CVAVT.ViewModels
     class TeilnehmerListeViewModel : WpfLibrary.BaseViewModel
     {
         // Commands
-        //public ICommand NeuTeilnehmerCmd { get; set; }
         public ICommand ExportListeCmd { get; set; }
         public ICommand SchliessenCmd { get; set; }
         public ICommand TeilnehmerLoeschenCmd { get; set; }
-        //public ICommand TeilnehmerEditCmd { get; set; }
 
         // Eventhandler
         public event EventHandler OnRequestCloseWindow;
@@ -93,11 +91,8 @@ namespace CVAVT.ViewModels
         {
             // Für Teilnehmerliste instanzieren
             TeilnehmerListe = new ObservableCollection<Teilnehmer>();
-            //NeuTeilnehmerCmd = new WpfLibrary.RelayCommand(NeuerTeilnehmerMenu);
             SchliessenCmd = new WpfLibrary.RelayCommand(Schliessen);
             TeilnehmerLoeschenCmd = new WpfLibrary.RelayCommand(TeilnehmerLoeschen);
-
-            //TeilnehmerEditCmd = new WpfLibrary.RelayCommand(TeilnehmerEdit);
 
             // für ausgewählte aktivität
             SelectedAktivitaet = aktivitaet;
@@ -131,12 +126,6 @@ namespace CVAVT.ViewModels
                 OnRequestCloseWindow(this, new EventArgs());
 
         }
-
-        //private void NeuerTeilnehmerMenu()
-        //{
-        //    NeuerTeilnehmer window = new NeuerTeilnehmer(SelectedAktivitaet, null);
-        //    window.ShowDialog();
-        //}
 
         private void ExportListe()
         {
@@ -191,50 +180,6 @@ namespace CVAVT.ViewModels
             SelectedTeilnehmer = TeilnehmerListe.FirstOrDefault();
 
         }
-
-        // Zum Updaten der Ist anzahl nach hinzufügen eines neuen Teilnehmers
-        //public void UpdateTeilnehmerListe()
-        //{
-        //    using (CVAVTContext context = new CVAVTContext())
-        //    {
-        //        if (SelectedAktivitaet != null)
-        //        {
-        //            var teilnehmerDerAktivitaet = context.Teilnehmer
-        //                .Where(t => t.AktivitaetIdfk == SelectedAktivitaet.AktivitaetenId)
-        //                .ToList();
-
-        //            TeilnehmerListe.Clear();
-
-        //            foreach (Teilnehmer teilnehmer in teilnehmerDerAktivitaet)
-        //            {
-        //                TeilnehmerListe.Add(teilnehmer);
-        //            }
-
-        //            // Aktualisieren der Anzahl der Teilnehmer für die ausgewählte Aktivität
-        //            AktivitaetenIstTeilnehmer = TeilnehmerListe.Count;
-        //        }
-        //    }
-        //}
-
-        //private void TeilnehmerEdit()
-        //{
-        //    using (CVAVTContext context = new CVAVTContext())
-        //    {
-        //        Teilnehmer nameEdit = context.Teilnehmer.Where(n => n.TeilnehmerId == SelectedTeilnehmer.TeilnehmerId).FirstOrDefault();
-        //        if (nameEdit != null)
-        //        {
-        //            // Ändern des Namens
-        //            nameEdit.TeilnehmerName = SelectedTeilnehmer.TeilnehmerName;
-
-        //            // Speichern der Änderungen in der Datenbank
-        //            context.Entry(nameEdit).State = EntityState.Modified;
-
-        //            context.SaveChanges();
-        //        }
-        //    }
-        //    FillList();
-
-        //}
 
     }
 }
