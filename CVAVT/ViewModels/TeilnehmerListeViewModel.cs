@@ -43,7 +43,19 @@ namespace CVAVT.ViewModels
         public string TeilnehmerName { get; set; }
 
         public ObservableCollection<Teilnehmer> TeilnehmerListe { get; set; }
-        public Teilnehmer SelectedTeilnehmer { get; set; }
+
+        // für ausgewählten Teilnehmer
+        private Teilnehmer _selectedTeilnehmer;
+        public Teilnehmer SelectedTeilnehmer
+        {
+            get { return _selectedTeilnehmer; }
+            set
+            {
+                _selectedTeilnehmer = value;
+                OnPropertyChanged("SelectedTeilnehmer");
+            }
+        }
+        //public Teilnehmer SelectedTeilnehmer { get; set; }
 
         // für Ausgewählte Aktivität
         private Aktivitaet _selectedAktivitaet;
@@ -139,21 +151,24 @@ namespace CVAVT.ViewModels
         {
             using (CVAVTContext context = new CVAVTContext())
             {
-                // Sicherheitsabfrage: eine Zeile wurde selektiert
-                if (SelectedTeilnehmer == null)
-                {
-                    MessageBox.Show("Keine Zeile wurde selektiert", "Fehler");
-                    return;
-                }
                 Teilnehmer nameEdit = context.Teilnehmer.Where(n => n.TeilnehmerId == SelectedTeilnehmer.TeilnehmerId).FirstOrDefault();
                 if (nameEdit != null)
                 {
                     // Ändern des Namens
                     nameEdit.TeilnehmerName = SelectedTeilnehmer.TeilnehmerName;
+
+                    // Speichern der Änderungen in der Datenbank
+                    // Anweisung, die dem Entity Framework mitteilt, dass die Eigenschaften des nameEdit-Objekts geändert wurden
+                    // und dass diese Änderungen gespeichert werden sollen
+                    // Damit mehr als nur der Letzte eintrag geändert werden kann, muss jeder Eintrag eine eigene ENtität darstellen
+                    // in FillList realisiert
+                    //context.Entry(nameEdit).State = EntityState.Modified;
+
+                    // Speichern
                     context.SaveChanges();
                 }
             }
-
+            FillList();
         }
 
         // Füllen der Teilnehmerliste
@@ -170,11 +185,39 @@ namespace CVAVT.ViewModels
 
                     foreach (Teilnehmer member in teilNehmer)
                     {
+                        // Die Eigenschaften der ursprünglichen Entitäten in der Datenbank ändern
+                        member.TeilnehmerName = member.TeilnehmerName;
+
+                        // Teilnehmer zur Liste TeilnehmerListe hinzufügen
                         TeilnehmerListe.Add(member);
                     }
 
+                    //// Temporäre Liste für Anzeige erstellen
+                    //var tempList = new List<Teilnehmer>();
+
+                    //foreach (Teilnehmer member in teilNehmer)
+                    //{
+                    //    // Neue Entität erstellen und Eigenschaften kopieren
+                    //    var newTeilnehmer = new Teilnehmer
+                    //    {
+                    //        TeilnehmerId = member.TeilnehmerId,
+                    //        TeilnehmerName = member.TeilnehmerName,
+                    //        AktivitaetIdfk = member.AktivitaetIdfk
+                    //    };
+                    //    tempList.Add(newTeilnehmer);
+                    //}
+
+                    //// Neue Liste TeilnehmerListe zuweisen
+                    //foreach (var teilnehmer in tempList)
+                    //{
+                    //    TeilnehmerListe.Add(teilnehmer);
+                    //}
+
                 }
             }
+
+            // Test Name ändern
+            SelectedTeilnehmer = TeilnehmerListe.FirstOrDefault();
 
         }
 
