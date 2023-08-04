@@ -20,7 +20,8 @@ namespace CVAVT.ViewModels
         public ICommand ExportListeCmd { get; set; }
         public ICommand SchliessenCmd { get; set; }
         public ICommand TeilnehmerLoeschenCmd { get; set; }
-        public ICommand TeilnehmerEditCmd { get; set; }
+        //public ICommand TeilnehmerEditCmd { get; set; }
+
         // Eventhandler
         public event EventHandler OnRequestCloseWindow;
 
