@@ -33,6 +33,16 @@ namespace CVAVT.Views
             // Registrierung am Event
             // Wir registrieren eine Lamda-Expression
             _viewModel.OnRequestCloseWindow += (sender, args) => this.Close();
+
+            // Hier wird das DataGrid.CellEditEnding-Event abonniert
+            TeilnehmerListeGrid.CellEditEnding += DataGrid_CellEditEnding;
+        }
+
+        // Eventhandler für das Ende der Zellenbearbeitung
+        private void DataGrid_CellEditEnding(object sender, DataGridCellEditEndingEventArgs e)
+        {
+            var viewModel = DataContext as TeilnehmerListeViewModel;
+            viewModel?.DataGrid_CellEditEnding(sender, e);
         }
     }
 }
