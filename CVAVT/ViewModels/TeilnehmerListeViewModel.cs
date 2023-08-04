@@ -16,7 +16,7 @@ namespace CVAVT.ViewModels
     class TeilnehmerListeViewModel : WpfLibrary.BaseViewModel
     {
         // Commands
-        public ICommand NeuTeilnehmerCmd { get; set; }
+        //public ICommand NeuTeilnehmerCmd { get; set; }
         public ICommand ExportListeCmd { get; set; }
         public ICommand SchliessenCmd { get; set; }
         public ICommand TeilnehmerLoeschenCmd { get; set; }
@@ -63,7 +63,7 @@ namespace CVAVT.ViewModels
         {
             // Für Teilnehmerliste instanzieren
             TeilnehmerListe = new ObservableCollection<Teilnehmer>();
-            NeuTeilnehmerCmd = new WpfLibrary.RelayCommand(NeuerTeilnehmerMenu);
+            //NeuTeilnehmerCmd = new WpfLibrary.RelayCommand(NeuerTeilnehmerMenu);
             SchliessenCmd = new WpfLibrary.RelayCommand(Schliessen);
             TeilnehmerLoeschenCmd = new WpfLibrary.RelayCommand(TeilnehmerLoeschen);
             TeilnehmerEditCmd = new WpfLibrary.RelayCommand(TeilnehmerEdit);
@@ -100,11 +100,11 @@ namespace CVAVT.ViewModels
 
         }
 
-        private void NeuerTeilnehmerMenu()
-        {
-            NeuerTeilnehmer window = new NeuerTeilnehmer(SelectedAktivitaet, null);
-            window.ShowDialog();
-        }
+        //private void NeuerTeilnehmerMenu()
+        //{
+        //    NeuerTeilnehmer window = new NeuerTeilnehmer(SelectedAktivitaet, null);
+        //    window.ShowDialog();
+        //}
 
         private void ExportListe()
         {

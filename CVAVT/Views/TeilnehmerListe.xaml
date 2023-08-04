@@ -63,7 +63,7 @@
                 <RowDefinition Height="45*"/>
                 <RowDefinition Height="45*"/>
             </Grid.RowDefinitions>
-            <Button Command="{Binding NeuTeilnehmerCmd}" Content="Neuer Teilnehmer" HorizontalAlignment="Center"  Grid.Row="2" VerticalAlignment="Center" Width="110"/>
+            <!--<Button Command="{Binding NeuTeilnehmerCmd}" Content="Neuer Teilnehmer" HorizontalAlignment="Center"  Grid.Row="2" VerticalAlignment="Center" Width="110"/>-->
             <Button Command="{Binding ExportListeCmd}" Content="Export Liste" HorizontalAlignment="Center"  Grid.Row="3" VerticalAlignment="Center" Width="110" Background="Green"/>
             <Button Command="{Binding SchliessenCmd}" Content="Schließen" HorizontalAlignment="Center"  Grid.Row="4" VerticalAlignment="Center" Width="110" Background="Red"/>
             <Label Content="Ist" HorizontalAlignment="Left" Margin="10,0,0,0" VerticalAlignment="Center"/>
