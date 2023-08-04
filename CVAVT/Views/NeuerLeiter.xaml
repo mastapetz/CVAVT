@@ -27,8 +27,8 @@
         </Grid.ColumnDefinitions>
         <Menu Margin="0,0,3,1">
             <MenuItem Header="Optionen">
-                <MenuItem Header="Speichern"></MenuItem>
-                <MenuItem Header="Abbrechen"></MenuItem>
+                <MenuItem Header="Beenden" Command="{Binding EingabeVerwerfenCmd}" ></MenuItem>
+                <MenuItem Header="Speichern" Command="{Binding EingabeSpeichernCmd}"></MenuItem>
             </MenuItem>
         </Menu>
         <Label Grid.Column="1" Grid.Row="2" Content="Leiter Name" HorizontalAlignment="Center"  VerticalAlignment="Center" Width="130" Height="26"/>

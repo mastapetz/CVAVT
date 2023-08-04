@@ -42,8 +42,8 @@
 
         <Menu>
             <MenuItem Header="Optionen">
-                <MenuItem Header="Beenden"></MenuItem>
-                <MenuItem Header="Speichern"></MenuItem>
+                <MenuItem Header="Beenden" Command="{Binding EditAbbrechenCmd}" ></MenuItem>
+                <MenuItem Header="Speichern" Command="{Binding EditSaveCmd}"></MenuItem>
             </MenuItem>
 
 

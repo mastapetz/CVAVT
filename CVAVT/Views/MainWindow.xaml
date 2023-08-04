@@ -76,14 +76,22 @@
         </DataGrid>
         <Menu Grid.ColumnSpan="2" Margin="0,0,231,0">
             <MenuItem Header="Optionen">
-                <MenuItem Header="Beenden"></MenuItem>
+                <MenuItem Command="{Binding NeuLeiterCmd}" Header="Neuer Leiter"></MenuItem>
+                <MenuItem Command="{Binding NeuAktivitaetCmd}" Header="Neue Aktivität"></MenuItem>
+
+                <MenuItem Command="{Binding BeendenCmd}" Header="Beenden"></MenuItem>
             </MenuItem>
+            <!--
+            Consolidiert in Optionen
             <MenuItem Header="Aktivitäten">
                 <MenuItem Command="{Binding NeuAktivitaetCmd}" Header="Neue Aktivität"></MenuItem>
             </MenuItem>
+            -->
 
 
         </Menu>
+        <!--
+        Entwicklungs Version
         <Menu Grid.Column="3">
             <MenuItem Header="Testing">
                 <MenuItem Command="{Binding NeuTeilnehmerCmd}" Header="Neuer Teilnehmer"></MenuItem>
@@ -91,10 +99,10 @@
                 <MenuItem Command="{Binding NeuAktivitaetCmd}" Header="Neue Aktivität"></MenuItem>
                 <MenuItem Command="{Binding EditAktiviaetCmd}" Header="Edit Aktivität"></MenuItem>
                 <MenuItem Command="{Binding ShowTeilnehmerCmd}" Header="Teilnehmer Anzeigen"></MenuItem>
-
             </MenuItem>
         </Menu>
+        -->
         <CheckBox Grid.Column="3" Content="Vergangene Einblenden" HorizontalAlignment="Left" Margin="110,0,0,0" VerticalAlignment="Center" Height="15" Width="146"/>
-        <Button Command="{Binding NeuAktivitaetCmd}" Background="CornflowerBlue"  Grid.Column="3" Content="Neue Aktivität" HorizontalAlignment="Stretch"  Grid.Row="2" VerticalAlignment="Center" Width="91" Height="31"/>
+        <Button Command="{Binding NeuAktivitaetCmd}" ToolTip="Neue Aktivität erstellen" Background="CornflowerBlue"  Grid.Column="3" Content="Neue Aktivität" HorizontalAlignment="Stretch"  Grid.Row="2" VerticalAlignment="Center" Width="91" Height="31"/>
     </Grid>
 </Window>

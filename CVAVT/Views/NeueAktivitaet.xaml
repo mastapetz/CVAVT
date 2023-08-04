@@ -42,8 +42,8 @@
 
         <Menu>
             <MenuItem Header="Optionen">
-                <MenuItem Header="Beenden"></MenuItem>
-                <MenuItem Header="Speichern"></MenuItem>
+                <MenuItem Header="Beenden" Command="{Binding AnlegenAbbrechenCmd}" ></MenuItem>
+                <MenuItem Header="Speichern" Command="{Binding AktivitaetAnlegenCmd}"></MenuItem>
             </MenuItem>
 
 
