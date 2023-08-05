@@ -45,10 +45,12 @@ namespace CVAVT.ViewModels
         public ObservableCollection<Aktivitaet> AktivitaetenListe { get; set; }
 
         public Aktivitaet SelectedAktivitaet { get; set; }
+        // -------------------------------------------------------
         // Zum Blättern
         // buttons fehlen noch
-        private int _position;
-        private const int Anzahl = 10;
+        //private int _position;
+        //private const int Anzahl = 10;
+        // ------------------------------------------
         // Event zum Schließen
         public event EventHandler OnRequestCloseWindow;
         // Aktivitaet  Properties
