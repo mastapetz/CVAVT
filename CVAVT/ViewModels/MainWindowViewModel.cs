@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
+using System.IO;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -11,6 +12,7 @@ using CVAVT.ViewModels;
 using CVAVT.Views;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.IdentityModel.Tokens;
+using Microsoft.Win32;
 
 namespace CVAVT.ViewModels
 {
@@ -37,6 +39,8 @@ namespace CVAVT.ViewModels
         // Program Beenden
         public ICommand BeendenCmd { get; set; }
 
+        // Aktivitätenliste exportieren
+        public ICommand ExportAktivitaetenListeCmd { get; set; }
         // Properties
         public ObservableCollection<Aktivitaet> AktivitaetenListe { get; set; }
 
@@ -64,6 +68,7 @@ namespace CVAVT.ViewModels
             ShowTeilnehmerCmd = new WpfLibrary.RelayCommand(ShowTeilnehmer);
             AktivitaetLoeschenCmd = new WpfLibrary.RelayCommand(AktivitaetLoeschen);
             BeendenCmd = new WpfLibrary.RelayCommand(Schliessen);
+            ExportAktivitaetenListeCmd = new WpfLibrary.RelayCommand(ExportAktivitaetenListe);
             FillList();
         }
 
@@ -148,6 +153,61 @@ namespace CVAVT.ViewModels
             FillList();
 
         }
+        // ========================================================
+        private void ExportAktivitaetenListe()
+        {
+            // Daten aus der Datenbank abrufen
+            List<Aktivitaet> aktivitaeten;
+            using (CVAVTContext context = new CVAVTContext())
+            {
+                aktivitaeten = context.Aktivitaet.ToList();
+            }
+
+            // StringBuilder-Instanz zum Erstellen der CSV-Daten
+            StringBuilder csvData = new StringBuilder();
+
+            // Füge die CSV-Header-Zeile hinzu (hier kannst du die gewünschten Spaltenüberschriften definieren)
+            csvData.AppendLine("AktivitaetenName;AktivitaetenArt;LeiterName;AktivitaetenIstTeilnehmer;AktibitaetenMaxTeilnehmer");
+
+            // Füge die Daten der Aktivitätenliste hinzu
+            foreach (var aktivitaet in aktivitaeten)
+            {
+                csvData.AppendLine($"{aktivitaet.AktivitaetenName};{aktivitaet.AktivitaetenArt};{aktivitaet.LeiterIdfkNavigation?.LeiterName};{aktivitaet.AktivitaetenIstTeilnehmer};{aktivitaet.AktivitaetenMaxTeilnehmer}");
+            }
+
+            // Erstelle den SaveFileDialog
+            var saveFileDialog = new SaveFileDialog
+            {
+                Filter = "CSV Dateien (*.csv)|*.csv",
+                Title = "Aktivitätenliste exportieren",
+                FileName = "AktivitaetenListe.csv" // Standardmäßiger Dateiname
+            };
+
+            // Dialog öffnen und überprüfen, ob der Benutzer "Speichern" ausgewählt hat
+            if (saveFileDialog.ShowDialog() == true)
+            {
+                // Hole den ausgewählten Pfad und Dateinamen
+                string exportPath = saveFileDialog.FileName;
+
+                // Schreibe die CSV-Daten in die Datei
+                File.WriteAllText(exportPath, csvData.ToString());
+
+                // Gib eine Meldung aus, um den erfolgreichen Export anzuzeigen
+                MessageBox.Show("Aktivitätenliste wurde erfolgreich als CSV exportiert.", "Export erfolgreich", MessageBoxButton.OK, MessageBoxImage.Information);
+            }
+            /*
+             *  ohne Speicherort auswahl
+             * // Pfade und Dateinamen für den Export
+             * string exportFileName = "AktivitaetenListe.csv";
+             * string exportPath = Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.Desktop), exportFileName);
+             * // Schreibe die CSV-Daten in die Datei
+             * File.WriteAllText(exportPath, csvData.ToString());
+             * // Gib eine Meldung aus, um den erfolgreichen Export anzuzeigen
+             * MessageBox.Show("Aktivitätenliste wurde erfolgreich als CSV exportiert.", "Export erfolgreich", MessageBoxButton.OK, MessageBoxImage.Information);
+             */
+        }
+
+
 
         // ------------------------------------------------------
 
