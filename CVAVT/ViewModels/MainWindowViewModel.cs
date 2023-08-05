@@ -235,7 +235,10 @@ namespace CVAVT.ViewModels
             {
                 var aktivitaeten = context.Aktivitaet.Include(a => a.LeiterIdfkNavigation)
                     .Where(p => AktivitaetenName.IsNullOrEmpty() ? true : p.AktivitaetenName.StartsWith(AktivitaetenName))
-                    .Where(p => AktivitaetenArt.IsNullOrEmpty() ? true : p.AktivitaetenArt.StartsWith(AktivitaetenArt))
+                    .Where(p => AktivitaetenArt.IsNullOrEmpty() ? true : p.AktivitaetenArt.StartsWith(AktivitaetenArt));
+                // --------------------------- für Blättern,
+                // noch nicht implementiert
+                //.Skip(_position).Take(Anzahl);
 
                     .Skip(_position).Take(Anzahl);
 
