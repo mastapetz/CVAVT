@@ -55,6 +55,19 @@ namespace CVAVT.ViewModels
         public string AktivitaetenName { get; set; }
         public string AktivitaetenArt { get; set; }
 
+        // Vergangene Einblenden
+        private bool _vergangeneAnzeigen;
+        public bool VergangeneAnzeigen
+        {
+            get { return _vergangeneAnzeigen; }
+            set
+            {
+                _vergangeneAnzeigen = value;
+                FillList();
+                OnPropertyChanged("VergangeneAnzeigen");
+            }
+        }
+
         public int AktivitaetenIstTeilnehmer { get; set; }
 
         // Konstruktor
