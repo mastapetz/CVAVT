@@ -233,6 +233,11 @@ namespace CVAVT.ViewModels
             // DB zugriff
             using (CVAVTContext context = new CVAVTContext())
             {
+                // Für Filterung vergangener Aktivitäten
+                DateTime heute = DateTime.Today;
+
+                // Zeige alle Aktivitäten, wenn VergangeneAnzeigen auf true gesetzt ist
+                // Ansonsten zeige nur zukünftige Aktivitäten ab heute
                 var aktivitaeten = context.Aktivitaet.Include(a => a.LeiterIdfkNavigation)
                     .Where(p => AktivitaetenName.IsNullOrEmpty() ? true : p.AktivitaetenName.StartsWith(AktivitaetenName))
                     .Where(p => AktivitaetenArt.IsNullOrEmpty() ? true : p.AktivitaetenArt.StartsWith(AktivitaetenArt));
@@ -240,7 +245,11 @@ namespace CVAVT.ViewModels
                 // noch nicht implementiert
                 //.Skip(_position).Take(Anzahl);
 
-                    .Skip(_position).Take(Anzahl);
+                if (!VergangeneAnzeigen)
+                {
+                    // Zeige nur zukünftige Aktivitäten ab heute
+                    aktivitaeten = aktivitaeten.Where(p => p.AktivitaetenDatum >= heute);
+                }
 
 
                 foreach (Aktivitaet aktivity in aktivitaeten)
