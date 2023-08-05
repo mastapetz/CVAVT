@@ -78,6 +78,7 @@
             <MenuItem Header="Optionen">
                 <MenuItem Command="{Binding NeuLeiterCmd}" Header="Neuer Leiter"></MenuItem>
                 <MenuItem Command="{Binding NeuAktivitaetCmd}" Header="Neue Aktivität"></MenuItem>
+                <MenuItem Command="{Binding ExportAktivitaetenListeCmd}" Header="Aktivitätenliste Exportieren"></MenuItem>
 
                 <MenuItem Command="{Binding BeendenCmd}" Header="Beenden"></MenuItem>
             </MenuItem>
