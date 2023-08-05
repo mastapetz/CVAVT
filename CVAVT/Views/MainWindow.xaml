@@ -97,7 +97,8 @@
             </MenuItem>
         </Menu>
         -->
-        <CheckBox Grid.Column="3" Content="Vergangene Einblenden" HorizontalAlignment="Left" Margin="110,0,0,0" VerticalAlignment="Center" Height="15" Width="146"/>
+        <CheckBox Grid.Column="3" Content="Vergangene Einblenden" HorizontalAlignment="Left" Margin="110,0,0,0" VerticalAlignment="Center" Height="15" Width="146"
+                  IsChecked="{Binding VergangeneAnzeigen, Mode=TwoWay}"/>
         <Button Command="{Binding NeuAktivitaetCmd}" ToolTip="Neue Aktivität erstellen" Background="CornflowerBlue"  Grid.Column="3" Content="Neue Aktivität" HorizontalAlignment="Stretch"  Grid.Row="2" VerticalAlignment="Center" Width="91" Height="31"/>
     </Grid>
 </Window>
