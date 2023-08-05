@@ -2,9 +2,11 @@
 using CVAVT.Views;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.IdentityModel.Tokens;
+using Microsoft.Win32;
 using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
+using System.IO;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -129,7 +131,67 @@ namespace CVAVT.ViewModels
 
         private void ExportListe()
         {
-            throw new NotImplementedException();
+            // Nummer sicher dass eine Aktivität ausgewählt ist
+            // falls Export Teilnehmer Liste irgendwie anders aufgerufen wurde
+            if (SelectedAktivitaet == null)
+            {
+                MessageBox.Show("Es wurde keine Aktivität ausgewählt.", "Aktivität auswählen", MessageBoxButton.OK, MessageBoxImage.Warning);
+                return;
+            }
+
+            int selectedAktivitaetId = SelectedAktivitaet.AktivitaetenId;
+
+            List<Teilnehmer> teilnehmerListe;
+            using (CVAVTContext context = new CVAVTContext())
+            {
+                // Filtere die Teilnehmerliste nach der ausgewählten Aktivität
+                teilnehmerListe = context.Teilnehmer.Where(t => t.AktivitaetIdfk == selectedAktivitaetId).ToList();
+
+                // Ohne Filterung werden ALLE teilnehmer von ALLEN aktivitäten angezeigt
+                //teilnehmerListe = context.Teilnehmer.ToList();
+            }
+
+            // StringBuilder-Instanz zum Erstellen der CSV-Daten
+            StringBuilder csvData = new StringBuilder();
+
+            // Zuerst der Titel
+            csvData.AppendLine($"Teilnehmer von: {SelectedAktivitaet.AktivitaetenName}");
+            // Dann Header
+            csvData.AppendLine("Teilnehmer Name");
+
+            // test für Anzeige von Aktivität
+            // braucht es so nicht
+            //StringBuilder csvData2 = new StringBuilder();
+            //csvData2.AppendLine($"{SelectedAktivitaet.AktivitaetenName}");
+
+            // füge Teilnehmer zur Teilnehmer Liste Hinzu
+            foreach (var teilnehmer in teilnehmerListe)
+            {
+                csvData.AppendLine($"{teilnehmer.TeilnehmerName}");
+            }
+
+            // Erstelle den SaveFileDialog
+            var saveFileDialog = new SaveFileDialog
+            {
+                Filter = "CSV Dateien (*.csv)|*.csv",
+                Title = "Teilnehmerliste exportieren",
+                FileName = "TeilnehmerListe.csv" // Standardmäßiger Dateiname
+            };
+
+            // Dialog öffnen und überprüfen, ob der Benutzer "Speichern" ausgewählt hat
+            if (saveFileDialog.ShowDialog() == true)
+            {
+                // Hole den ausgewählten Pfad und Dateinamen
+                string exportPath = saveFileDialog.FileName;
+
+                // Schreibe die CSV-Daten in die Datei
+                //File.WriteAllText(exportPath, csvData.ToString());
+                File.WriteAllText(exportPath, csvData.ToString(), Encoding.UTF8);
+
+                // Gib eine Meldung aus, um den erfolgreichen Export anzuzeigen
+                MessageBox.Show("Teilnehmerliste wurde erfolgreich als CSV exportiert.", "Export erfolgreich", MessageBoxButton.OK, MessageBoxImage.Information);
+            }
+
         }
 
         private void Schliessen()
