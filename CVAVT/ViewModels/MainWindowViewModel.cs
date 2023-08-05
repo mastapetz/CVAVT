@@ -190,7 +190,8 @@ namespace CVAVT.ViewModels
                 string exportPath = saveFileDialog.FileName;
 
                 // Schreibe die CSV-Daten in die Datei
-                File.WriteAllText(exportPath, csvData.ToString());
+                //File.WriteAllText(exportPath, csvData.ToString());
+                File.WriteAllText(exportPath, csvData.ToString(), Encoding.UTF8);
 
                 // Gib eine Meldung aus, um den erfolgreichen Export anzuzeigen
                 MessageBox.Show("Aktivitätenliste wurde erfolgreich als CSV exportiert.", "Export erfolgreich", MessageBoxButton.OK, MessageBoxImage.Information);
