@@ -133,8 +133,7 @@ namespace CVAVT.ViewModels
 
 
             }
-            //für Listen update
-            //_teilnehmerListeViewModel.UpdateTeilnehmerListe();
+
         }
         private void ClearTeilnehmerName()
         {
