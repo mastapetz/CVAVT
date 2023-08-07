@@ -174,10 +174,14 @@ namespace CVAVT.ViewModels
         private void ExportAktivitaetenListe()
         {
             // Daten aus der Datenbank abrufen
+            // Für Aktivitäten
             List<Aktivitaet> aktivitaeten;
+            // Für Leiter
+            List<Leiter> leiter;
             using (CVAVTContext context = new CVAVTContext())
             {
                 aktivitaeten = context.Aktivitaet.ToList();
+                leiter = context.Leiter.ToList();
             }
 
             // Konverter für Datum und Uhrzeit erstellen
@@ -196,11 +200,14 @@ namespace CVAVT.ViewModels
             // Füge die Daten der Aktivitätenliste hinzu
             foreach (var aktivitaet in aktivitaeten)
             {
+                // Finde den Leiter für die aktuelle Aktivität
+                string leiterName = leiter.FirstOrDefault(l => l.LeiterId == aktivitaet.LeiterIdfk)?.LeiterName ?? "N/A";
+
                 // Verwende die Konverter, um das Datum und die Uhrzeit in das gewünschte Format zu konvertieren
                 string formattedDate = (string)dateFormatConverter.Convert(aktivitaet.AktivitaetenDatum, null, null, CultureInfo.InvariantCulture);
                 string formattedTime = (string)timeFormatConverter.Convert(aktivitaet.AktivitaetenZeit, null, null, CultureInfo.InvariantCulture);
 
-                csvData.AppendLine($"{aktivitaet.AktivitaetenName};{aktivitaet.AktivitaetenArt};{aktivitaet.LeiterIdfkNavigation?.LeiterName};{aktivitaet.AktivitaetenIstTeilnehmer};{aktivitaet.AktivitaetenMaxTeilnehmer};{formattedDate};{formattedTime}");
+                csvData.AppendLine($"{aktivitaet.AktivitaetenName};{aktivitaet.AktivitaetenArt};{leiterName};{aktivitaet.AktivitaetenIstTeilnehmer};{aktivitaet.AktivitaetenMaxTeilnehmer};{formattedDate};{formattedTime}");
 
                 // Ohne Zeit und Datum
                 //csvData.AppendLine($"{aktivitaet.AktivitaetenName};{aktivitaet.AktivitaetenArt};{aktivitaet.LeiterIdfkNavigation?.LeiterName};{aktivitaet.AktivitaetenIstTeilnehmer};{aktivitaet.AktivitaetenMaxTeilnehmer}");
