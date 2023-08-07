@@ -63,6 +63,18 @@ namespace CVAVT.ViewModels
 
             _aktivitaet = aktivitaet;
         }
+
+        /// <summary>
+        /// Hilfsmethode zum Kombinieren von Datum und Zeit für Datenbank Speicherung
+        /// </summary>
+        /// <param name="date"></param>
+        /// <param name="time"></param>
+        /// <returns></returns>
+        private DateTime CombineDateAndTime(DateTime date, DateTime time)
+        {
+            return new DateTime(date.Year, date.Month, date.Day, time.Hour, time.Minute, 0);
+        }
+
         /// <summary>
         /// Funktion Verlassen schließt das Fenster
         /// </summary>
@@ -90,8 +102,13 @@ namespace CVAVT.ViewModels
                     aktivitaet.LeiterIdfk = SelectedLeiter.LeiterId;
                     // ----
                     aktivitaet.AktivitaetenArt = AktivitaetenArt;
-                    aktivitaet.AktivitaetenDatum = AktivitaetenDatum;
-                    aktivitaet.AktivitaetenZeit = AktivitaetenZeit;
+                    // Umänderungen damit Datum und Uhrzeit besser und richtig verarbeitet werden
+                    aktivitaet.AktivitaetenDatum = CombineDateAndTime(AktivitaetenDatum, AktivitaetenZeit);
+                    aktivitaet.AktivitaetenZeit = CombineDateAndTime(AktivitaetenDatum, AktivitaetenZeit);
+                    // Ursprünglich
+                    //aktivitaet.AktivitaetenDatum = AktivitaetenDatum;
+                    //aktivitaet.AktivitaetenZeit = AktivitaetenZeit;
+                    //---------
                     aktivitaet.AktivitaetenDauer = AktivitaetenDauer;
                     aktivitaet.AktivitaetenMaxTeilnehmer = AktivitaetenMaxTeilnehmer;
                     aktivitaet.AktivitaetenVorwissenNoetig = AktivitaetenVorwissenNoetig;
