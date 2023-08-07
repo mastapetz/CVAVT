@@ -4,7 +4,6 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
-using System.Windows;
 using System.Windows.Input;
 
 namespace CVAVT.ViewModels
@@ -70,10 +69,10 @@ namespace CVAVT.ViewModels
         public int? AktivitaetenMaxTeilnehmer { get; set; }
 
         public event EventHandler OnRequestCloseWindow;
-        private bool CanAddParticipant(Aktivitaet aktivitaet)
-        {
-            return aktivitaet.AktivitaetenIstTeilnehmer < aktivitaet.AktivitaetenMaxTeilnehmer;
-        }
+
+        // für update
+        //private TeilnehmerListeViewModel _teilnehmerListeViewModel;
+
         // Konstruktor
         public NeuerTeilnehmerViewModel(Aktivitaet aktivitaet, Teilnehmer teilnehmer)
         {
@@ -122,30 +121,15 @@ namespace CVAVT.ViewModels
         {
             using (CVAVTContext context = new CVAVTContext())
             {
-                if (CanAddParticipant(SelectedAktivitaet))
-                {
-                    if (!string.IsNullOrEmpty(TeilnehmerName))
-                    {
-                        // Neuer Eintrag
-                        Teilnehmer teilnehmer = new Teilnehmer();
-                        teilnehmer.TeilnehmerName = TeilnehmerName;
-                        teilnehmer.AktivitaetIdfk = SelectedAktivitaet.AktivitaetenId;
-                        context.Teilnehmer.Add(teilnehmer);
-                        context.SaveChanges();
 
-                        AktivitaetenIstTeilnehmer = context.Teilnehmer.Count(t => t.AktivitaetIdfk == SelectedAktivitaet.AktivitaetenId);
-                    }
-                    else
-                    {
-                        MessageBox.Show("Der Teilnehmername darf nicht leer sein.", "Fehler", MessageBoxButton.OK, MessageBoxImage.Error);
-                    }
-                }
-                else
-                {
-                    MessageBox.Show("Keine weiteren Teilnehmer können hinzugefügt werden, da die maximale Anzahl erreicht ist.", "Teilnehmerlimit erreicht", MessageBoxButton.OK, MessageBoxImage.Information);
-                }
+                // Neuer Eintrag
+                Teilnehmer teilnehmer = new Teilnehmer();
+                teilnehmer.TeilnehmerName = TeilnehmerName;
+                teilnehmer.AktivitaetIdfk = SelectedAktivitaet.AktivitaetenId;
+                context.Teilnehmer.Add(teilnehmer);
+                context.SaveChanges();
 
-
+                AktivitaetenIstTeilnehmer = context.Teilnehmer.Count(t => t.AktivitaetIdfk == SelectedAktivitaet.AktivitaetenId);
 
 
             }

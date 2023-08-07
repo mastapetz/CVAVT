@@ -5,7 +5,6 @@ using System.Collections.ObjectModel;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
-using System.Windows;
 using System.Windows.Input;
 
 namespace CVAVT.ViewModels
@@ -65,9 +64,6 @@ namespace CVAVT.ViewModels
             _aktivitaet = aktivitaet;
         }
 
-
-
-
         /// <summary>
         /// Hilfsmethode zum Kombinieren von Datum und Zeit für Datenbank Speicherung
         /// </summary>
@@ -97,39 +93,31 @@ namespace CVAVT.ViewModels
             {
                 if (_aktivitaet == null)
                 {
-                    if (!string.IsNullOrEmpty(AktivitaetenName) && SelectedLeiter != null && !string.IsNullOrEmpty(AktivitaetenArt) && !string.IsNullOrEmpty(AktivitaetenInformation))
-                    {
-
-                        // Neuer Eintrag in DB
-                        Aktivitaet aktivitaet = new Aktivitaet();
-                        // Objekt Füllen
-                        aktivitaet.AktivitaetenName = AktivitaetenName;
-                        // Für Combobox
-                        // LeiterId wird LeiterIdfk zugewisen
-                        aktivitaet.LeiterIdfk = SelectedLeiter.LeiterId;
-                        // ----
-                        aktivitaet.AktivitaetenArt = AktivitaetenArt;
-                        // Umänderungen damit Datum und Uhrzeit besser und richtig verarbeitet werden
-                        aktivitaet.AktivitaetenDatum = CombineDateAndTime(AktivitaetenDatum, AktivitaetenZeit);
-                        aktivitaet.AktivitaetenZeit = CombineDateAndTime(AktivitaetenDatum, AktivitaetenZeit);
-                        // Ursprünglich
-                        //aktivitaet.AktivitaetenDatum = AktivitaetenDatum;
-                        //aktivitaet.AktivitaetenZeit = AktivitaetenZeit;
-                        //---------
-                        aktivitaet.AktivitaetenDauer = AktivitaetenDauer;
-                        aktivitaet.AktivitaetenMaxTeilnehmer = AktivitaetenMaxTeilnehmer;
-                        aktivitaet.AktivitaetenVorwissenNoetig = AktivitaetenVorwissenNoetig;
-                        aktivitaet.AktivitaetenInformation = AktivitaetenInformation;
-                        context.Aktivitaet.Add(aktivitaet);
-                        context.SaveChanges();
-                        Verlassen();
-                    }
-                    else
-                        MessageBox.Show("Die Felder Aktivitäten Name, Leiter, Aktivitäten Art, Aktivitäten Dauer und Aktivitäten Information dürfen nicht leer sein.", "Fehler", MessageBoxButton.OK, MessageBoxImage.Error);
-
+                    // Neuer Eintrag in DB
+                    Aktivitaet aktivitaet = new Aktivitaet();
+                    // Objekt Füllen
+                    aktivitaet.AktivitaetenName = AktivitaetenName;
+                    // Für Combobox
+                    // LeiterId wird LeiterIdfk zugewisen
+                    aktivitaet.LeiterIdfk = SelectedLeiter.LeiterId;
+                    // ----
+                    aktivitaet.AktivitaetenArt = AktivitaetenArt;
+                    // Umänderungen damit Datum und Uhrzeit besser und richtig verarbeitet werden
+                    aktivitaet.AktivitaetenDatum = CombineDateAndTime(AktivitaetenDatum, AktivitaetenZeit);
+                    aktivitaet.AktivitaetenZeit = CombineDateAndTime(AktivitaetenDatum, AktivitaetenZeit);
+                    // Ursprünglich
+                    //aktivitaet.AktivitaetenDatum = AktivitaetenDatum;
+                    //aktivitaet.AktivitaetenZeit = AktivitaetenZeit;
+                    //---------
+                    aktivitaet.AktivitaetenDauer = AktivitaetenDauer;
+                    aktivitaet.AktivitaetenMaxTeilnehmer = AktivitaetenMaxTeilnehmer;
+                    aktivitaet.AktivitaetenVorwissenNoetig = AktivitaetenVorwissenNoetig;
+                    aktivitaet.AktivitaetenInformation = AktivitaetenInformation;
+                    context.Aktivitaet.Add(aktivitaet);
+                    context.SaveChanges();
                 }
             }
-
+            Verlassen();
         }
 
         private void AnlegenAbbrechen()
