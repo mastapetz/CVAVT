@@ -154,6 +154,7 @@ namespace CVAVT.ViewModels
         {
             NeuerTeilnehmer window = new NeuerTeilnehmer(SelectedAktivitaet, null);
             window.ShowDialog();
+            FillList();
 
         }
 
