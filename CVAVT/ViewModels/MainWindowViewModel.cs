@@ -138,6 +138,7 @@ namespace CVAVT.ViewModels
         {
             TeilnehmerListe window = new TeilnehmerListe(SelectedAktivitaet);
             window.Show();
+            FillList();
         }
 
         private void EditAktivitaet()
