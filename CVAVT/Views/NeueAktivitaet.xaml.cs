@@ -32,5 +32,11 @@ namespace CVAVT.Views
             // Wir registrieren eine Lamda-Expression
             _viewModel.OnRequestCloseWin += (sender, args) => this.Close();
         }
+
+        // Damit heutiges Datum beim Laden angezeigt wird statt 01.01 0001
+        private void AktivitaetenDatePicker_Loaded(object sender, RoutedEventArgs e)
+        {
+            AktivitaetenDatePicker.SelectedDate = DateTime.Today;
+        }
     }
 }

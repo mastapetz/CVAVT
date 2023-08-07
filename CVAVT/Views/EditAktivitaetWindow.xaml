@@ -70,7 +70,9 @@
         <Label Grid.Column="1" Content="Aktivitäten Art" HorizontalAlignment="Center" Grid.Row="6" VerticalAlignment="Center" Height="26" Width="114"/>
         <TextBox Text="{Binding AktivitaetenArt}" Grid.Column="2" HorizontalAlignment="Center"  Grid.Row="6" TextWrapping="Wrap"  VerticalAlignment="Center"  Width="168" Height="18"/>
         <Label Grid.Column="1" Content="Aktivitäten Datum" HorizontalAlignment="Center" Grid.Row="8" VerticalAlignment="Center" Height="26" Width="114"/>
-        <TextBox Text="{Binding AktivitaetenDatum, Converter={StaticResource DateFormatConverter}}" Grid.Column="2" HorizontalAlignment="Center"  Grid.Row="8" TextWrapping="Wrap" VerticalAlignment="Center"  Width="168" Height="18"/>
+        <!-- Daruch wird das Konvertieren eigentlich hinfällig-->
+        <DatePicker x:Name="AktivitaetenDatePicker" SelectedDate="{Binding AktivitaetenDatum}" Grid.Column="2" HorizontalAlignment="Center" Grid.Row="8" VerticalAlignment="Center" Width="168" Height="26"/>
+        <!--<TextBox Text="{Binding AktivitaetenDatum, Converter={StaticResource DateFormatConverter}}" Grid.Column="2" HorizontalAlignment="Center"  Grid.Row="8" TextWrapping="Wrap" VerticalAlignment="Center"  Width="168" Height="18"/>-->
         <Label Grid.Column="1" Content="Aktivitäten Uhrzeit" HorizontalAlignment="Center" Grid.Row="10" VerticalAlignment="Center" Height="26" Width="114"/>
         <TextBox Text="{Binding AktivitaetenZeit, UpdateSourceTrigger=PropertyChanged, Converter={StaticResource TimeFormatConverter}}" Grid.Column="2" HorizontalAlignment="Center"  Grid.Row="10" TextWrapping="Wrap"  VerticalAlignment="Center"  Width="168" Height="18"/>
         <Label Grid.Column="1" Content="Geplante Dauer" HorizontalAlignment="Center" Grid.Row="12" VerticalAlignment="Center" Height="26" Width="114"/>

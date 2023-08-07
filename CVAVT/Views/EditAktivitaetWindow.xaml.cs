@@ -29,9 +29,14 @@ namespace CVAVT.Views
             _viewModel = new EditAktivitaetViewModel(aktiv);
             this.DataContext = _viewModel;
 
+            // Fülle den DatePicker mit dem Wert aus der Datenbank
+            AktivitaetenDatePicker.SelectedDate = _viewModel.AktivitaetenDatum;
+
+
             // Registrierung am Event
             // Wir registrieren eine Lamda-Expression
             _viewModel.OnRequestCloseWin += (sender, args) => this.Close();
         }
+
     }
 }
