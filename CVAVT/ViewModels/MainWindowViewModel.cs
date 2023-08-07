@@ -13,6 +13,8 @@ using CVAVT.Views;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.IdentityModel.Tokens;
 using Microsoft.Win32;
+using CVAVT.Konverter;
+using System.Globalization;
 
 namespace CVAVT.ViewModels
 {
@@ -178,16 +180,30 @@ namespace CVAVT.ViewModels
                 aktivitaeten = context.Aktivitaet.ToList();
             }
 
+            // Konverter für Datum und Uhrzeit erstellen
+            DateFormatConverter dateFormatConverter = new DateFormatConverter();
+            TimeFormatConverter timeFormatConverter = new TimeFormatConverter();
+
+
             // StringBuilder-Instanz zum Erstellen der CSV-Daten
             StringBuilder csvData = new StringBuilder();
 
             // Füge die CSV-Header-Zeile hinzu (hier kannst du die gewünschten Spaltenüberschriften definieren)
-            csvData.AppendLine("AktivitaetenName;AktivitaetenArt;LeiterName;AktivitaetenIstTeilnehmer;AktibitaetenMaxTeilnehmer");
+            csvData.AppendLine("AktivitaetenName;AktivitaetenArt;LeiterName;AktivitaetenIstTeilnehmer;AktibitaetenMaxTeilnehmer;AktivitaetenDatum;AktivitaetenZeit");
+            // Ohne Zeit und Datum
+            //csvData.AppendLine("AktivitaetenName;AktivitaetenArt;LeiterName;AktivitaetenIstTeilnehmer;AktibitaetenMaxTeilnehmer");
 
             // Füge die Daten der Aktivitätenliste hinzu
             foreach (var aktivitaet in aktivitaeten)
             {
-                csvData.AppendLine($"{aktivitaet.AktivitaetenName};{aktivitaet.AktivitaetenArt};{aktivitaet.LeiterIdfkNavigation?.LeiterName};{aktivitaet.AktivitaetenIstTeilnehmer};{aktivitaet.AktivitaetenMaxTeilnehmer}");
+                // Verwende die Konverter, um das Datum und die Uhrzeit in das gewünschte Format zu konvertieren
+                string formattedDate = (string)dateFormatConverter.Convert(aktivitaet.AktivitaetenDatum, null, null, CultureInfo.InvariantCulture);
+                string formattedTime = (string)timeFormatConverter.Convert(aktivitaet.AktivitaetenZeit, null, null, CultureInfo.InvariantCulture);
+
+                csvData.AppendLine($"{aktivitaet.AktivitaetenName};{aktivitaet.AktivitaetenArt};{aktivitaet.LeiterIdfkNavigation?.LeiterName};{aktivitaet.AktivitaetenIstTeilnehmer};{aktivitaet.AktivitaetenMaxTeilnehmer};{formattedDate};{formattedTime}");
+
+                // Ohne Zeit und Datum
+                //csvData.AppendLine($"{aktivitaet.AktivitaetenName};{aktivitaet.AktivitaetenArt};{aktivitaet.LeiterIdfkNavigation?.LeiterName};{aktivitaet.AktivitaetenIstTeilnehmer};{aktivitaet.AktivitaetenMaxTeilnehmer}");
             }
 
             // Erstelle den SaveFileDialog
