@@ -15,6 +15,8 @@ using Microsoft.IdentityModel.Tokens;
 using Microsoft.Win32;
 using CVAVT.Konverter;
 using System.Globalization;
+using WpfLibrary;
+using System.Data.SQLite;
 
 namespace CVAVT.ViewModels
 {
@@ -73,10 +75,42 @@ namespace CVAVT.ViewModels
         }
 
         public int AktivitaetenIstTeilnehmer { get; set; }
+        // Properties für Datenbank auswahl
+        private bool _useMSSQLSMVerbindung = true; // Standardmäßig MSSQLSMVerbindung auswählen
+        private void MSSQLSMVerbindungMethod()
+        {
+            _useMSSQLSMVerbindung = true; // Hier setzt du die Verbindungsoption, je nachdem was in deinem UI ausgewählt wurde
+
+            FillList(); // Die FillList Methode wird aufgerufen, um die Daten anzuzeigen
+        }
+
+        private void SQLiteVerbindungMethod()
+        {
+            _useMSSQLSMVerbindung = false; // Hier setzt du die Verbindungsoption für SQLite
+
+            FillList(); // Die FillList Methode wird aufgerufen, um die Daten anzuzeigen
+        }
+        //private ICommand _mssqlsmVerbindung;
+        //public ICommand MSSQLSMVerbindung
+        //{
+        //    get
+        //    {
+        //        if (_mssqlsmVerbindung == null)
+        //        {
+
+        //            _mssqlsmVerbindung = new RelayCommand(() => MSSQLSMVerbindungMethod());
+        //        }
+        //        return _mssqlsmVerbindung;
+        //    }
+        //}
+
 
         // Konstruktor
         public MainWindowViewModel()
         {
+            // Standardmäßig MSSQLSMVerbindung aufrufen
+            //MSSQLSMVerbindung.Execute(null);
+
             AktivitaetenListe = new ObservableCollection<Aktivitaet>();
             NeuTeilnehmerCmd = new WpfLibrary.RelayCommand(NeuerTeilnehmerMenu);
             NeuLeiterCmd = new WpfLibrary.RelayCommand(NeuLeiter);
@@ -256,7 +290,9 @@ namespace CVAVT.ViewModels
         {
             AktivitaetenListe.Clear();
             // DB zugriff
-            using (CVAVTContext context = new CVAVTContext())
+            using (var context = _useMSSQLSMVerbindung
+                ? new CVAVTContext(new DbContextOptions<CVAVTContext>()) // MSSQL Verbindung
+                : new SQLiteContext(new DbContextOptions<SQLiteContext>())) // SQLite Verbindung
             {
                 // Für Filterung vergangener Aktivitäten
                 DateTime heute = DateTime.Today;
@@ -287,10 +323,43 @@ namespace CVAVT.ViewModels
             {
                 AktivitaetenIstTeilnehmer = SelectedAktivitaet.AktivitaetenIstTeilnehmer;
             }
-
-
-
         }
+        //private void FillList()
+        //{
+        //    AktivitaetenListe.Clear();
+        //    // DB zugriff
+        //    using (CVAVTContext context = new CVAVTContext())
+        //    {
+        //        // Für Filterung vergangener Aktivitäten
+        //        DateTime heute = DateTime.Today;
+
+        //        // Zeige alle Aktivitäten, wenn VergangeneAnzeigen auf true gesetzt ist
+        //        // Ansonsten zeige nur zukünftige Aktivitäten ab heute
+        //        var aktivitaeten = context.Aktivitaet.Include(a => a.LeiterIdfkNavigation)
+        //            .Where(p => AktivitaetenName.IsNullOrEmpty() ? true : p.AktivitaetenName.StartsWith(AktivitaetenName))
+        //            .Where(p => AktivitaetenArt.IsNullOrEmpty() ? true : p.AktivitaetenArt.StartsWith(AktivitaetenArt));
+        //        // --------------------------- für Blättern,
+        //        // noch nicht implementiert
+        //        //.Skip(_position).Take(Anzahl);
+
+        //        if (!VergangeneAnzeigen)
+        //        {
+        //            // Zeige nur zukünftige Aktivitäten ab heute
+        //            aktivitaeten = aktivitaeten.Where(p => p.AktivitaetenDatum >= heute);
+        //        }
+
+
+        //        foreach (Aktivitaet aktivity in aktivitaeten)
+        //        {
+        //            AktivitaetenListe.Add(aktivity);
+        //        }
+        //    }
+        //    // Aktualisiere die Anzahl der Ist-Teilnehmer für die ausgewählte Aktivität
+        //    if (SelectedAktivitaet != null)
+        //    {
+        //        AktivitaetenIstTeilnehmer = SelectedAktivitaet.AktivitaetenIstTeilnehmer;
+        //    }
+        //}
 
     }
 }
