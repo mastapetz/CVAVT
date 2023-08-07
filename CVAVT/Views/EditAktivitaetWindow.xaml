@@ -3,9 +3,16 @@
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
-        xmlns:local="clr-namespace:CVAVT.Views"
+        xmlns:local="clr-namespace:CVAVT.Konverter"
+        
         mc:Ignorable="d"
         Title="Aktivität Ändern" Height="800" Width="400">
+    <!--xmlns:local="clr-namespace:CVAVT.Views" war original damit Converter funktionieren benötigt es eine local anpassung-->
+    <Window.Resources>
+        <local:DateFormatConverter x:Key="DateFormatConverter"/>
+        <local:TimeFormatConverter x:Key="TimeFormatConverter"/>
+    </Window.Resources>
+
     <Grid>
         <Grid.RowDefinitions>
             <RowDefinition Height="25"/>
@@ -63,9 +70,9 @@
         <Label Grid.Column="1" Content="Aktivitäten Art" HorizontalAlignment="Center" Grid.Row="6" VerticalAlignment="Center" Height="26" Width="114"/>
         <TextBox Text="{Binding AktivitaetenArt}" Grid.Column="2" HorizontalAlignment="Center"  Grid.Row="6" TextWrapping="Wrap"  VerticalAlignment="Center"  Width="168" Height="18"/>
         <Label Grid.Column="1" Content="Aktivitäten Datum" HorizontalAlignment="Center" Grid.Row="8" VerticalAlignment="Center" Height="26" Width="114"/>
-        <TextBox Text="{Binding AktivitaetenDatum}" Grid.Column="2" HorizontalAlignment="Center"  Grid.Row="8" TextWrapping="Wrap" VerticalAlignment="Center"  Width="168" Height="18"/>
+        <TextBox Text="{Binding AktivitaetenDatum, Converter={StaticResource DateFormatConverter}}" Grid.Column="2" HorizontalAlignment="Center"  Grid.Row="8" TextWrapping="Wrap" VerticalAlignment="Center"  Width="168" Height="18"/>
         <Label Grid.Column="1" Content="Aktivitäten Uhrzeit" HorizontalAlignment="Center" Grid.Row="10" VerticalAlignment="Center" Height="26" Width="114"/>
-        <TextBox Text="{Binding AktivitaetenZeit}" Grid.Column="2" HorizontalAlignment="Center"  Grid.Row="10" TextWrapping="Wrap"  VerticalAlignment="Center"  Width="168" Height="18"/>
+        <TextBox Text="{Binding AktivitaetenZeit, UpdateSourceTrigger=PropertyChanged, Converter={StaticResource TimeFormatConverter}}" Grid.Column="2" HorizontalAlignment="Center"  Grid.Row="10" TextWrapping="Wrap"  VerticalAlignment="Center"  Width="168" Height="18"/>
         <Label Grid.Column="1" Content="Geplante Dauer" HorizontalAlignment="Center" Grid.Row="12" VerticalAlignment="Center" Height="26" Width="114"/>
         <TextBox Text="{Binding AktivitaetenDauer}" Grid.Column="2" HorizontalAlignment="Center"  Grid.Row="12" TextWrapping="Wrap" VerticalAlignment="Center"  Width="168" Height="18"/>
         <Label Grid.Column="1" Content="Teilnehmer Max" HorizontalAlignment="Center" Grid.Row="14" VerticalAlignment="Center" Height="26" Width="114"/>
