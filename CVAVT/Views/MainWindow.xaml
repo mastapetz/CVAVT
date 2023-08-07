@@ -84,8 +84,8 @@
             </MenuItem>
             <!-- Menü für SQLite vs MS SQL Server Verbindung-->
             <MenuItem Header="Verbindung">
-                <MenuItem Command="{Binding SQLiteVerbindung}" Header="Programm Datenbank"></MenuItem>
                 <MenuItem Command="{Binding MSSQLSMVerbindung}" Header="MSSQL Datenbank"></MenuItem>
+                <MenuItem Command="{Binding SQLiteVerbindung}" Header="Programm Datenbank"></MenuItem>
             </MenuItem>
 
         </Menu>
