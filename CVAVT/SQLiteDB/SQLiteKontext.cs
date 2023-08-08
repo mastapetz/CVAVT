@@ -16,13 +16,14 @@ public partial class SQLiteKontext : DbContext
     {
     }
 
-    public virtual DbSet<SQLAktivitaet> Aktivitaets { get; set; }
+    public virtual DbSet<Aktivitaet> Aktivitaet { get; set; }
+    public virtual DbSet<ActivitaetKategorie> ActivitaetKategorie { get; set; }
 
-    public virtual DbSet<SQLKategorie> Kategories { get; set; }
+    public virtual DbSet<Models.Kategorie> Kategorie { get; set; }
 
-    public virtual DbSet<SQLLeiter> Leiters { get; set; }
+    public virtual DbSet<Leiter> Leiter { get; set; }
 
-    public virtual DbSet<SQLTeilnehmer> Teilnehmers { get; set; }
+    public virtual DbSet<Teilnehmer> Teilnehmer { get; set; }
     public virtual DbSet<ViewTeilnehmerIstAnzahl> ViewTeilnehmerIstAnzahl { get; set; }
 
     protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
@@ -31,7 +32,9 @@ public partial class SQLiteKontext : DbContext
 
     protected override void OnModelCreating(ModelBuilder modelBuilder)
     {
-        modelBuilder.Entity<SQLAktivitaet>(entity =>
+
+
+        modelBuilder.Entity<Aktivitaet>(entity =>
         {
             entity.HasKey(e => e.AktivitaetenId);
 
@@ -42,50 +45,34 @@ public partial class SQLiteKontext : DbContext
             entity.Property(e => e.AktivitaetenZeit).HasColumnType("DATETIME");
             entity.Property(e => e.LeiterIdfk).HasColumnName("LeiterIDFK");
 
-            entity.HasOne(d => d.LeiterIdfkNavigation).WithMany(p => p.Aktivitaets)
+            entity.HasOne(d => d.LeiterIdfkNavigation).WithMany(p => p.Aktivitaet)
                 .HasForeignKey(d => d.LeiterIdfk)
                 .OnDelete(DeleteBehavior.ClientSetNull);
 
-            entity.HasMany(d => d.KategorieIdfks).WithMany(p => p.ActivitaetIdfks)
-                .UsingEntity<Dictionary<string, object>>(
-                    "ActivitaetKategorie",
-                    r => r.HasOne<SQLKategorie>().WithMany()
-                        .HasForeignKey("KategorieIdfk")
-                        .OnDelete(DeleteBehavior.ClientSetNull),
-                    l => l.HasOne<SQLAktivitaet>().WithMany()
-                        .HasForeignKey("ActivitaetIdfk")
-                        .OnDelete(DeleteBehavior.ClientSetNull),
-                    j =>
-                    {
-                        j.HasKey("ActivitaetIdfk", "KategorieIdfk");
-                        j.ToTable("ActivitaetKategorie");
-                        j.IndexerProperty<int>("ActivitaetIdfk").HasColumnName("ActivitaetIDFK");
-                        j.IndexerProperty<int>("KategorieIdfk").HasColumnName("KategorieIDFK");
-                    });
         });
 
-        modelBuilder.Entity<SQLKategorie>(entity =>
+        modelBuilder.Entity<Models.Kategorie>(entity =>
         {
             entity.ToTable("Kategorie");
 
             entity.Property(e => e.KategorieId).HasColumnName("KategorieID");
         });
 
-        modelBuilder.Entity<SQLLeiter>(entity =>
+        modelBuilder.Entity<Leiter>(entity =>
         {
             entity.ToTable("Leiter");
 
             entity.Property(e => e.LeiterId).HasColumnName("LeiterID");
         });
 
-        modelBuilder.Entity<SQLTeilnehmer>(entity =>
+        modelBuilder.Entity<Teilnehmer>(entity =>
         {
             entity.ToTable("Teilnehmer");
 
             entity.Property(e => e.TeilnehmerId).HasColumnName("TeilnehmerID");
             entity.Property(e => e.AktivitaetIdfk).HasColumnName("AktivitaetIDFK");
         });
-        modelBuilder.Entity<SQLViewTeilnehmerIstAnzahl>(entity =>
+        modelBuilder.Entity<ViewTeilnehmerIstAnzahl>(entity =>
         {
             entity
                 .HasNoKey()
@@ -93,6 +80,22 @@ public partial class SQLiteKontext : DbContext
 
             entity.Property(e => e.AktivitaetIdfk).HasColumnName("AktivitaetIDFK");
         });
+
+        // Für ActivitaetKategorie
+        modelBuilder.Entity<Models.ActivitaetKategorie>()
+    .HasKey(ak => new { ak.ActivitaetIdfk, ak.KategorieIdfk });
+
+        modelBuilder.Entity<Models.ActivitaetKategorie>()
+            .HasOne(ak => ak.ActivitaetIdfkNavigation)
+            .WithMany(a => a.ActivitaetKategorie)
+            .HasForeignKey(ak => ak.ActivitaetIdfk)
+            .OnDelete(DeleteBehavior.ClientSetNull);
+
+        modelBuilder.Entity<Models.ActivitaetKategorie>()
+            .HasOne(ak => ak.KategorieIdfkNavigation)
+            .WithMany(k => k.ActivitaetKategorie)
+            .HasForeignKey(ak => ak.KategorieIdfk)
+            .OnDelete(DeleteBehavior.ClientSetNull);
 
         OnModelCreatingPartial(modelBuilder);
     }
