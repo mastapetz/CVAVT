@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using CVAVT.Models;
 using Microsoft.EntityFrameworkCore;
 
 namespace CVAVT.SQLiteDB;
@@ -22,6 +23,7 @@ public partial class SQLiteKontext : DbContext
     public virtual DbSet<SQLLeiter> Leiters { get; set; }
 
     public virtual DbSet<SQLTeilnehmer> Teilnehmers { get; set; }
+    public virtual DbSet<ViewTeilnehmerIstAnzahl> ViewTeilnehmerIstAnzahl { get; set; }
 
     protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
 #warning To protect potentially sensitive information in your connection string, you should move it out of source code. You can avoid scaffolding the connection string by using the Name= syntax to read it from configuration - see https://go.microsoft.com/fwlink/?linkid=2131148. For more guidance on storing connection strings, see http://go.microsoft.com/fwlink/?LinkId=723263.
@@ -57,8 +59,8 @@ public partial class SQLiteKontext : DbContext
                     {
                         j.HasKey("ActivitaetIdfk", "KategorieIdfk");
                         j.ToTable("ActivitaetKategorie");
-                        j.IndexerProperty<long>("ActivitaetIdfk").HasColumnName("ActivitaetIDFK");
-                        j.IndexerProperty<long>("KategorieIdfk").HasColumnName("KategorieIDFK");
+                        j.IndexerProperty<int>("ActivitaetIdfk").HasColumnName("ActivitaetIDFK");
+                        j.IndexerProperty<int>("KategorieIdfk").HasColumnName("KategorieIDFK");
                     });
         });
 
@@ -81,6 +83,14 @@ public partial class SQLiteKontext : DbContext
             entity.ToTable("Teilnehmer");
 
             entity.Property(e => e.TeilnehmerId).HasColumnName("TeilnehmerID");
+            entity.Property(e => e.AktivitaetIdfk).HasColumnName("AktivitaetIDFK");
+        });
+        modelBuilder.Entity<SQLViewTeilnehmerIstAnzahl>(entity =>
+        {
+            entity
+                .HasNoKey()
+                .ToView("ViewTeilnehmerIstAnzahl");
+
             entity.Property(e => e.AktivitaetIdfk).HasColumnName("AktivitaetIDFK");
         });
 
