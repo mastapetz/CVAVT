@@ -17,6 +17,7 @@ using CVAVT.Konverter;
 using System.Globalization;
 using WpfLibrary;
 using System.Data.SQLite;
+using CVAVT.SQLiteDB;
 
 namespace CVAVT.ViewModels
 {
