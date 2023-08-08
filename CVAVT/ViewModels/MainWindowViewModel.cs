@@ -287,7 +287,7 @@ namespace CVAVT.ViewModels
 
                 DbSet<Aktivitaet> aktivitaetenSet = _useMSSQLSMVerbindung
                     ? context.Set<Aktivitaet>()
-                    : context.Set<SQLAktivitaet>();
+                    : context.Set<Aktivitaet>();
 
 
 
