@@ -91,26 +91,11 @@ namespace CVAVT.ViewModels
 
             FillList(); // Die FillList Methode wird aufgerufen, um die Daten anzuzeigen
         }
-        //private ICommand _mssqlsmVerbindung;
-        //public ICommand MSSQLSMVerbindung
-        //{
-        //    get
-        //    {
-        //        if (_mssqlsmVerbindung == null)
-        //        {
-
-        //            _mssqlsmVerbindung = new RelayCommand(() => MSSQLSMVerbindungMethod());
-        //        }
-        //        return _mssqlsmVerbindung;
-        //    }
-        //}
 
 
         // Konstruktor
         public MainWindowViewModel()
         {
-            // Standardmäßig MSSQLSMVerbindung aufrufen
-            //MSSQLSMVerbindung.Execute(null);
 
             AktivitaetenListe = new ObservableCollection<Aktivitaet>();
             NeuTeilnehmerCmd = new WpfLibrary.RelayCommand(NeuerTeilnehmerMenu);
@@ -339,43 +324,5 @@ namespace CVAVT.ViewModels
          * version 2
          * dotnet ef dbcontext scaffold "Data Source=E:\Programmieren lernen\c#\Wifi\ConventionVereinsAktivitaetenVerwaltungsTool\CVAVT\SQLiteDB\SQLite.db" Microsoft.EntityFrameworkCore.Sqlite -o "E:\Programmieren lernen\c#\Wifi\ConventionVereinsAktivitaetenVerwaltungsTool\CVAVT\SQLiteDB" -c SQLiteKontext -f -n CVAVT.SQLiteDB
          */
-
-        //private void FillList()
-        //{
-        //    AktivitaetenListe.Clear();
-        //    // DB zugriff
-        //    using (CVAVTContext context = new CVAVTContext())
-        //    {
-        //        // Für Filterung vergangener Aktivitäten
-        //        DateTime heute = DateTime.Today;
-
-        //        // Zeige alle Aktivitäten, wenn VergangeneAnzeigen auf true gesetzt ist
-        //        // Ansonsten zeige nur zukünftige Aktivitäten ab heute
-        //        var aktivitaeten = context.Aktivitaet.Include(a => a.LeiterIdfkNavigation)
-        //            .Where(p => AktivitaetenName.IsNullOrEmpty() ? true : p.AktivitaetenName.StartsWith(AktivitaetenName))
-        //            .Where(p => AktivitaetenArt.IsNullOrEmpty() ? true : p.AktivitaetenArt.StartsWith(AktivitaetenArt));
-        //        // --------------------------- für Blättern,
-        //        // noch nicht implementiert
-        //        //.Skip(_position).Take(Anzahl);
-
-        //        if (!VergangeneAnzeigen)
-        //        {
-        //            // Zeige nur zukünftige Aktivitäten ab heute
-        //            aktivitaeten = aktivitaeten.Where(p => p.AktivitaetenDatum >= heute);
-        //        }
-
-
-        //        foreach (Aktivitaet aktivity in aktivitaeten)
-        //        {
-        //            AktivitaetenListe.Add(aktivity);
-        //        }
-        //    }
-        //    // Aktualisiere die Anzahl der Ist-Teilnehmer für die ausgewählte Aktivität
-        //    if (SelectedAktivitaet != null)
-        //    {
-        //        AktivitaetenIstTeilnehmer = SelectedAktivitaet.AktivitaetenIstTeilnehmer;
-        //    }
-        //}
-
     }
 }
