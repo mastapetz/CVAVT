@@ -285,7 +285,9 @@ namespace CVAVT.ViewModels
                 DateTime heute = DateTime.Today;
 
 
-                DbSet<Aktivitaet> aktivitaetenSet = context.Set<Aktivitaet>();
+                DbSet<Aktivitaet> aktivitaetenSet = _useMSSQLSMVerbindung
+                    ? context.Set<Aktivitaet>()
+                    : context.Set<SQLAktivitaet>();
 
 
 
