@@ -1,5 +1,8 @@
-﻿using System;
+﻿// Auto generiert (Command siehe mainwindowviewmode in kommentaren) und umbennant
+// --
+using System;
 using System.Collections.Generic;
+using System.Linq;
 
 namespace CVAVT.SQLiteDB;
 
