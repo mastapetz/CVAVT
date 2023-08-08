@@ -291,16 +291,22 @@ namespace CVAVT.ViewModels
         {
             AktivitaetenListe.Clear();
             // DB zugriff
-            using (var context = _useMSSQLSMVerbindung
-                ? new CVAVTContext(new DbContextOptions<CVAVTContext>()) // MSSQL Verbindung
-                : new SQLiteContext(new DbContextOptions<SQLiteContext>())) // SQLite Verbindung
+            using (DbContext context = _useMSSQLSMVerbindung
+    ? (DbContext)new CVAVTContext(new DbContextOptions<CVAVTContext>()) // MSSQL Verbindung
+    : (DbContext)new SQLiteKontext(new DbContextOptions<SQLiteKontext>())) // SQLite Verbindung
+
             {
                 // Für Filterung vergangener Aktivitäten
                 DateTime heute = DateTime.Today;
 
+
+                DbSet<Aktivitaet> aktivitaetenSet = context.Set<Aktivitaet>();
+
+
+
                 // Zeige alle Aktivitäten, wenn VergangeneAnzeigen auf true gesetzt ist
                 // Ansonsten zeige nur zukünftige Aktivitäten ab heute
-                var aktivitaeten = context.Aktivitaet.Include(a => a.LeiterIdfkNavigation)
+                var aktivitaeten = aktivitaetenSet.Include(a => a.LeiterIdfkNavigation)
                     .Where(p => AktivitaetenName.IsNullOrEmpty() ? true : p.AktivitaetenName.StartsWith(AktivitaetenName))
                     .Where(p => AktivitaetenArt.IsNullOrEmpty() ? true : p.AktivitaetenArt.StartsWith(AktivitaetenArt));
                 // --------------------------- für Blättern,
