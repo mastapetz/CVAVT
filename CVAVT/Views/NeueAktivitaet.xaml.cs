@@ -22,10 +22,14 @@ namespace CVAVT.Views
     public partial class NeueAktivitaet : Window
     {
         private NeueAktivitaetViewModel _viewModel;
-        public NeueAktivitaet(Aktivitaet aktiv)
+        private bool _useMSSQLSMVerbindung;
+
+        public NeueAktivitaet(Aktivitaet aktiv, bool useMSSQLSMVerbindung)
         {
             InitializeComponent();
-            _viewModel = new NeueAktivitaetViewModel(aktiv);
+            _useMSSQLSMVerbindung = useMSSQLSMVerbindung;
+
+            _viewModel = new NeueAktivitaetViewModel(aktiv, useMSSQLSMVerbindung);
             this.DataContext = _viewModel;
 
             // Registrierung am Event
