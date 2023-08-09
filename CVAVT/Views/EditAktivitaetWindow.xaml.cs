@@ -23,15 +23,18 @@ namespace CVAVT.Views
     public partial class EditActivityWindow : Window
     {
         private EditAktivitaetViewModel _viewModel;
-        public EditActivityWindow(Aktivitaet aktiv)
+        private bool _useMSSQLSMVerbindung;
+
+        public EditActivityWindow(Aktivitaet aktiv, bool useMSSQLSMVerbindung)
         {
             InitializeComponent();
-            _viewModel = new EditAktivitaetViewModel(aktiv);
+            _viewModel = new EditAktivitaetViewModel(aktiv, useMSSQLSMVerbindung);
             this.DataContext = _viewModel;
 
             // Registrierung am Event
             // Wir registrieren eine Lamda-Expression
             _viewModel.OnRequestCloseWin += (sender, args) => this.Close();
+            _useMSSQLSMVerbindung = useMSSQLSMVerbindung;
         }
     }
 }
