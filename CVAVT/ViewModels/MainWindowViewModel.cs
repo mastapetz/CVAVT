@@ -18,10 +18,11 @@ using System.Globalization;
 using WpfLibrary;
 using System.Data.SQLite;
 using CVAVT.SQLiteDB;
+using System.ComponentModel;
 
 namespace CVAVT.ViewModels
 {
-    class MainWindowViewModel : WpfLibrary.BaseViewModel
+    class MainWindowViewModel : WpfLibrary.BaseViewModel, INotifyPropertyChanged
     {
         // Neuer Teilnehmer
         public ICommand NeuTeilnehmerCmd { get; set; }
@@ -74,24 +75,43 @@ namespace CVAVT.ViewModels
                 OnPropertyChanged("VergangeneAnzeigen");
             }
         }
-
         public int AktivitaetenIstTeilnehmer { get; set; }
+
         // Properties für Datenbank auswahl
+        public ICommand MSSQLSMVerbindungCmd { get; }
+        public ICommand SQLiteVerbindungCmd { get; }
+
         private bool _useMSSQLSMVerbindung = true; // Standardmäßig MSSQLSMVerbindung auswählen
-        private void MSSQLSMVerbindungMethod()
-        {
-            _useMSSQLSMVerbindung = true; // Hier setzt du die Verbindungsoption, je nachdem was in deinem UI ausgewählt wurde
 
-            FillList(); // Die FillList Methode wird aufgerufen, um die Daten anzuzeigen
+        public bool UseMSSQLSMVerbindung
+        {
+            get { return _useMSSQLSMVerbindung; }
+            set
+            {
+                _useMSSQLSMVerbindung = value;
+                OnPropertyChanged(nameof(UseMSSQLSMVerbindung)); // Benachrichtigen Sie die Ansicht über die Änderung
+                OnPropertyChanged(nameof(UseSQLiteVerbindung)); // Stellen Sie sicher, dass sich die andere Verbindung aktualisiert
+            }
         }
 
-        private void SQLiteVerbindungMethod()
+        public bool UseSQLiteVerbindung
         {
-            _useMSSQLSMVerbindung = false; // Hier setzt du die Verbindungsoption für SQLite
-
-            FillList(); // Die FillList Methode wird aufgerufen, um die Daten anzuzeigen
+            get { return !_useMSSQLSMVerbindung; } // Verbindung umkehren
+            set { UseMSSQLSMVerbindung = !value; } // Beim Setzen auf die andere Verbindung umschalten
         }
+        //private void MSSQLSMVerbindungMethod()
+        //{
+        //    _useMSSQLSMVerbindung = true; // Hier setzt du die Verbindungsoption, je nachdem was in deinem UI ausgewählt wurde
 
+        //    FillList(); // Die FillList Methode wird aufgerufen, um die Daten anzuzeigen
+        //}
+
+        //private void SQLiteVerbindungMethod()
+        //{
+        //    _useMSSQLSMVerbindung = false; // Hier setzt du die Verbindungsoption für SQLite
+
+        //    FillList(); // Die FillList Methode wird aufgerufen, um die Daten anzuzeigen
+        //}
 
         // Konstruktor
         public MainWindowViewModel()
@@ -106,10 +126,11 @@ namespace CVAVT.ViewModels
             AktivitaetLoeschenCmd = new WpfLibrary.RelayCommand(AktivitaetLoeschen);
             BeendenCmd = new WpfLibrary.RelayCommand(Schliessen);
             ExportAktivitaetenListeCmd = new WpfLibrary.RelayCommand(ExportAktivitaetenListe);
+            //--- für Datenbank Wechsel
+            MSSQLSMVerbindungCmd = new WpfLibrary.RelayCommand(MSSQLSMVerbindung);
+            SQLiteVerbindungCmd = new WpfLibrary.RelayCommand(SQLiteVerbindung);
             FillList();
         }
-
-
 
         private void Schliessen()
         {
@@ -268,7 +289,17 @@ namespace CVAVT.ViewModels
              */
         }
 
-
+        // ------ datenbank wechsel
+        private void MSSQLSMVerbindung()
+        {
+            _useMSSQLSMVerbindung = true;
+            FillList();
+        }
+        private void SQLiteVerbindung()
+        {
+            _useMSSQLSMVerbindung = false;
+            FillList();
+        }
 
         // ------------------------------------------------------
 
@@ -277,8 +308,8 @@ namespace CVAVT.ViewModels
             AktivitaetenListe.Clear();
             // DB zugriff
             using (DbContext context = _useMSSQLSMVerbindung
-    ? (DbContext)new CVAVTContext(new DbContextOptions<CVAVTContext>()) // MSSQL Verbindung
-    : (DbContext)new SQLiteKontext(new DbContextOptions<SQLiteKontext>())) // SQLite Verbindung
+                ? (DbContext)new CVAVTContext(new DbContextOptions<CVAVTContext>()) // MSSQL Verbindung
+                : (DbContext)new SQLiteKontext(new DbContextOptions<SQLiteKontext>())) // SQLite Verbindung
 
             {
                 // Für Filterung vergangener Aktivitäten
@@ -317,12 +348,6 @@ namespace CVAVT.ViewModels
             }
         }
 
-        /*
-         * Befehl zum automatischen erstellen der Models für SQLite
-         * dotnet ef dbcontext scaffold "Data Source=E:\Programmieren lernen\c#\Wifi\ConventionVereinsAktivitaetenVerwaltungsTool\CVAVT\SQLiteDB\SQLite.db" Microsoft.EntityFrameworkCore.Sqlite -o "E:\Programmieren lernen\c#\Wifi\ConventionVereinsAktivitaetenVerwaltungsTool\CVAVT\SQLiteDB" -c SQLiteContext -f -n CVAVT.SQLiteDB
-         * 
-         * version 2
-         * dotnet ef dbcontext scaffold "Data Source=E:\Programmieren lernen\c#\Wifi\ConventionVereinsAktivitaetenVerwaltungsTool\CVAVT\SQLiteDB\SQLite.db" Microsoft.EntityFrameworkCore.Sqlite -o "E:\Programmieren lernen\c#\Wifi\ConventionVereinsAktivitaetenVerwaltungsTool\CVAVT\SQLiteDB" -c SQLiteKontext -f -n CVAVT.SQLiteDB
-         */
+
     }
 }
