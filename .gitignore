@@ -362,3 +362,5 @@ MigrationBackup/
 # Fody - auto-generated XML schema
 FodyWeavers.xsd
 /CVAVT/CVAVT_Klassen v1.0.drawio
+/CVAVT/__codebackup/BefehleundCo.cs
+/CVAVT/__codebackup/SettingundCoinMWVM.cs
