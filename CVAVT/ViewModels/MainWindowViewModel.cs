@@ -99,19 +99,7 @@ namespace CVAVT.ViewModels
             get { return !_useMSSQLSMVerbindung; } // Verbindung umkehren
             set { UseMSSQLSMVerbindung = !value; } // Beim Setzen auf die andere Verbindung umschalten
         }
-        //private void MSSQLSMVerbindungMethod()
-        //{
-        //    _useMSSQLSMVerbindung = true; // Hier setzt du die Verbindungsoption, je nachdem was in deinem UI ausgewählt wurde
 
-        //    FillList(); // Die FillList Methode wird aufgerufen, um die Daten anzuzeigen
-        //}
-
-        //private void SQLiteVerbindungMethod()
-        //{
-        //    _useMSSQLSMVerbindung = false; // Hier setzt du die Verbindungsoption für SQLite
-
-        //    FillList(); // Die FillList Methode wird aufgerufen, um die Daten anzuzeigen
-        //}
 
         // Konstruktor
         public MainWindowViewModel()
@@ -139,7 +127,18 @@ namespace CVAVT.ViewModels
                 OnRequestCloseWindow(this, new EventArgs());
         }
 
-
+        // ------ datenbank wechsel
+        private void MSSQLSMVerbindung()
+        {
+            _useMSSQLSMVerbindung = true;
+            FillList();
+        }
+        private void SQLiteVerbindung()
+        {
+            _useMSSQLSMVerbindung = false;
+            FillList();
+        }
+        //---------------------------
 
         private void AktivitaetLoeschen()
         {
@@ -174,45 +173,113 @@ namespace CVAVT.ViewModels
 
             }
         }
-
         private void ShowTeilnehmer()
         {
-            TeilnehmerListe window = new TeilnehmerListe(SelectedAktivitaet);
+            ShowTeilnehmer(_useMSSQLSMVerbindung);
+        }
+        private void ShowTeilnehmer(bool useMSSQLSMVerbindung)
+        {
+            TeilnehmerListe window = new TeilnehmerListe(SelectedAktivitaet, useMSSQLSMVerbindung);
             window.Show();
             FillList();
         }
 
         private void EditAktivitaet()
         {
+            EditAktivitaet(_useMSSQLSMVerbindung);
+        }
 
-            EditActivityWindow window = new EditActivityWindow(SelectedAktivitaet);
+        private void EditAktivitaet(bool useMSSQLSMVerbindung)
+        {
+
+            EditActivityWindow window = new EditActivityWindow(SelectedAktivitaet, useMSSQLSMVerbindung);
             window.ShowDialog();
             FillList();
         }
-
-
 
         private void NeuerTeilnehmerMenu()
         {
-            NeuerTeilnehmer window = new NeuerTeilnehmer(SelectedAktivitaet, null);
+            NeuerTeilnehmerMenu(_useMSSQLSMVerbindung);
+        }
+
+
+        private void NeuerTeilnehmerMenu(bool useMSSQLSMVerbindung)
+        {
+            NeuerTeilnehmer window = new NeuerTeilnehmer(SelectedAktivitaet, null, useMSSQLSMVerbindung);
             window.ShowDialog();
             FillList();
 
         }
-
         private void NeuLeiter()
         {
-            NeuerLeiter window = new NeuerLeiter();
+            NeuLeiter(_useMSSQLSMVerbindung);
+        }
+        private void NeuLeiter(bool useMSSQLSMVerbindung)
+        {
+            NeuerLeiter window = new NeuerLeiter(useMSSQLSMVerbindung);
             window.ShowDialog();
         }
-
         private void NeuAktivitaet()
         {
-            NeueAktivitaet window = new NeueAktivitaet(null);
+            NeuAktivitaet(_useMSSQLSMVerbindung);
+        }
+        private void NeuAktivitaet(bool useMSSQLSMVerbindung)
+        {
+            NeueAktivitaet window = new NeueAktivitaet(null, useMSSQLSMVerbindung);
             window.ShowDialog();
             FillList();
 
         }
+
+
+
+        // ------------------------------------------------------
+
+        private void FillList()
+        {
+            AktivitaetenListe.Clear();
+            // DB zugriff
+            using (DbContext context = _useMSSQLSMVerbindung
+                ? (DbContext)new CVAVTContext(new DbContextOptions<CVAVTContext>()) // MSSQL Verbindung
+                : (DbContext)new SQLiteKontext(new DbContextOptions<SQLiteKontext>())) // SQLite Verbindung
+
+            {
+                // Für Filterung vergangener Aktivitäten
+                DateTime heute = DateTime.Today;
+
+
+                DbSet<Aktivitaet> aktivitaetenSet = context.Set<Aktivitaet>();
+
+
+
+                // Zeige alle Aktivitäten, wenn VergangeneAnzeigen auf true gesetzt ist
+                // Ansonsten zeige nur zukünftige Aktivitäten ab heute
+                var aktivitaeten = aktivitaetenSet.Include(a => a.LeiterIdfkNavigation)
+                    .Where(p => AktivitaetenName.IsNullOrEmpty() ? true : p.AktivitaetenName.StartsWith(AktivitaetenName))
+                    .Where(p => AktivitaetenArt.IsNullOrEmpty() ? true : p.AktivitaetenArt.StartsWith(AktivitaetenArt));
+                // --------------------------- für Blättern,
+                // noch nicht implementiert
+                //.Skip(_position).Take(Anzahl);
+
+                if (!VergangeneAnzeigen)
+                {
+                    // Zeige nur zukünftige Aktivitäten ab heute
+                    aktivitaeten = aktivitaeten.Where(p => p.AktivitaetenDatum >= heute);
+                }
+
+
+                foreach (Aktivitaet aktivity in aktivitaeten)
+                {
+                    AktivitaetenListe.Add(aktivity);
+                }
+            }
+            // Aktualisiere die Anzahl der Ist-Teilnehmer für die ausgewählte Aktivität
+            if (SelectedAktivitaet != null)
+            {
+                AktivitaetenIstTeilnehmer = SelectedAktivitaet.AktivitaetenIstTeilnehmer;
+            }
+        }
+
         // ========================================================
         private void ExportAktivitaetenListe()
         {
@@ -221,11 +288,23 @@ namespace CVAVT.ViewModels
             List<Aktivitaet> aktivitaeten;
             // Für Leiter
             List<Leiter> leiter;
-            using (CVAVTContext context = new CVAVTContext())
+            if (_useMSSQLSMVerbindung)
             {
-                aktivitaeten = context.Aktivitaet.ToList();
-                leiter = context.Leiter.ToList();
+                using (CVAVTContext context = new CVAVTContext())
+                {
+                    aktivitaeten = context.Aktivitaet.ToList();
+                    leiter = context.Leiter.ToList();
+                }
             }
+            else
+            {
+                using (SQLiteKontext context = new SQLiteKontext())
+                {
+                    aktivitaeten = context.Aktivitaet.ToList();
+                    leiter = context.Leiter.ToList();
+                }
+            }
+
 
             // Konverter für Datum und Uhrzeit erstellen
             DateFormatConverter dateFormatConverter = new DateFormatConverter();
@@ -289,64 +368,6 @@ namespace CVAVT.ViewModels
              */
         }
 
-        // ------ datenbank wechsel
-        private void MSSQLSMVerbindung()
-        {
-            _useMSSQLSMVerbindung = true;
-            FillList();
-        }
-        private void SQLiteVerbindung()
-        {
-            _useMSSQLSMVerbindung = false;
-            FillList();
-        }
-
-        // ------------------------------------------------------
-
-        private void FillList()
-        {
-            AktivitaetenListe.Clear();
-            // DB zugriff
-            using (DbContext context = _useMSSQLSMVerbindung
-                ? (DbContext)new CVAVTContext(new DbContextOptions<CVAVTContext>()) // MSSQL Verbindung
-                : (DbContext)new SQLiteKontext(new DbContextOptions<SQLiteKontext>())) // SQLite Verbindung
-
-            {
-                // Für Filterung vergangener Aktivitäten
-                DateTime heute = DateTime.Today;
-
-
-                DbSet<Aktivitaet> aktivitaetenSet = context.Set<Aktivitaet>();
-
-
-
-                // Zeige alle Aktivitäten, wenn VergangeneAnzeigen auf true gesetzt ist
-                // Ansonsten zeige nur zukünftige Aktivitäten ab heute
-                var aktivitaeten = aktivitaetenSet.Include(a => a.LeiterIdfkNavigation)
-                    .Where(p => AktivitaetenName.IsNullOrEmpty() ? true : p.AktivitaetenName.StartsWith(AktivitaetenName))
-                    .Where(p => AktivitaetenArt.IsNullOrEmpty() ? true : p.AktivitaetenArt.StartsWith(AktivitaetenArt));
-                // --------------------------- für Blättern,
-                // noch nicht implementiert
-                //.Skip(_position).Take(Anzahl);
-
-                if (!VergangeneAnzeigen)
-                {
-                    // Zeige nur zukünftige Aktivitäten ab heute
-                    aktivitaeten = aktivitaeten.Where(p => p.AktivitaetenDatum >= heute);
-                }
-
-
-                foreach (Aktivitaet aktivity in aktivitaeten)
-                {
-                    AktivitaetenListe.Add(aktivity);
-                }
-            }
-            // Aktualisiere die Anzahl der Ist-Teilnehmer für die ausgewählte Aktivität
-            if (SelectedAktivitaet != null)
-            {
-                AktivitaetenIstTeilnehmer = SelectedAktivitaet.AktivitaetenIstTeilnehmer;
-            }
-        }
 
 
     }
