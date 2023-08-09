@@ -39,10 +39,12 @@ namespace CVAVT.Views
 
 
         private NeuerTeilnehmerViewModel _viewModel;
-        public NeuerTeilnehmer(Aktivitaet aktiv, Teilnehmer teilnehmer)
+        private bool _useMSSQLSMVerbindung;
+        public NeuerTeilnehmer(Aktivitaet aktiv, Teilnehmer teilnehmer, bool useMSSQLSMVerbindung)
         {
             InitializeComponent();
-            _viewModel = new NeuerTeilnehmerViewModel(aktiv, teilnehmer);
+            _useMSSQLSMVerbindung = useMSSQLSMVerbindung;
+            _viewModel = new NeuerTeilnehmerViewModel(aktiv, teilnehmer, useMSSQLSMVerbindung);
             this.DataContext = _viewModel;
 
             _viewModel.OnRequestCloseWindow += (sender, args) => this.Close();

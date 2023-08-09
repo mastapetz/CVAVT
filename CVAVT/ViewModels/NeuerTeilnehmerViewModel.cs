@@ -1,10 +1,13 @@
 ﻿using CVAVT.Models;
+using CVAVT.SQLiteDB;
+using Microsoft.EntityFrameworkCore;
 using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Input;
+
 
 namespace CVAVT.ViewModels
 {
@@ -70,40 +73,83 @@ namespace CVAVT.ViewModels
 
         public event EventHandler OnRequestCloseWindow;
 
-        // für update
-        //private TeilnehmerListeViewModel _teilnehmerListeViewModel;
+        // für Datenbank change
+        private bool _useMSSQLSMVerbindung = true;
+        public bool UseMSSQLSMVerbindung
+        {
+            get { return _useMSSQLSMVerbindung; }
+            set
+            {
+                if (_useMSSQLSMVerbindung != value)
+                {
+                    _useMSSQLSMVerbindung = value;
+                    OnPropertyChanged(nameof(UseMSSQLSMVerbindung)); // Stelle sicher, dass das UI über die Änderung informiert wird
+                }
+            }
+        }
 
         // Konstruktor
-        public NeuerTeilnehmerViewModel(Aktivitaet aktivitaet, Teilnehmer teilnehmer)
+        public NeuerTeilnehmerViewModel(Aktivitaet aktivitaet, Teilnehmer teilnehmer, bool useMSSQLSMVerbindung)
         {
             EingabeVerwerfenCmd = new WpfLibrary.RelayCommand(EingabeVerwerfen);
             NaechsterTeilnehmerCmd = new WpfLibrary.RelayCommand(NaechsterTeilnehmer);
             EingabeSpeichernCmd = new WpfLibrary.RelayCommand(EingabeSpeichern);
+
             // für ausgewählte aktivität
             SelectedAktivitaet = aktivitaet;
 
+            // für Datenbank change
+            _useMSSQLSMVerbindung = useMSSQLSMVerbindung;
 
-
-            using (CVAVTContext context = new CVAVTContext())
+            if (_useMSSQLSMVerbindung)
             {
-                if (aktivitaet == null)
+                using (CVAVTContext context = new CVAVTContext())
                 {
-                    throw new ArgumentNullException(nameof(aktivitaet), "Aktivitaet darf nicht null sein.");
-                }
-                else
-                {
-                    // Die Daten aus aktivität werden in die Properties geschrieben
-                    AktivitaetenName = aktivitaet.AktivitaetenName;
+                    if (aktivitaet == null)
+                    {
+                        throw new ArgumentNullException(nameof(aktivitaet), "Aktivitaet darf nicht null sein.");
+                    }
+                    else
+                    {
+                        // Die Daten aus aktivität werden in die Properties geschrieben
+                        AktivitaetenName = aktivitaet.AktivitaetenName;
 
-                    AktivitaetenMaxTeilnehmer = aktivitaet.AktivitaetenMaxTeilnehmer;
+                        AktivitaetenMaxTeilnehmer = aktivitaet.AktivitaetenMaxTeilnehmer;
 
-                    AktivitaetenIstTeilnehmer = context.Teilnehmer.Count(t => t.AktivitaetIdfk == aktivitaet.AktivitaetenId);
+                        AktivitaetenIstTeilnehmer = context.Teilnehmer.Count(t => t.AktivitaetIdfk == aktivitaet.AktivitaetenId);
+                    }
+                    if (teilnehmer != null)
+                    {
+                        TeilnehmerName = teilnehmer.TeilnehmerName;
+                    }
                 }
-                if (teilnehmer != null)
-                {
-                    TeilnehmerName = teilnehmer.TeilnehmerName;
-                }
+
             }
+            else
+            {
+                using SQLiteKontext context = new SQLiteKontext();
+                {
+                    if (aktivitaet == null)
+                    {
+                        throw new ArgumentNullException(nameof(aktivitaet), "Aktivitaet darf nicht null sein.");
+                    }
+                    else
+                    {
+                        // Die Daten aus aktivität werden in die Properties geschrieben
+                        AktivitaetenName = aktivitaet.AktivitaetenName;
+
+                        AktivitaetenMaxTeilnehmer = aktivitaet.AktivitaetenMaxTeilnehmer;
+
+                        AktivitaetenIstTeilnehmer = context.Teilnehmer.Count(t => t.AktivitaetIdfk == aktivitaet.AktivitaetenId);
+                    }
+                    if (teilnehmer != null)
+                    {
+                        TeilnehmerName = teilnehmer.TeilnehmerName;
+                    }
+                }
+
+            }
+
 
         }
         /// <summary>
@@ -119,20 +165,46 @@ namespace CVAVT.ViewModels
         }
         private void SaveTeilnehmer()
         {
-            using (CVAVTContext context = new CVAVTContext())
+            //using (DbContext context = _useMSSQLSMVerbindung
+            //    ? new CVAVTContext() // MSSQL Verbindung
+            //    : new SQLiteKontext()) // SQLite Verbindung
+            if (_useMSSQLSMVerbindung)
             {
+                using (CVAVTContext context = new CVAVTContext())
+                {
 
-                // Neuer Eintrag
-                Teilnehmer teilnehmer = new Teilnehmer();
-                teilnehmer.TeilnehmerName = TeilnehmerName;
-                teilnehmer.AktivitaetIdfk = SelectedAktivitaet.AktivitaetenId;
-                context.Teilnehmer.Add(teilnehmer);
-                context.SaveChanges();
+                    // Neuer Eintrag
+                    Teilnehmer teilnehmer = new Teilnehmer();
+                    teilnehmer.TeilnehmerName = TeilnehmerName;
+                    teilnehmer.AktivitaetIdfk = SelectedAktivitaet.AktivitaetenId;
+                    context.Teilnehmer.Add(teilnehmer);
+                    context.SaveChanges();
 
-                AktivitaetenIstTeilnehmer = context.Teilnehmer.Count(t => t.AktivitaetIdfk == SelectedAktivitaet.AktivitaetenId);
+                    AktivitaetenIstTeilnehmer = context.Teilnehmer.Count(t => t.AktivitaetIdfk == SelectedAktivitaet.AktivitaetenId);
 
+
+                }
 
             }
+            else
+            {
+                using SQLiteKontext context = new SQLiteKontext();
+                {
+
+                    // Neuer Eintrag
+                    Teilnehmer teilnehmer = new Teilnehmer();
+                    teilnehmer.TeilnehmerName = TeilnehmerName;
+                    teilnehmer.AktivitaetIdfk = SelectedAktivitaet.AktivitaetenId;
+                    context.Teilnehmer.Add(teilnehmer);
+                    context.SaveChanges();
+
+                    AktivitaetenIstTeilnehmer = context.Teilnehmer.Count(t => t.AktivitaetIdfk == SelectedAktivitaet.AktivitaetenId);
+
+
+                }
+
+            }
+
 
         }
         private void ClearTeilnehmerName()
