@@ -22,11 +22,13 @@ namespace CVAVT.Views
     public partial class TeilnehmerListe : Window
     {
         private TeilnehmerListeViewModel _viewModel;
+        private bool _useMSSQLSMVerbindung;
 
-        public TeilnehmerListe(Aktivitaet aktiv)
+
+        public TeilnehmerListe(Aktivitaet aktiv, bool useMSSQLSMVerbindung)
         {
             InitializeComponent();
-            _viewModel = new TeilnehmerListeViewModel(aktiv);
+            _viewModel = new TeilnehmerListeViewModel(aktiv, useMSSQLSMVerbindung);
 
 
             this.DataContext = _viewModel;
@@ -36,6 +38,7 @@ namespace CVAVT.Views
 
             // Hier wird das DataGrid.CellEditEnding-Event abonniert
             TeilnehmerListeGrid.CellEditEnding += DataGrid_CellEditEnding;
+            _useMSSQLSMVerbindung = useMSSQLSMVerbindung;
         }
 
         // Eventhandler für das Ende der Zellenbearbeitung

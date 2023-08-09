@@ -1,4 +1,5 @@
 ﻿using CVAVT.Models;
+using CVAVT.SQLiteDB;
 using CVAVT.Views;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.IdentityModel.Tokens;
@@ -87,9 +88,23 @@ namespace CVAVT.ViewModels
                 FillList();
             }
         }
+        // für Datenbank change
+        private bool _useMSSQLSMVerbindung = true;
+        public bool UseMSSQLSMVerbindung
+        {
+            get { return _useMSSQLSMVerbindung; }
+            set
+            {
+                if (_useMSSQLSMVerbindung != value)
+                {
+                    _useMSSQLSMVerbindung = value;
+                    OnPropertyChanged(nameof(UseMSSQLSMVerbindung)); // Stelle sicher, dass das UI über die Änderung informiert wird
+                }
+            }
+        }
 
         // Konstruktor
-        public TeilnehmerListeViewModel(Aktivitaet aktivitaet)
+        public TeilnehmerListeViewModel(Aktivitaet aktivitaet, bool useMSSQLSMVerbindung)
         {
             // Für Teilnehmerliste instanzieren
             TeilnehmerListe = new ObservableCollection<Teilnehmer>();
@@ -100,20 +115,46 @@ namespace CVAVT.ViewModels
             SelectedAktivitaet = aktivitaet;
             // optional
             ExportListeCmd = new WpfLibrary.RelayCommand(ExportListe);
+            // für Datenbank change
+            _useMSSQLSMVerbindung = useMSSQLSMVerbindung;
 
-            using (CVAVTContext context = new CVAVTContext())
+            if (_useMSSQLSMVerbindung)
             {
-                if (aktivitaet == null)
+                using (CVAVTContext context = new CVAVTContext())
                 {
-                    throw new ArgumentNullException(nameof(aktivitaet), "Aktivität darf nicht null sein");
-                }
-                else
-                {
-                    // Die Daten aus aktivität werden in die Propeties geschrieben
-                    AktivitaetenMaxTeilnehmer = aktivitaet.AktivitaetenMaxTeilnehmer;
-                    AktivitaetenIstTeilnehmer = context.Teilnehmer.Count(t => t.AktivitaetIdfk == aktivitaet.AktivitaetenId);
+                    if (aktivitaet == null)
+                    {
+                        throw new ArgumentNullException(nameof(aktivitaet), "Aktivität darf nicht null sein");
+                    }
+                    else
+                    {
+                        // Die Daten aus aktivität werden in die Propeties geschrieben
+                        AktivitaetenMaxTeilnehmer = aktivitaet.AktivitaetenMaxTeilnehmer;
+                        AktivitaetenIstTeilnehmer = context.Teilnehmer.Count(t => t.AktivitaetIdfk == aktivitaet.AktivitaetenId);
+                    }
                 }
             }
+            else
+            {
+                using SQLiteKontext context = new SQLiteKontext();
+                {
+                    if (aktivitaet == null)
+                    {
+                        throw new ArgumentNullException(nameof(aktivitaet), "Aktivität darf nicht null sein");
+                    }
+                    else
+                    {
+                        // Die Daten aus aktivität werden in die Propeties geschrieben
+                        AktivitaetenMaxTeilnehmer = aktivitaet.AktivitaetenMaxTeilnehmer;
+                        AktivitaetenIstTeilnehmer = context.Teilnehmer.Count(t => t.AktivitaetIdfk == aktivitaet.AktivitaetenId);
+                    }
+                }
+            }
+
+
+
+
+
             FillList();
 
         }
@@ -142,15 +183,28 @@ namespace CVAVT.ViewModels
             int selectedAktivitaetId = SelectedAktivitaet.AktivitaetenId;
 
             List<Teilnehmer> teilnehmerListe;
-            using (CVAVTContext context = new CVAVTContext())
+            if (_useMSSQLSMVerbindung)
             {
-                // Filtere die Teilnehmerliste nach der ausgewählten Aktivität
-                teilnehmerListe = context.Teilnehmer.Where(t => t.AktivitaetIdfk == selectedAktivitaetId).ToList();
+                using (CVAVTContext context = new CVAVTContext())
+                {
+                    // Filtere die Teilnehmerliste nach der ausgewählten Aktivität
+                    teilnehmerListe = context.Teilnehmer.Where(t => t.AktivitaetIdfk == selectedAktivitaetId).ToList();
 
-                // Ohne Filterung werden ALLE teilnehmer von ALLEN aktivitäten angezeigt
-                //teilnehmerListe = context.Teilnehmer.ToList();
+                    // Ohne Filterung werden ALLE teilnehmer von ALLEN aktivitäten angezeigt
+                    //teilnehmerListe = context.Teilnehmer.ToList();
+                }
             }
+            else
+            {
+                using (SQLiteKontext context = new SQLiteKontext())
+                {
+                    // Filtere die Teilnehmerliste nach der ausgewählten Aktivität
+                    teilnehmerListe = context.Teilnehmer.Where(t => t.AktivitaetIdfk == selectedAktivitaetId).ToList();
 
+                    // Ohne Filterung werden ALLE teilnehmer von ALLEN aktivitäten angezeigt
+                    //teilnehmerListe = context.Teilnehmer.ToList();
+                }
+            }
             // StringBuilder-Instanz zum Erstellen der CSV-Daten
             StringBuilder csvData = new StringBuilder();
 
@@ -204,15 +258,33 @@ namespace CVAVT.ViewModels
             MessageBoxResult result = MessageBox.Show("Teilnehmer Wirklich Löschen?", "Löschen Bestätigen", MessageBoxButton.YesNo);
             if (result == MessageBoxResult.Yes)
             {
-                using (CVAVTContext context = new CVAVTContext())
+                if (_useMSSQLSMVerbindung)
                 {
-                    Teilnehmer teilN = context.Teilnehmer.Where(a => a.TeilnehmerId == SelectedTeilnehmer.TeilnehmerId).FirstOrDefault();
-                    if (teilN != null)
+                    using (CVAVTContext context = new CVAVTContext())
                     {
-                        context.Teilnehmer.Remove(teilN);
-                        context.SaveChanges();
+                        Teilnehmer teilN = context.Teilnehmer.Where(a => a.TeilnehmerId == SelectedTeilnehmer.TeilnehmerId).FirstOrDefault();
+                        if (teilN != null)
+                        {
+                            context.Teilnehmer.Remove(teilN);
+                            context.SaveChanges();
+                        }
                     }
                 }
+                else
+                {
+
+                    using (SQLiteKontext context = new SQLiteKontext())
+                    {
+                        Teilnehmer teilN = context.Teilnehmer.Where(a => a.TeilnehmerId == SelectedTeilnehmer.TeilnehmerId).FirstOrDefault();
+                        if (teilN != null)
+                        {
+                            context.Teilnehmer.Remove(teilN);
+                            context.SaveChanges();
+                        }
+                    }
+                }
+
+
                 FillList();
 
             }
@@ -224,17 +296,38 @@ namespace CVAVT.ViewModels
             TeilnehmerListe.Clear();
             if (SelectedAktivitaet != null)
             {
-                using (CVAVTContext context = new CVAVTContext())
+                if (_useMSSQLSMVerbindung)
                 {
-                    var teilNehmer = context.Teilnehmer
-                        .Where(t => t.AktivitaetIdfk == SelectedAktivitaet.AktivitaetenId)
-                        .ToList();
-
-                    foreach (Teilnehmer member in teilNehmer)
+                    using (CVAVTContext context = new CVAVTContext())
                     {
-                        TeilnehmerListe.Add(member);
-                    }
+                        var teilNehmer = context.Teilnehmer
+                            .Where(t => t.AktivitaetIdfk == SelectedAktivitaet.AktivitaetenId)
+                            .ToList();
 
+                        foreach (Teilnehmer member in teilNehmer)
+                        {
+                            TeilnehmerListe.Add(member);
+                        }
+
+                    }
+                }
+                else
+                {
+                    using (SQLiteKontext context = new SQLiteKontext())
+                    {
+                        var teilNehmer = context.Teilnehmer
+                            .Where(t => t.AktivitaetIdfk == SelectedAktivitaet.AktivitaetenId)
+                            .ToList();
+                        //var teilNehmer = context.Teilnehmer
+                        //    .Where(t => t.AktivitaetIdfk == SelectedAktivitaet.AktivitaetenId)
+                        //    .ToList();
+
+                        foreach (Teilnehmer member in teilNehmer)
+                        {
+                            TeilnehmerListe.Add(member);
+                        }
+
+                    }
                 }
             }
 
