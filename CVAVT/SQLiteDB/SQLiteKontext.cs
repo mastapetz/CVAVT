@@ -71,6 +71,11 @@ public partial class SQLiteKontext : DbContext
 
             entity.Property(e => e.TeilnehmerId).HasColumnName("TeilnehmerID");
             entity.Property(e => e.AktivitaetIdfk).HasColumnName("AktivitaetIDFK");
+
+            // manuell hinzu
+            entity.HasOne(d => d.AktivitaetIdfkNavigation).WithMany(p => p.Teilnehmer)
+            .HasForeignKey(d => d.AktivitaetIdfk)
+            .OnDelete(DeleteBehavior.ClientSetNull);
         });
         modelBuilder.Entity<ViewTeilnehmerIstAnzahl>(entity =>
         {
