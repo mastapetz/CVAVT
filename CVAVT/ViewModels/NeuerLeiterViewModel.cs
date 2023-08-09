@@ -1,4 +1,5 @@
 ﻿using CVAVT.Models;
+using CVAVT.SQLiteDB;
 using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
@@ -30,12 +31,29 @@ namespace CVAVT.ViewModels
                 OnPropertyChanged(nameof(LeiterName));
             }
         }
+        // für Datenbank change
+        private bool _useMSSQLSMVerbindung = true;
+        public bool UseMSSQLSMVerbindung
+        {
+            get { return _useMSSQLSMVerbindung; }
+            set
+            {
+                if (_useMSSQLSMVerbindung != value)
+                {
+                    _useMSSQLSMVerbindung = value;
+                    OnPropertyChanged(nameof(UseMSSQLSMVerbindung)); // Stelle sicher, dass das UI über die Änderung informiert wird
+                }
+            }
+        }
 
         // Konstruktor
-        public NeuerLeiterViewModel()
+
+        public NeuerLeiterViewModel(bool useMSSQLSMVerbindung)
         {
             EingabeVerwerfenCmd = new WpfLibrary.RelayCommand(EingabeVerwerfen);
             EingabeSpeichernCmd = new WpfLibrary.RelayCommand(EingabeSpeichern);
+            // für Datenbank change
+            _useMSSQLSMVerbindung = useMSSQLSMVerbindung;
         }
         /// <summary>
         /// Funktion Verlassen schließt das Fenster
@@ -68,11 +86,23 @@ namespace CVAVT.ViewModels
                 LeiterName = LeiterName
             };
 
-
-            using (CVAVTContext context = new CVAVTContext())
+            if (_useMSSQLSMVerbindung)
             {
-                context.Leiter.Add(neuerLeiter);
-                context.SaveChanges();
+                // für MSSQL
+                using (CVAVTContext context = new CVAVTContext())
+                {
+                    context.Leiter.Add(neuerLeiter);
+                    context.SaveChanges();
+                }
+            }
+            else
+            {
+                // für SQLite
+                using (SQLiteKontext context = new SQLiteKontext())
+                {
+                    context.Leiter.Add(neuerLeiter);
+                    context.SaveChanges();
+                }
             }
 
             Verlassen();

@@ -21,10 +21,13 @@ namespace CVAVT.Views
     public partial class NeuerLeiter : Window
     {
         private NeuerLeiterViewModel _viewModel;
-        public NeuerLeiter()
+        private bool _useMSSQLSMVerbindung;
+
+        public NeuerLeiter(bool useMSSQLSMVerbindung)
         {
             InitializeComponent();
-            _viewModel = new NeuerLeiterViewModel();
+            _useMSSQLSMVerbindung = useMSSQLSMVerbindung;
+            _viewModel = new NeuerLeiterViewModel(useMSSQLSMVerbindung);
             this.DataContext = _viewModel;
 
             _viewModel.OnRequestCloseWindow += (sender, args) => this.Close();
