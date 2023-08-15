@@ -1,4 +1,5 @@
-﻿using CVAVT.Models;
+﻿using CVAVT.HilfsKlassen;
+using CVAVT.Models;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -121,15 +122,22 @@ namespace CVAVT.ViewModels
         {
             using (CVAVTContext context = new CVAVTContext())
             {
+                if (PruefHelfer.FelderGueltig(TeilnehmerName))
+                {
 
-                // Neuer Eintrag
-                Teilnehmer teilnehmer = new Teilnehmer();
-                teilnehmer.TeilnehmerName = TeilnehmerName;
-                teilnehmer.AktivitaetIdfk = SelectedAktivitaet.AktivitaetenId;
-                context.Teilnehmer.Add(teilnehmer);
-                context.SaveChanges();
+                    // Neuer Eintrag
+                    Teilnehmer teilnehmer = new Teilnehmer();
+                    teilnehmer.TeilnehmerName = TeilnehmerName;
+                    teilnehmer.AktivitaetIdfk = SelectedAktivitaet.AktivitaetenId;
+                    context.Teilnehmer.Add(teilnehmer);
+                    context.SaveChanges();
 
-                AktivitaetenIstTeilnehmer = context.Teilnehmer.Count(t => t.AktivitaetIdfk == SelectedAktivitaet.AktivitaetenId);
+                    AktivitaetenIstTeilnehmer = context.Teilnehmer.Count(t => t.AktivitaetIdfk == SelectedAktivitaet.AktivitaetenId);
+
+
+
+                }
+
 
 
             }
@@ -148,17 +156,23 @@ namespace CVAVT.ViewModels
 
         private void NaechsterTeilnehmer()
         {
-            SaveTeilnehmer();
-            ClearTeilnehmerName();
+            if (PruefHelfer.FelderGueltig(TeilnehmerName))
+            {
+                SaveTeilnehmer();
+                ClearTeilnehmerName();
+            }
+
         }
         // Alter Name EditSpeichern
 
 
         private void EingabeSpeichern()
         {
-            SaveTeilnehmer();
-            Verlassen();
-
+            if (PruefHelfer.FelderGueltig(TeilnehmerName))
+            {
+                SaveTeilnehmer();
+                Verlassen();
+            }
         }
     }
 }

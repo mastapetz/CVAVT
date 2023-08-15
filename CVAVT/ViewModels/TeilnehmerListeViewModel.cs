@@ -1,4 +1,5 @@
-﻿using CVAVT.Models;
+﻿using CVAVT.HilfsKlassen;
+using CVAVT.Models;
 using CVAVT.Views;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.IdentityModel.Tokens;
@@ -36,8 +37,12 @@ namespace CVAVT.ViewModels
                     // Änderungen speichern
                     using (CVAVTContext context = new CVAVTContext())
                     {
-                        context.Entry(editedTeilnehmer).State = EntityState.Modified;
-                        context.SaveChanges();
+                        if (PruefHelfer.FelderGueltig(TeilnehmerName))
+                        {
+
+                            context.Entry(editedTeilnehmer).State = EntityState.Modified;
+                            context.SaveChanges();
+                        }
                     }
                 }
             }

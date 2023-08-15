@@ -1,4 +1,5 @@
-﻿using CVAVT.Models;
+﻿using CVAVT.HilfsKlassen;
+using CVAVT.Models;
 using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
@@ -71,11 +72,16 @@ namespace CVAVT.ViewModels
 
             using (CVAVTContext context = new CVAVTContext())
             {
-                context.Leiter.Add(neuerLeiter);
-                context.SaveChanges();
+                if (PruefHelfer.FelderGueltig(LeiterName))
+                {
+                    context.Leiter.Add(neuerLeiter);
+                    context.SaveChanges();
+                    Verlassen();
+                }
+                else { }
             }
 
-            Verlassen();
+            
 
         }
 
