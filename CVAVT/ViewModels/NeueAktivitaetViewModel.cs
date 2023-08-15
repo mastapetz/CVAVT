@@ -1,4 +1,5 @@
-﻿using CVAVT.Models;
+﻿using CVAVT.HilfsKlassen;
+using CVAVT.Models;
 using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
@@ -93,31 +94,36 @@ namespace CVAVT.ViewModels
             {
                 if (_aktivitaet == null)
                 {
-                    // Neuer Eintrag in DB
-                    Aktivitaet aktivitaet = new Aktivitaet();
-                    // Objekt Füllen
-                    aktivitaet.AktivitaetenName = AktivitaetenName;
-                    // Für Combobox
-                    // LeiterId wird LeiterIdfk zugewisen
-                    aktivitaet.LeiterIdfk = SelectedLeiter.LeiterId;
-                    // ----
-                    aktivitaet.AktivitaetenArt = AktivitaetenArt;
-                    // Umänderungen damit Datum und Uhrzeit besser und richtig verarbeitet werden
-                    aktivitaet.AktivitaetenDatum = CombineDateAndTime(AktivitaetenDatum, AktivitaetenZeit);
-                    aktivitaet.AktivitaetenZeit = CombineDateAndTime(AktivitaetenDatum, AktivitaetenZeit);
-                    // Ursprünglich
-                    //aktivitaet.AktivitaetenDatum = AktivitaetenDatum;
-                    //aktivitaet.AktivitaetenZeit = AktivitaetenZeit;
-                    //---------
-                    aktivitaet.AktivitaetenDauer = AktivitaetenDauer;
-                    aktivitaet.AktivitaetenMaxTeilnehmer = AktivitaetenMaxTeilnehmer;
-                    aktivitaet.AktivitaetenVorwissenNoetig = AktivitaetenVorwissenNoetig;
-                    aktivitaet.AktivitaetenInformation = AktivitaetenInformation;
-                    context.Aktivitaet.Add(aktivitaet);
-                    context.SaveChanges();
+                    if (!PruefHelfer.FelderGueltig(AktivitaetenName, SelectedLeiter, AktivitaetenArt, AktivitaetenDauer, AktivitaetenInformation)) { }
+                    else
+                    {
+                        // Neuer Eintrag in DB
+                        Aktivitaet aktivitaet = new Aktivitaet();
+                        // Objekt Füllen
+                        aktivitaet.AktivitaetenName = AktivitaetenName;
+                        // Für Combobox
+                        // LeiterId wird LeiterIdfk zugewisen
+                        aktivitaet.LeiterIdfk = SelectedLeiter.LeiterId;
+                        // ----
+                        aktivitaet.AktivitaetenArt = AktivitaetenArt;
+                        // Umänderungen damit Datum und Uhrzeit besser und richtig verarbeitet werden
+                        aktivitaet.AktivitaetenDatum = CombineDateAndTime(AktivitaetenDatum, AktivitaetenZeit);
+                        aktivitaet.AktivitaetenZeit = CombineDateAndTime(AktivitaetenDatum, AktivitaetenZeit);
+                        // Ursprünglich
+                        //aktivitaet.AktivitaetenDatum = AktivitaetenDatum;
+                        //aktivitaet.AktivitaetenZeit = AktivitaetenZeit;
+                        //---------
+                        aktivitaet.AktivitaetenDauer = AktivitaetenDauer;
+                        aktivitaet.AktivitaetenMaxTeilnehmer = AktivitaetenMaxTeilnehmer;
+                        aktivitaet.AktivitaetenVorwissenNoetig = AktivitaetenVorwissenNoetig;
+                        aktivitaet.AktivitaetenInformation = AktivitaetenInformation;
+                        context.Aktivitaet.Add(aktivitaet);
+                        context.SaveChanges();
+                        Verlassen();
+
+                    }
                 }
             }
-            Verlassen();
         }
 
         private void AnlegenAbbrechen()
