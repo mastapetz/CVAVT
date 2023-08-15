@@ -104,39 +104,6 @@ namespace CVAVT.ViewModels
 
         }
 
-        //private bool FelderGueltig()
-        //{
-        //    if (string.IsNullOrEmpty(AktivitaetenName))
-        //    {
-        //        MessageBox.Show("Das Feld 'Aktivitätsname' muss ausgefüllt sein.", "Fehler", MessageBoxButton.OK, MessageBoxImage.Error);
-        //        return false;
-        //    }
-        //    if (SelectedLeiter == null || SelectedLeiter.LeiterId < 0)
-        //    {
-        //        MessageBox.Show("Bitte einen Leiter auswählen.", "Fehler", MessageBoxButton.OK, MessageBoxImage.Error);
-        //        return false;
-        //    }
-        //    if (string.IsNullOrEmpty(AktivitaetenArt))
-        //    {
-        //        MessageBox.Show("Das Feld 'Aktivitäten Art' muss ausgefüllt sein.", "Fehler", MessageBoxButton.OK, MessageBoxImage.Error);
-        //        return false;
-        //    }
-
-        //    if (double.IsNaN(AktivitaetenDauer) || double.IsNormal(AktivitaetenDauer))
-        //    {
-        //        MessageBox.Show("Das Feld 'Dauer' muss Ausgefüllt sein.", "Fehler", MessageBoxButton.OK, MessageBoxImage.Error);
-        //        return false;
-        //    }
-
-
-        //    if (string.IsNullOrEmpty(AktivitaetenInformation))
-        //    {
-        //        MessageBox.Show("Das Feld 'Aktivitäten Information' muss ausgefüllt sein.", "Fehler", MessageBoxButton.OK, MessageBoxImage.Error);
-        //        return false;
-        //    }
-
-        //    return true;
-        //}
 
 
         /// <summary>
