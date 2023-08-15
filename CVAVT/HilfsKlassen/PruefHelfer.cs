@@ -42,5 +42,18 @@ namespace CVAVT.HilfsKlassen
 
             return true;
         }
+
+        public static bool FelderGueltig(string name)
+        {
+            if (string.IsNullOrEmpty(name))
+            {
+                MessageBox.Show("Das Feld 'Name' muss ausgefüllt sein.", "Fehler", MessageBoxButton.OK, MessageBoxImage.Error);
+                return false;
+            }
+            return true;
+
+        }
+
+
     }
 }
