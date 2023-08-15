@@ -5,7 +5,9 @@ using System.Collections.ObjectModel;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using System.Windows;
 using System.Windows.Input;
+using CVAVT.HilfsKlassen;
 
 namespace CVAVT.ViewModels
 {
@@ -102,6 +104,40 @@ namespace CVAVT.ViewModels
 
         }
 
+        //private bool FelderGueltig()
+        //{
+        //    if (string.IsNullOrEmpty(AktivitaetenName))
+        //    {
+        //        MessageBox.Show("Das Feld 'Aktivitätsname' muss ausgefüllt sein.", "Fehler", MessageBoxButton.OK, MessageBoxImage.Error);
+        //        return false;
+        //    }
+        //    if (SelectedLeiter == null || SelectedLeiter.LeiterId < 0)
+        //    {
+        //        MessageBox.Show("Bitte einen Leiter auswählen.", "Fehler", MessageBoxButton.OK, MessageBoxImage.Error);
+        //        return false;
+        //    }
+        //    if (string.IsNullOrEmpty(AktivitaetenArt))
+        //    {
+        //        MessageBox.Show("Das Feld 'Aktivitäten Art' muss ausgefüllt sein.", "Fehler", MessageBoxButton.OK, MessageBoxImage.Error);
+        //        return false;
+        //    }
+
+        //    if (double.IsNaN(AktivitaetenDauer) || double.IsNormal(AktivitaetenDauer))
+        //    {
+        //        MessageBox.Show("Das Feld 'Dauer' muss Ausgefüllt sein.", "Fehler", MessageBoxButton.OK, MessageBoxImage.Error);
+        //        return false;
+        //    }
+
+
+        //    if (string.IsNullOrEmpty(AktivitaetenInformation))
+        //    {
+        //        MessageBox.Show("Das Feld 'Aktivitäten Information' muss ausgefüllt sein.", "Fehler", MessageBoxButton.OK, MessageBoxImage.Error);
+        //        return false;
+        //    }
+
+        //    return true;
+        //}
+
 
         /// <summary>
         /// EditSave ist das Command zum Speichern der Änderungen
@@ -113,27 +149,32 @@ namespace CVAVT.ViewModels
                 Aktivitaet aktivEd = context.Aktivitaet.Where(a => a.AktivitaetenId == _aktivitaet.AktivitaetenId).FirstOrDefault();
                 if (aktivEd != null)
                 {
-                    aktivEd.AktivitaetenName = AktivitaetenName;
-                    // Für Combobox
-                    aktivEd.LeiterIdfk = SelectedLeiter.LeiterId;
-                    // ----
-                    aktivEd.AktivitaetenArt = AktivitaetenArt;
+                    if (!PruefHelfer.FelderGueltig(AktivitaetenName, SelectedLeiter, AktivitaetenArt, AktivitaetenDauer, AktivitaetenInformation)) { }
+                    else
+                    {
+                        aktivEd.AktivitaetenName = AktivitaetenName;
+                        // Für Combobox
+                        aktivEd.LeiterIdfk = SelectedLeiter.LeiterId;
+                        // ----
+                        aktivEd.AktivitaetenArt = AktivitaetenArt;
 
-                    // Umänderungen damit Datum und Uhrzeit besser und richtig verarbeitet werden
-                    aktivEd.AktivitaetenDatum = CombineDateAndTime(AktivitaetenDatum, AktivitaetenZeit);
-                    aktivEd.AktivitaetenZeit = CombineDateAndTime(AktivitaetenDatum, AktivitaetenZeit);
-                    // -- ursprünglich
-                    //aktivEd.AktivitaetenDatum = AktivitaetenDatum;
-                    //aktivEd.AktivitaetenZeit = AktivitaetenZeit;
-                    // -------
-                    aktivEd.AktivitaetenDauer = AktivitaetenDauer;
-                    aktivEd.AktivitaetenMaxTeilnehmer = AktivitaetenMaxTeilnehmer;
-                    aktivEd.AktivitaetenVorwissenNoetig = AktivitaetenVorwissenNoetig;
-                    aktivEd.AktivitaetenInformation = AktivitaetenInformation;
-                    context.SaveChanges();
+                        // Umänderungen damit Datum und Uhrzeit besser und richtig verarbeitet werden
+                        aktivEd.AktivitaetenDatum = CombineDateAndTime(AktivitaetenDatum, AktivitaetenZeit);
+                        aktivEd.AktivitaetenZeit = CombineDateAndTime(AktivitaetenDatum, AktivitaetenZeit);
+                        // -- ursprünglich
+                        //aktivEd.AktivitaetenDatum = AktivitaetenDatum;
+                        //aktivEd.AktivitaetenZeit = AktivitaetenZeit;
+                        // -------
+                        aktivEd.AktivitaetenDauer = AktivitaetenDauer;
+                        aktivEd.AktivitaetenMaxTeilnehmer = AktivitaetenMaxTeilnehmer;
+                        aktivEd.AktivitaetenVorwissenNoetig = AktivitaetenVorwissenNoetig;
+                        aktivEd.AktivitaetenInformation = AktivitaetenInformation;
+                        context.SaveChanges();
+                        Verlassen();
+                    }
 
                 }
-                Verlassen();
+
             }
 
         }
