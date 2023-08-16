@@ -96,6 +96,8 @@ namespace CVAVT.ViewModels
                     {
                         context.Leiter.Add(neuerLeiter);
                         context.SaveChanges();
+                        Verlassen();
+
                     }
                 }
             }
@@ -104,12 +106,16 @@ namespace CVAVT.ViewModels
                 // für SQLite
                 using (SQLiteKontext context = new SQLiteKontext())
                 {
-                    context.Leiter.Add(neuerLeiter);
-                    context.SaveChanges();
+                    if (PruefHelfer.FelderGueltig(LeiterName))
+                    {
+                        context.Leiter.Add(neuerLeiter);
+                        context.SaveChanges();
+                        Verlassen();
+
+                    }
                 }
             }
 
-            Verlassen();
 
         }
 
