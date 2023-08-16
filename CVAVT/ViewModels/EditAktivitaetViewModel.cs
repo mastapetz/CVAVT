@@ -1,4 +1,5 @@
-﻿using CVAVT.Models;
+﻿using CVAVT.HilfsKlassen;
+using CVAVT.Models;
 using CVAVT.SQLiteDB;
 using System;
 using System.Collections.Generic;
@@ -140,24 +141,29 @@ namespace CVAVT.ViewModels
                     Aktivitaet aktivEd = context.Aktivitaet.Where(a => a.AktivitaetenId == _aktivitaet.AktivitaetenId).FirstOrDefault();
                     if (aktivEd != null)
                     {
-                        aktivEd.AktivitaetenName = AktivitaetenName;
-                        // Für Combobox
-                        aktivEd.LeiterIdfk = SelectedLeiter.LeiterId;
-                        // ----
-                        aktivEd.AktivitaetenArt = AktivitaetenArt;
+                        if (PruefHelfer.FelderGueltig(AktivitaetenName, SelectedLeiter, AktivitaetenArt, AktivitaetenDauer, AktivitaetenInformation))
+                        {
+                            aktivEd.AktivitaetenName = AktivitaetenName;
+                            // Für Combobox
+                            aktivEd.LeiterIdfk = SelectedLeiter.LeiterId;
+                            // ----
+                            aktivEd.AktivitaetenArt = AktivitaetenArt;
 
-                        // Umänderungen damit Datum und Uhrzeit besser und richtig verarbeitet werden
-                        aktivEd.AktivitaetenDatum = CombineDateAndTime(AktivitaetenDatum, AktivitaetenZeit);
-                        aktivEd.AktivitaetenZeit = CombineDateAndTime(AktivitaetenDatum, AktivitaetenZeit);
-                        // -- ursprünglich
-                        //aktivEd.AktivitaetenDatum = AktivitaetenDatum;
-                        //aktivEd.AktivitaetenZeit = AktivitaetenZeit;
-                        // -------
-                        aktivEd.AktivitaetenDauer = AktivitaetenDauer;
-                        aktivEd.AktivitaetenMaxTeilnehmer = AktivitaetenMaxTeilnehmer;
-                        aktivEd.AktivitaetenVorwissenNoetig = AktivitaetenVorwissenNoetig;
-                        aktivEd.AktivitaetenInformation = AktivitaetenInformation;
-                        context.SaveChanges();
+                            // Umänderungen damit Datum und Uhrzeit besser und richtig verarbeitet werden
+                            aktivEd.AktivitaetenDatum = CombineDateAndTime(AktivitaetenDatum, AktivitaetenZeit);
+                            aktivEd.AktivitaetenZeit = CombineDateAndTime(AktivitaetenDatum, AktivitaetenZeit);
+                            // -- ursprünglich
+                            //aktivEd.AktivitaetenDatum = AktivitaetenDatum;
+                            //aktivEd.AktivitaetenZeit = AktivitaetenZeit;
+                            // -------
+                            aktivEd.AktivitaetenDauer = AktivitaetenDauer;
+                            aktivEd.AktivitaetenMaxTeilnehmer = AktivitaetenMaxTeilnehmer;
+                            aktivEd.AktivitaetenVorwissenNoetig = AktivitaetenVorwissenNoetig;
+                            aktivEd.AktivitaetenInformation = AktivitaetenInformation;
+                            context.SaveChanges();
+                            Verlassen();
+
+                        }
 
                     }
                 }
@@ -170,29 +176,33 @@ namespace CVAVT.ViewModels
                     Aktivitaet aktivEd = context.Aktivitaet.Where(a => a.AktivitaetenId == _aktivitaet.AktivitaetenId).FirstOrDefault();
                     if (aktivEd != null)
                     {
-                        aktivEd.AktivitaetenName = AktivitaetenName;
-                        // Für Combobox
-                        aktivEd.LeiterIdfk = SelectedLeiter.LeiterId;
-                        // ----
-                        aktivEd.AktivitaetenArt = AktivitaetenArt;
+                        if (PruefHelfer.FelderGueltig(AktivitaetenName, SelectedLeiter, AktivitaetenArt, AktivitaetenDauer, AktivitaetenInformation))
+                        {
+                            aktivEd.AktivitaetenName = AktivitaetenName;
+                            // Für Combobox
+                            aktivEd.LeiterIdfk = SelectedLeiter.LeiterId;
+                            // ----
+                            aktivEd.AktivitaetenArt = AktivitaetenArt;
 
-                        // Umänderungen damit Datum und Uhrzeit besser und richtig verarbeitet werden
-                        aktivEd.AktivitaetenDatum = CombineDateAndTime(AktivitaetenDatum, AktivitaetenZeit);
-                        aktivEd.AktivitaetenZeit = CombineDateAndTime(AktivitaetenDatum, AktivitaetenZeit);
-                        // -- ursprünglich
-                        //aktivEd.AktivitaetenDatum = AktivitaetenDatum;
-                        //aktivEd.AktivitaetenZeit = AktivitaetenZeit;
-                        // -------
-                        aktivEd.AktivitaetenDauer = AktivitaetenDauer;
-                        aktivEd.AktivitaetenMaxTeilnehmer = AktivitaetenMaxTeilnehmer;
-                        aktivEd.AktivitaetenVorwissenNoetig = AktivitaetenVorwissenNoetig;
-                        aktivEd.AktivitaetenInformation = AktivitaetenInformation;
-                        context.SaveChanges();
+                            // Umänderungen damit Datum und Uhrzeit besser und richtig verarbeitet werden
+                            aktivEd.AktivitaetenDatum = CombineDateAndTime(AktivitaetenDatum, AktivitaetenZeit);
+                            aktivEd.AktivitaetenZeit = CombineDateAndTime(AktivitaetenDatum, AktivitaetenZeit);
+                            // -- ursprünglich
+                            //aktivEd.AktivitaetenDatum = AktivitaetenDatum;
+                            //aktivEd.AktivitaetenZeit = AktivitaetenZeit;
+                            // -------
+                            aktivEd.AktivitaetenDauer = AktivitaetenDauer;
+                            aktivEd.AktivitaetenMaxTeilnehmer = AktivitaetenMaxTeilnehmer;
+                            aktivEd.AktivitaetenVorwissenNoetig = AktivitaetenVorwissenNoetig;
+                            aktivEd.AktivitaetenInformation = AktivitaetenInformation;
+                            context.SaveChanges();
+                            Verlassen();
+
+                        }
 
                     }
                 }
             }
-            Verlassen();
 
 
         }

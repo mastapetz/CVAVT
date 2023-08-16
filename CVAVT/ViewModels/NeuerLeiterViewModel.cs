@@ -1,4 +1,5 @@
-﻿using CVAVT.Models;
+﻿using CVAVT.HilfsKlassen;
+using CVAVT.Models;
 using CVAVT.SQLiteDB;
 using System;
 using System.Collections.Generic;
@@ -91,8 +92,11 @@ namespace CVAVT.ViewModels
                 // für MSSQL
                 using (CVAVTContext context = new CVAVTContext())
                 {
-                    context.Leiter.Add(neuerLeiter);
-                    context.SaveChanges();
+                    if (PruefHelfer.FelderGueltig(LeiterName))
+                    {
+                        context.Leiter.Add(neuerLeiter);
+                        context.SaveChanges();
+                    }
                 }
             }
             else
