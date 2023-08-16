@@ -43,7 +43,7 @@ namespace CVAVT.HilfsKlassen
             return true;
         }
 
-        public static bool FelderGuelting(string name)
+        public static bool FelderGueltig(string name)
         {
             if (string.IsNullOrEmpty(name))
             {
