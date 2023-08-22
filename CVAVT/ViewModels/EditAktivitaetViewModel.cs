@@ -22,7 +22,20 @@ namespace CVAVT.ViewModels
         // Aktivitaet  Properties
         public string AktivitaetenName { get; set; }
         public string AktivitaetenArt { get; set; }
-        public DateTime AktivitaetenDatum { get; set; }
+
+        // Anpassung für Datepicker funktionalität
+        private DateTime _aktivitaetenDatum;
+        public DateTime AktivitaetenDatum
+        {
+            get { return _aktivitaetenDatum; }
+            set
+            {
+                _aktivitaetenDatum = value;
+                OnPropertyChanged("AktivitaetenDatum");
+            }
+        }
+
+        // ---
         public DateTime AktivitaetenZeit { get; set; }
         public double AktivitaetenDauer { get; set; }
         public int? AktivitaetenMaxTeilnehmer { get; set; }
