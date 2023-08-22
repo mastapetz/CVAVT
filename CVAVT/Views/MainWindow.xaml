@@ -14,24 +14,24 @@
             <ColumnDefinition Width="281*"/>
         </Grid.ColumnDefinitions>
         <Grid.RowDefinitions>
-            <RowDefinition Height="27*"/>
+            <RowDefinition Height="Auto"/>
             <RowDefinition Height="356*"/>
-            <RowDefinition Height="51*"/>
+            <RowDefinition Height="51"/>
         </Grid.RowDefinitions>
         <!--DataGrid benötigt ItemsSource um mit dem Rest etwas anfangen zu können-->
         <DataGrid ItemsSource="{Binding AktivitaetenListe}" SelectedItem="{Binding SelectedAktivitaet}" CanUserAddRows="False" AutoGenerateColumns="False"
                    Grid.ColumnSpan="4" Margin="31,27,24,0" Grid.RowSpan="2">
             <DataGrid.Columns>
-                <DataGridTextColumn Binding="{Binding AktivitaetenName}" Header="Aktivitäten Name" Width="105"></DataGridTextColumn>
-                <DataGridTextColumn Binding="{Binding AktivitaetenArt}" Header="Art" Width="30"></DataGridTextColumn>
-                <DataGridTextColumn Binding="{Binding LeiterIdfkNavigation.LeiterName}" Header="Leiter" Width="40"></DataGridTextColumn>
-                <DataGridTextColumn Binding="{Binding AktivitaetenDatum, StringFormat=\{0:dd.MM.yyyy\}}" Header="Datum" Width="90"></DataGridTextColumn>
-                <DataGridTextColumn Binding="{Binding AktivitaetenZeit, StringFormat=\{0:HH:mm\}}" Header="Uhrzeit" Width="80"></DataGridTextColumn>
-                <DataGridTextColumn Binding="{Binding AktivitaetenDauer}" Header="Dauer" Width="45"></DataGridTextColumn>
-                <DataGridTextColumn Binding="{Binding AktivitaetenIstTeilnehmer, Mode=OneWay}" Header="Ist" Width="25"></DataGridTextColumn>
-                <DataGridTextColumn Binding="{Binding AktivitaetenMaxTeilnehmer}" Header="Max" Width="35"></DataGridTextColumn>
-                <DataGridTextColumn Binding="{Binding AktivitaetenVorwissenNoetig}" Header="Vorwissen" Width="65"></DataGridTextColumn>
-                <DataGridTextColumn Binding="{Binding AktivitaetenInformation}" Header="Information" Width="100"></DataGridTextColumn>
+                <DataGridTextColumn Binding="{Binding AktivitaetenName}" Header="Aktivitäten Name" Width="125*"></DataGridTextColumn>
+                <DataGridTextColumn Binding="{Binding AktivitaetenArt}" Header="Art" Width="100*"></DataGridTextColumn>
+                <DataGridTextColumn Binding="{Binding LeiterIdfkNavigation.LeiterName}" Header="Leiter" Width="60*"></DataGridTextColumn>
+                <DataGridTextColumn Binding="{Binding AktivitaetenDatum, StringFormat=\{0:dd.MM.yyyy\}}" Header="Datum" Width="90*"></DataGridTextColumn>
+                <DataGridTextColumn Binding="{Binding AktivitaetenZeit, StringFormat=\{0:HH:mm\}}" Header="Uhrzeit" Width="80*"></DataGridTextColumn>
+                <DataGridTextColumn Binding="{Binding AktivitaetenDauer}" Header="Dauer" Width="45*"></DataGridTextColumn>
+                <DataGridTextColumn Binding="{Binding AktivitaetenIstTeilnehmer, Mode=OneWay}" Header="Ist" Width="35*"></DataGridTextColumn>
+                <DataGridTextColumn Binding="{Binding AktivitaetenMaxTeilnehmer}" Header="Max" Width="40*"></DataGridTextColumn>
+                <DataGridTextColumn Binding="{Binding AktivitaetenVorwissenNoetig}" Header="Vorwissen" Width="70*"></DataGridTextColumn>
+                <DataGridTextColumn Binding="{Binding AktivitaetenInformation}" Header="Information" Width="100*"></DataGridTextColumn>
                 <DataGridTemplateColumn Header="Ändern" Width="50">
                     <DataGridTemplateColumn.CellTemplate>
                         <DataTemplate>
@@ -74,7 +74,7 @@
 
             </DataGrid.Columns>
         </DataGrid>
-        <Menu Grid.ColumnSpan="2" Margin="0,0,231,0">
+        <Menu Grid.ColumnSpan="1">
             <MenuItem Header="Optionen">
                 <MenuItem Command="{Binding NeuLeiterCmd}" Header="Neuer Leiter"></MenuItem>
                 <MenuItem Command="{Binding NeuAktivitaetCmd}" Header="Neue Aktivität"></MenuItem>
