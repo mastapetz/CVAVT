@@ -68,7 +68,7 @@
         <Label Grid.Column="1" Content="Aktivitäten Uhrzeit" HorizontalAlignment="Center" Grid.Row="10" VerticalAlignment="Center" Height="26" Width="114"/>
         <TextBox Text="{Binding AktivitaetenZeit, Converter={StaticResource TimeFormatConverter}}" Grid.Column="2" HorizontalAlignment="Center"  Grid.Row="10" TextWrapping="Wrap"  VerticalAlignment="Center"  Width="168" Height="18"/>
         <Label Grid.Column="1" Content="Geplante Dauer" HorizontalAlignment="Center" Grid.Row="12" VerticalAlignment="Center" Height="26" Width="114"/>
-        <TextBox Text="{Binding AktivitaetenDauer}" Grid.Column="2" HorizontalAlignment="Center"  Grid.Row="12" TextWrapping="Wrap" VerticalAlignment="Center"  Width="168" Height="18"/>
+        <TextBox Text="{Binding AktivitaetenDauer, StringFormat=N2}" Grid.Column="2" HorizontalAlignment="Center"  Grid.Row="12" TextWrapping="Wrap" VerticalAlignment="Center"  Width="168" Height="18"/>
         <Label Grid.Column="1" Content="Teilnehmer Max" HorizontalAlignment="Center" Grid.Row="14" VerticalAlignment="Center" Height="26" Width="114"/>
         <TextBox Text="{Binding AktivitaetenMaxTeilnehmer}" Grid.Column="2" HorizontalAlignment="Center"  Grid.Row="14" TextWrapping="Wrap"  VerticalAlignment="Center"  Width="168" Height="18"/>
         <Label Grid.Column="1" Content="Vorwissen Nötig" HorizontalAlignment="Center" Grid.Row="16" VerticalAlignment="Center" Height="26" Width="114"/>
