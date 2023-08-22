@@ -13,5 +13,9 @@ namespace CVAVT
     /// </summary>
     public partial class App : Application
     {
+        private void Style_Closed(object sender, RoutedEventArgs e)
+        {
+
+        }
     }
 }

@@ -22,10 +22,13 @@ namespace CVAVT
     /// </summary>
     public partial class MainWindow : Window
     {
+
         private MainWindowViewModel _viewModel;
+        private bool isDarkMode;
 
         public MainWindow()
         {
+
             InitializeComponent();
             _viewModel = new MainWindowViewModel();
             this.DataContext = _viewModel;
@@ -33,5 +36,26 @@ namespace CVAVT
             _viewModel.OnRequestCloseWindow += (sender, args) => this.Close();
 
         }
+        //Toggle
+        private void ToggleButton_Click(object sender, RoutedEventArgs e)
+        {
+            ToggleTheme();
+        }
+        private void ToggleTheme()
+        {
+            if (isDarkMode)
+            {
+                // Wechsel zu Light Mode
+                Resources["ButtonStyle"] = FindResource("LightButtonStyle");
+            }
+            else
+            {
+                // Wechsel zu Dark Mode
+                Resources["ButtonStyle"] = FindResource("DarkButtonStyle");
+            }
+
+            isDarkMode = !isDarkMode;
+        }
+
     }
 }

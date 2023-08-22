@@ -61,6 +61,8 @@ namespace CVAVT.ViewModels
 
         // Vergangene Einblenden
         private bool _vergangeneAnzeigen;
+        private bool isDarkMode;
+
         public bool VergangeneAnzeigen
         {
             get { return _vergangeneAnzeigen; }
@@ -73,6 +75,8 @@ namespace CVAVT.ViewModels
         }
 
         public int AktivitaetenIstTeilnehmer { get; set; }
+        // Theme Toggle
+        public ICommand ToggleThemeCmd { get; set; }
 
         // Konstruktor
         public MainWindowViewModel()
@@ -86,6 +90,8 @@ namespace CVAVT.ViewModels
             AktivitaetLoeschenCmd = new WpfLibrary.RelayCommand(AktivitaetLoeschen);
             BeendenCmd = new WpfLibrary.RelayCommand(Schliessen);
             ExportAktivitaetenListeCmd = new WpfLibrary.RelayCommand(ExportAktivitaetenListe);
+            // Toggle
+            //ToggleThemeCmd = new WpfLibrary.RelayCommand(ToggleTheme);
             FillList();
         }
 
@@ -291,6 +297,27 @@ namespace CVAVT.ViewModels
 
 
         }
+
+        // Toggle Theme
+        //private void ToggleButton_Click(object sender, RoutedEventArgs e)
+        //{
+        //    ToggleTheme();
+        //}
+        //private void ToggleTheme()
+        //{
+        //    if (isDarkMode)
+        //    {
+        //        // Wechsel zu Light Mode
+        //        Resources["ButtonStyle"] = FindResource("LightButtonStyle");
+        //    }
+        //    else
+        //    {
+        //        // Wechsel zu Dark Mode
+        //        Resources["ButtonStyle"] = FindResource("DarkButtonStyle");
+        //    }
+
+        //    isDarkMode = !isDarkMode;
+        //}
 
     }
 }

@@ -5,8 +5,10 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:CVAVT"
         mc:Ignorable="d"
-        Title="CVAVT" Height="450" Width="900">
-    <Grid>
+        Title="CVAVT" Height="450" Width="900"
+        Background="White"
+        Foreground="Black">
+    <Grid Background="White">
         <Grid.ColumnDefinitions>
             <ColumnDefinition Width="63*"/>
             <ColumnDefinition Width="381*"/>
@@ -20,7 +22,7 @@
         </Grid.RowDefinitions>
         <!--DataGrid benötigt ItemsSource um mit dem Rest etwas anfangen zu können-->
         <DataGrid ItemsSource="{Binding AktivitaetenListe}" SelectedItem="{Binding SelectedAktivitaet}" CanUserAddRows="False" AutoGenerateColumns="False"
-                   Grid.ColumnSpan="4" Margin="31,27,24,0" Grid.RowSpan="2">
+                   Grid.ColumnSpan="4" Margin="31,27,24,0" Grid.RowSpan="2" Background="White" Foreground="Black">
             <DataGrid.Columns>
                 <DataGridTextColumn Binding="{Binding AktivitaetenName}" Header="Aktivitäten Name" Width="125*"></DataGridTextColumn>
                 <DataGridTextColumn Binding="{Binding AktivitaetenArt}" Header="Art" Width="100*"></DataGridTextColumn>
@@ -103,6 +105,14 @@
         -->
         <CheckBox Grid.Column="3" Content="Vergangene Einblenden" HorizontalAlignment="Left" Margin="110,0,0,0" VerticalAlignment="Center" Height="15" Width="146"
                   IsChecked="{Binding VergangeneAnzeigen, Mode=TwoWay}"/>
-        <Button Command="{Binding NeuAktivitaetCmd}" ToolTip="Neue Aktivität erstellen" Background="CornflowerBlue"  Grid.Column="3" Content="Neue Aktivität" HorizontalAlignment="Stretch"  Grid.Row="2" VerticalAlignment="Center" Width="91" Height="31"/>
+        <Button Command="{Binding NeuAktivitaetCmd}" ToolTip="Neue Aktivität erstellen" Background="CornflowerBlue"  Grid.Column="3"
+                Content="Neue Aktivität" HorizontalAlignment="Stretch"  Grid.Row="2" VerticalAlignment="Center" Width="91" Height="31"/>
+        <!-- Lightmode Darkmode-->
+        <Button  Content="Toggle" Click="ToggleButton_Click" Command="{Binding ToggleThemeCmd}"
+                Grid.Column="1" Width="50" HorizontalAlignment="Left"  Grid.Row="3" />
+        <!--<Button Style="{StaticResource LightButtonStyle}" Content="Light" Grid.Column="1" Width="50" HorizontalAlignment="Left" Margin="214,0,0,363" Grid.RowSpan="2" />
+        <Button Style="{StaticResource DarkButtonStyle}" Content="Dark" Grid.Column="1" Width="50" HorizontalAlignment="Left" Margin="289,0,0,363" Grid.RowSpan="2"/>-->
+
     </Grid>
+
 </Window>

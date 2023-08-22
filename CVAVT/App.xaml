@@ -4,6 +4,21 @@
              xmlns:local="clr-namespace:CVAVT"
              StartupUri="Views/MainWindow.xaml">
     <Application.Resources>
+        <ResourceDictionary>
+            <!-- Light Mode Stile -->
+            <Style x:Key="LightButtonStyle" TargetType="Button">
+                <Setter Property="Background" Value="White"/>
+                <Setter Property="Foreground" Value="Black"/>
+                <!-- Stil Eigenschaften für den Light Mode hier definieren -->
+            </Style>
 
+            <!-- Dark Mode Stile -->
+            <Style x:Key="DarkButtonStyle" TargetType="Button">
+                <Setter Property="Background" Value="#121212"/>
+                <Setter Property="Foreground" Value="White"/>
+
+                <!-- Stil Eigenschaften für den Dark Mode hier definieren -->
+            </Style>
+        </ResourceDictionary>
     </Application.Resources>
 </Application>
