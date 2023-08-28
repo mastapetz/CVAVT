@@ -5,6 +5,11 @@
              StartupUri="Views/MainWindow.xaml">
     <Application.Resources>
         <ResourceDictionary>
+            <Style x:Key="ButtonStyle" TargetType="Button">
+                <Setter Property="Background" Value="White"/>
+                <Setter Property="Foreground" Value="Black"/>
+                <!-- Stil Eigenschaften für den Light Mode hier definieren -->
+            </Style>
             <!-- Light Mode Stile -->
             <Style x:Key="LightButtonStyle" TargetType="Button">
                 <Setter Property="Background" Value="White"/>

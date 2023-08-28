@@ -108,7 +108,7 @@
         <Button Command="{Binding NeuAktivitaetCmd}" ToolTip="Neue Aktivität erstellen" Background="CornflowerBlue"  Grid.Column="3"
                 Content="Neue Aktivität" HorizontalAlignment="Stretch"  Grid.Row="2" VerticalAlignment="Center" Width="91" Height="31"/>
         <!-- Lightmode Darkmode-->
-        <Button  Content="Toggle" Click="ToggleButton_Click" Command="{Binding ToggleThemeCmd}"
+        <Button Style="{DynamicResource ButtonStyle}" Content="Toggle" Click="ToggleButton_Click" Command="{Binding ToggleThemeCmd}"
                 Grid.Column="1" Width="50" HorizontalAlignment="Left"  Grid.Row="3" />
         <!--<Button Style="{StaticResource LightButtonStyle}" Content="Light" Grid.Column="1" Width="50" HorizontalAlignment="Left" Margin="214,0,0,363" Grid.RowSpan="2" />
         <Button Style="{StaticResource DarkButtonStyle}" Content="Dark" Grid.Column="1" Width="50" HorizontalAlignment="Left" Margin="289,0,0,363" Grid.RowSpan="2"/>-->
