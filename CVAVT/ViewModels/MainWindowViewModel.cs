@@ -15,14 +15,14 @@ using Microsoft.IdentityModel.Tokens;
 using Microsoft.Win32;
 using CVAVT.Konverter;
 using System.Globalization;
-using WpfLibrary;
+using WpfLibraryLT;
 using System.Data.SQLite;
 using CVAVT.SQLiteDB;
 using System.ComponentModel;
 
 namespace CVAVT.ViewModels
 {
-    class MainWindowViewModel : WpfLibrary.BaseViewModel, INotifyPropertyChanged
+    class MainWindowViewModel : WpfLibraryLT.BaseViewModel, INotifyPropertyChanged
     {
         // Neuer Teilnehmer
         public ICommand NeuTeilnehmerCmd { get; set; }
@@ -81,7 +81,7 @@ namespace CVAVT.ViewModels
         public ICommand MSSQLSMVerbindungCmd { get; }
         public ICommand SQLiteVerbindungCmd { get; }
 
-        private bool _useMSSQLSMVerbindung = true; // Standardmäßig MSSQLSMVerbindung auswählen
+        private bool _useMSSQLSMVerbindung = false; // Standardmäßig SQLite auswählen
 
         public bool UseMSSQLSMVerbindung
         {
@@ -106,17 +106,17 @@ namespace CVAVT.ViewModels
         {
 
             AktivitaetenListe = new ObservableCollection<Aktivitaet>();
-            NeuTeilnehmerCmd = new WpfLibrary.RelayCommand(NeuerTeilnehmerMenu);
-            NeuLeiterCmd = new WpfLibrary.RelayCommand(NeuLeiter);
-            NeuAktivitaetCmd = new WpfLibrary.RelayCommand(NeuAktivitaet);
-            EditAktivitaetCmd = new WpfLibrary.RelayCommand(EditAktivitaet);
-            ShowTeilnehmerCmd = new WpfLibrary.RelayCommand(ShowTeilnehmer);
-            AktivitaetLoeschenCmd = new WpfLibrary.RelayCommand(AktivitaetLoeschen);
-            BeendenCmd = new WpfLibrary.RelayCommand(Schliessen);
-            ExportAktivitaetenListeCmd = new WpfLibrary.RelayCommand(ExportAktivitaetenListe);
+            NeuTeilnehmerCmd = new WpfLibraryLT.RelayCommand(NeuerTeilnehmerMenu);
+            NeuLeiterCmd = new WpfLibraryLT.RelayCommand(NeuLeiter);
+            NeuAktivitaetCmd = new WpfLibraryLT.RelayCommand(NeuAktivitaet);
+            EditAktivitaetCmd = new WpfLibraryLT.RelayCommand(EditAktivitaet);
+            ShowTeilnehmerCmd = new WpfLibraryLT.RelayCommand(ShowTeilnehmer);
+            AktivitaetLoeschenCmd = new WpfLibraryLT.RelayCommand(AktivitaetLoeschen);
+            BeendenCmd = new WpfLibraryLT.RelayCommand(Schliessen);
+            ExportAktivitaetenListeCmd = new WpfLibraryLT.RelayCommand(ExportAktivitaetenListe);
             //--- für Datenbank Wechsel
-            MSSQLSMVerbindungCmd = new WpfLibrary.RelayCommand(MSSQLSMVerbindung);
-            SQLiteVerbindungCmd = new WpfLibrary.RelayCommand(SQLiteVerbindung);
+            MSSQLSMVerbindungCmd = new WpfLibraryLT.RelayCommand(MSSQLSMVerbindung);
+            SQLiteVerbindungCmd = new WpfLibraryLT.RelayCommand(SQLiteVerbindung);
             FillList();
         }
 
@@ -274,10 +274,10 @@ namespace CVAVT.ViewModels
                 }
             }
             // Aktualisiere die Anzahl der Ist-Teilnehmer für die ausgewählte Aktivität
-            if (SelectedAktivitaet != null)
-            {
-                AktivitaetenIstTeilnehmer = SelectedAktivitaet.AktivitaetenIstTeilnehmer;
-            }
+            //if (SelectedAktivitaet != null)
+            //{
+            //    AktivitaetenIstTeilnehmer = SelectedAktivitaet.AktivitaetenIstTeilnehmer;
+            //}
         }
 
         // ========================================================
@@ -329,7 +329,7 @@ namespace CVAVT.ViewModels
                 string formattedDate = (string)dateFormatConverter.Convert(aktivitaet.AktivitaetenDatum, null, null, CultureInfo.InvariantCulture);
                 string formattedTime = (string)timeFormatConverter.Convert(aktivitaet.AktivitaetenZeit, null, null, CultureInfo.InvariantCulture);
 
-                csvData.AppendLine($"{aktivitaet.AktivitaetenName};{aktivitaet.AktivitaetenArt};{leiterName};{aktivitaet.AktivitaetenIstTeilnehmer};{aktivitaet.AktivitaetenMaxTeilnehmer};{formattedDate};{formattedTime}");
+                csvData.AppendLine($"{aktivitaet.AktivitaetenName};{aktivitaet.AktivitaetenArt};{leiterName};{aktivitaet.AktivitaetenMaxTeilnehmer};{formattedDate};{formattedTime}");
 
                 // Ohne Zeit und Datum
                 //csvData.AppendLine($"{aktivitaet.AktivitaetenName};{aktivitaet.AktivitaetenArt};{aktivitaet.LeiterIdfkNavigation?.LeiterName};{aktivitaet.AktivitaetenIstTeilnehmer};{aktivitaet.AktivitaetenMaxTeilnehmer}");

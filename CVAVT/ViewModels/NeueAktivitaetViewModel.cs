@@ -10,7 +10,7 @@ using System.Windows.Input;
 
 namespace CVAVT.ViewModels
 {
-    internal class NeueAktivitaetViewModel : WpfLibrary.BaseViewModel
+    internal class NeueAktivitaetViewModel : WpfLibraryLT.BaseViewModel
     {
         // Commands
         public ICommand AktivitaetAnlegenCmd { get; set; }
@@ -61,8 +61,8 @@ namespace CVAVT.ViewModels
         // Konstruktor
         public NeueAktivitaetViewModel(Aktivitaet aktivitaet, bool useMSSQLSMVerbindung)
         {
-            AktivitaetAnlegenCmd = new WpfLibrary.RelayCommand(AktivitaetAnlegen);
-            AnlegenAbbrechenCmd = new WpfLibrary.RelayCommand(AnlegenAbbrechen);
+            AktivitaetAnlegenCmd = new WpfLibraryLT.RelayCommand(AktivitaetAnlegen);
+            AnlegenAbbrechenCmd = new WpfLibraryLT.RelayCommand(AnlegenAbbrechen);
 
             // für Leiter Liste
             LeiterListe = new ObservableCollection<Leiter>();

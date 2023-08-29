@@ -8,8 +8,8 @@
 	</PropertyGroup>
 
 	<ItemGroup>
-		<Reference Include="WpfLibrary">
-			<HintPath>..\..\Aufbaukurs\Tag14\WpfLibrary\bin\Debug\net7.0-windows\WpfLibrary.dll</HintPath>
+		<Reference Include="WpfLibraryLT">
+		  <HintPath>..\..\Libs\WpfLibraryLT\WpfLibraryLT\bin\Debug\net7.0\WpfLibraryLT.dll</HintPath>
 		</Reference>
 	</ItemGroup>
 

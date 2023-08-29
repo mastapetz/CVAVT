@@ -11,7 +11,7 @@ using System.Windows.Input;
 
 namespace CVAVT.ViewModels
 {
-    internal class EditAktivitaetViewModel : WpfLibrary.BaseViewModel
+    internal class EditAktivitaetViewModel : WpfLibraryLT.BaseViewModel
     {
         // Commands
         public ICommand EditSaveCmd { get; set; }
@@ -64,8 +64,8 @@ namespace CVAVT.ViewModels
         public EditAktivitaetViewModel(Aktivitaet aktivitaet, bool useMSSQLSMVerbindung)
         {
             LeiterListe = new ObservableCollection<Leiter>();
-            EditSaveCmd = new WpfLibrary.RelayCommand(EditSave);
-            EditAbbrechenCmd = new WpfLibrary.RelayCommand(EditAbbrechen);
+            EditSaveCmd = new WpfLibraryLT.RelayCommand(EditSave);
+            EditAbbrechenCmd = new WpfLibraryLT.RelayCommand(EditAbbrechen);
 
             // DB Verbindung zum füllen derLeiter Liste
             // für Datenbank change

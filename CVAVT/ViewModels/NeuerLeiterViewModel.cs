@@ -12,7 +12,7 @@ using System.Windows.Media;
 
 namespace CVAVT.ViewModels
 {
-    internal class NeuerLeiterViewModel : WpfLibrary.BaseViewModel
+    internal class NeuerLeiterViewModel : WpfLibraryLT.BaseViewModel
     {
         // Commands
         public ICommand EingabeVerwerfenCmd { get; set; }
@@ -50,8 +50,8 @@ namespace CVAVT.ViewModels
 
         public NeuerLeiterViewModel(bool useMSSQLSMVerbindung)
         {
-            EingabeVerwerfenCmd = new WpfLibrary.RelayCommand(EingabeVerwerfen);
-            EingabeSpeichernCmd = new WpfLibrary.RelayCommand(EingabeSpeichern);
+            EingabeVerwerfenCmd = new WpfLibraryLT.RelayCommand(EingabeVerwerfen);
+            EingabeSpeichernCmd = new WpfLibraryLT.RelayCommand(EingabeSpeichern);
             // für Datenbank change
             _useMSSQLSMVerbindung = useMSSQLSMVerbindung;
         }

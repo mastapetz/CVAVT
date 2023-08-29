@@ -11,7 +11,7 @@ using System.Windows.Input;
 
 namespace CVAVT.ViewModels
 {
-    internal class NeuerTeilnehmerViewModel : WpfLibrary.BaseViewModel
+    internal class NeuerTeilnehmerViewModel : WpfLibraryLT.BaseViewModel
     {
         // Commands
         public ICommand EingabeVerwerfenCmd { get; set; }
@@ -91,9 +91,9 @@ namespace CVAVT.ViewModels
         // Konstruktor
         public NeuerTeilnehmerViewModel(Aktivitaet aktivitaet, Teilnehmer teilnehmer, bool useMSSQLSMVerbindung)
         {
-            EingabeVerwerfenCmd = new WpfLibrary.RelayCommand(EingabeVerwerfen);
-            NaechsterTeilnehmerCmd = new WpfLibrary.RelayCommand(NaechsterTeilnehmer);
-            EingabeSpeichernCmd = new WpfLibrary.RelayCommand(EingabeSpeichern);
+            EingabeVerwerfenCmd = new WpfLibraryLT.RelayCommand(EingabeVerwerfen);
+            NaechsterTeilnehmerCmd = new WpfLibraryLT.RelayCommand(NaechsterTeilnehmer);
+            EingabeSpeichernCmd = new WpfLibraryLT.RelayCommand(EingabeSpeichern);
 
             // für ausgewählte aktivität
             SelectedAktivitaet = aktivitaet;

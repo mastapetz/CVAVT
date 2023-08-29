@@ -17,7 +17,7 @@ using System.Windows.Input;
 
 namespace CVAVT.ViewModels
 {
-    class TeilnehmerListeViewModel : WpfLibrary.BaseViewModel
+    class TeilnehmerListeViewModel : WpfLibraryLT.BaseViewModel
     {
         // Commands
         public ICommand ExportListeCmd { get; set; }
@@ -108,13 +108,13 @@ namespace CVAVT.ViewModels
         {
             // Für Teilnehmerliste instanzieren
             TeilnehmerListe = new ObservableCollection<Teilnehmer>();
-            SchliessenCmd = new WpfLibrary.RelayCommand(Schliessen);
-            TeilnehmerLoeschenCmd = new WpfLibrary.RelayCommand(TeilnehmerLoeschen);
+            SchliessenCmd = new WpfLibraryLT.RelayCommand(Schliessen);
+            TeilnehmerLoeschenCmd = new WpfLibraryLT.RelayCommand(TeilnehmerLoeschen);
 
             // für ausgewählte aktivität
             SelectedAktivitaet = aktivitaet;
             // optional
-            ExportListeCmd = new WpfLibrary.RelayCommand(ExportListe);
+            ExportListeCmd = new WpfLibraryLT.RelayCommand(ExportListe);
             // für Datenbank change
             _useMSSQLSMVerbindung = useMSSQLSMVerbindung;
 
