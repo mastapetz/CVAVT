@@ -83,12 +83,12 @@
                 <MenuItem Command="{Binding BeendenCmd}" Header="Beenden"></MenuItem>
             </MenuItem>
             <!-- Menü für SQLite vs MS SQL Server Verbindung-->
-            <MenuItem Header="Verbindung">
+            <!--<MenuItem Header="Verbindung">
                 <MenuItem Command="{Binding MSSQLSMVerbindungCmd}" IsCheckable="True"
                           IsChecked="{Binding UseMSSQLSMVerbindung, Mode=TwoWay}" Header="MSSQL Datenbank"></MenuItem>
                 <MenuItem Command="{Binding SQLiteVerbindungCmd}" IsCheckable="True" 
                           IsChecked="{Binding UseSQLiteVerbindung, Mode=TwoWay}" Header="Programm Datenbank"></MenuItem>
-            </MenuItem>
+            </MenuItem>-->
 
         </Menu>
         <!--
