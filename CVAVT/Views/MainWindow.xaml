@@ -74,7 +74,7 @@
 
             </DataGrid.Columns>
         </DataGrid>
-        <Menu Grid.ColumnSpan="2" Margin="0,0,231,0">
+        <Menu Grid.ColumnSpan="2" Margin="0,0,231,0" Background="White">
             <MenuItem Header="Optionen">
                 <MenuItem Command="{Binding NeuLeiterCmd}" Header="Neuer Leiter"></MenuItem>
                 <MenuItem Command="{Binding NeuAktivitaetCmd}" Header="Neue Aktivität"></MenuItem>
