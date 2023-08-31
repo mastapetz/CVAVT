@@ -143,7 +143,6 @@ namespace CVAVT.ViewModels
 
         private void EditAktivitaet()
         {
-
             EditActivityWindow window = new EditActivityWindow(SelectedAktivitaet);
             window.ShowDialog();
             FillList();
@@ -156,7 +155,6 @@ namespace CVAVT.ViewModels
             NeuerTeilnehmer window = new NeuerTeilnehmer(SelectedAktivitaet, null);
             window.ShowDialog();
             FillList();
-
         }
 
         private void NeuLeiter()
@@ -170,7 +168,6 @@ namespace CVAVT.ViewModels
             NeueAktivitaet window = new NeueAktivitaet(null);
             window.ShowDialog();
             FillList();
-
         }
         // ========================================================
         private void ExportAktivitaetenListe()
