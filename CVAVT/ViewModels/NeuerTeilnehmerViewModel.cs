@@ -36,9 +36,6 @@ namespace CVAVT.ViewModels
             }
         }
 
-        //public string TeilnehmerName { get; set; }
-
-
         // für Ausgewählte Aktivität
         private Aktivitaet _selectedAktivitaet;
         public Aktivitaet SelectedAktivitaet
@@ -57,36 +54,18 @@ namespace CVAVT.ViewModels
             get { return _aktivitaetenIstTeilnehmer; }
             set
             {
-                // if Anweisung zum aktualisieren der  Ist Teilnehmer
                 if (_aktivitaetenIstTeilnehmer != value)
                 {
                     _aktivitaetenIstTeilnehmer = value;
                     OnPropertyChanged("AktivitaetenIstTeilnehmer");
                 }
 
-                // ohne aktualisierung der Ist Teilnehmer
-                //_aktivitaetenIstTeilnehmer = value;
-                //OnPropertyChanged("AktivitaetenIstTeilnehmer");
+        
             }
         }
         public int? AktivitaetenMaxTeilnehmer { get; set; }
 
         public event EventHandler OnRequestCloseWindow;
-
-        // für Datenbank change
-        //private bool _useMSSQLSMVerbindung = true;
-        //public bool UseMSSQLSMVerbindung
-        //{
-        //    get { return _useMSSQLSMVerbindung; }
-        //    set
-        //    {
-        //        if (_useMSSQLSMVerbindung != value)
-        //        {
-        //            _useMSSQLSMVerbindung = value;
-        //            OnPropertyChanged(nameof(UseMSSQLSMVerbindung)); // Stelle sicher, dass das UI über die Änderung informiert wird
-        //        }
-        //    }
-        //}
 
         // Konstruktor
         public NeuerTeilnehmerViewModel(Aktivitaet aktivitaet, Teilnehmer teilnehmer)
@@ -98,35 +77,6 @@ namespace CVAVT.ViewModels
             // für ausgewählte aktivität
             SelectedAktivitaet = aktivitaet;
 
-            // für Datenbank change
-            //_useMSSQLSMVerbindung = useMSSQLSMVerbindung;
-
-            //if (_useMSSQLSMVerbindung)
-            //{
-                //using (CVAVTContext context = new CVAVTContext())
-                //{
-            //        if (aktivitaet == null)
-            //        {
-            //            throw new ArgumentNullException(nameof(aktivitaet), "Aktivitaet darf nicht null sein.");
-            //        }
-            //        else
-            //        {
-            //            // Die Daten aus aktivität werden in die Properties geschrieben
-            //            AktivitaetenName = aktivitaet.AktivitaetenName;
-
-            //            AktivitaetenMaxTeilnehmer = aktivitaet.AktivitaetenMaxTeilnehmer;
-
-            //            AktivitaetenIstTeilnehmer = context.Teilnehmer.Count(t => t.AktivitaetIdfk == aktivitaet.AktivitaetenId);
-            //        }
-            //        if (teilnehmer != null)
-            //        {
-            //            TeilnehmerName = teilnehmer.TeilnehmerName;
-            //        }
-            //    }
-
-            //}
-            //else
-            
                 using SQLiteKontext context = new SQLiteKontext();
                 {
                     if (aktivitaet == null)
@@ -147,10 +97,6 @@ namespace CVAVT.ViewModels
                         TeilnehmerName = teilnehmer.TeilnehmerName;
                     }
                 }
-
-            
-
-
         }
         /// <summary>
         /// Funktion Verlassen schließt das Fenster
@@ -164,30 +110,7 @@ namespace CVAVT.ViewModels
 
         }
         private void SaveTeilnehmer()
-        {
-            //using (DbContext context = _useMSSQLSMVerbindung
-            //    ? new CVAVTContext() // MSSQL Verbindung
-            //    : new SQLiteKontext()) // SQLite Verbindung
-            //if (_useMSSQLSMVerbindung)
-            //{
-            //    using (CVAVTContext context = new CVAVTContext())
-            //    {
-
-            //        // Neuer Eintrag
-            //        Teilnehmer teilnehmer = new Teilnehmer();
-            //        teilnehmer.TeilnehmerName = TeilnehmerName;
-            //        teilnehmer.AktivitaetIdfk = SelectedAktivitaet.AktivitaetenId;
-            //        context.Teilnehmer.Add(teilnehmer);
-            //        context.SaveChanges();
-
-            //        AktivitaetenIstTeilnehmer = context.Teilnehmer.Count(t => t.AktivitaetIdfk == SelectedAktivitaet.AktivitaetenId);
-
-
-            //    }
-
-            //}
-            //else
-            
+        {                      
                 using SQLiteKontext context = new SQLiteKontext();
                 {
 
@@ -199,33 +122,21 @@ namespace CVAVT.ViewModels
                     context.SaveChanges();
 
                     AktivitaetenIstTeilnehmer = context.Teilnehmer.Count(t => t.AktivitaetIdfk == SelectedAktivitaet.AktivitaetenId);
-
-
                 }
-
-            
-
-
         }
         private void ClearTeilnehmerName()
         {
             TeilnehmerName = string.Empty;
         }
-
-        // Alter Name EditVerwerfen
         private void EingabeVerwerfen()
         {
             Verlassen();
         }
-
         private void NaechsterTeilnehmer()
         {
             SaveTeilnehmer();
             ClearTeilnehmerName();
         }
-        // Alter Name EditSpeichern
-
-
         private void EingabeSpeichern()
         {
             SaveTeilnehmer();
