@@ -5,6 +5,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using System.Windows;
 using System.Windows.Input;
 
 namespace CVAVT.ViewModels
@@ -124,15 +125,21 @@ namespace CVAVT.ViewModels
             {
                 if (PruefHelfer.FelderGueltig(TeilnehmerName))
                 {
+                    if (AktivitaetenIstTeilnehmer < AktivitaetenMaxTeilnehmer)
+                    {
+                        // Neuer Eintrag
+                        Teilnehmer teilnehmer = new Teilnehmer();
+                        teilnehmer.TeilnehmerName = TeilnehmerName;
+                        teilnehmer.AktivitaetIdfk = SelectedAktivitaet.AktivitaetenId;
+                        context.Teilnehmer.Add(teilnehmer);
+                        context.SaveChanges();
 
-                    // Neuer Eintrag
-                    Teilnehmer teilnehmer = new Teilnehmer();
-                    teilnehmer.TeilnehmerName = TeilnehmerName;
-                    teilnehmer.AktivitaetIdfk = SelectedAktivitaet.AktivitaetenId;
-                    context.Teilnehmer.Add(teilnehmer);
-                    context.SaveChanges();
-
-                    AktivitaetenIstTeilnehmer = context.Teilnehmer.Count(t => t.AktivitaetIdfk == SelectedAktivitaet.AktivitaetenId);
+                        AktivitaetenIstTeilnehmer = context.Teilnehmer.Count(t => t.AktivitaetIdfk == SelectedAktivitaet.AktivitaetenId);
+                    }
+                    else
+                    {
+                        MessageBoxResult messageBox = MessageBox.Show($"Maximale Teilnehmerzahl Erreicht\nLetzter Eintrag {TeilnehmerName} nicht gespeichert");
+                    }
 
 
 
