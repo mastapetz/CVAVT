@@ -152,7 +152,7 @@ namespace CVAVT.ViewModels
             if (result == MessageBoxResult.Yes)
             {
                 // Verknüpfte Teilnehmerdatensätze löschen
-                using (CVAVTContext context = new CVAVTContext())
+                using (SQLiteKontext context = new SQLiteKontext())
                 {
                     var teilnehmer = context.Teilnehmer.Where(t => t.AktivitaetIdfk == SelectedAktivitaet.AktivitaetenId);
                     context.Teilnehmer.RemoveRange(teilnehmer);
