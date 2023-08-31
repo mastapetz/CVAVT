@@ -61,7 +61,7 @@ namespace CVAVT.ViewModels
 
 
         // Konstruktor
-        public EditAktivitaetViewModel(Aktivitaet aktivitaet, bool useMSSQLSMVerbindung)
+        public EditAktivitaetViewModel(Aktivitaet aktivitaet)
         {
             LeiterListe = new ObservableCollection<Leiter>();
             EditSaveCmd = new WpfLibraryLT.RelayCommand(EditSave);
@@ -69,25 +69,25 @@ namespace CVAVT.ViewModels
 
             // DB Verbindung zum füllen derLeiter Liste
             // für Datenbank change
-            _useMSSQLSMVerbindung = useMSSQLSMVerbindung;
+            //_useMSSQLSMVerbindung = useMSSQLSMVerbindung;
 
-            if (_useMSSQLSMVerbindung)
-            {
-                // DB Verbindung  MSSQL
-                using (CVAVTContext context = new CVAVTContext())
-                {
-                    // Zum füllen der Leiter Liste
-                    var leiterListe = context.Leiter.OrderBy(l => l.LeiterName);
-                    foreach (var leiter in leiterListe)
-                    {
-                        LeiterListe.Add(leiter);
-                    }
-                }
-                _aktivitaet = aktivitaet;
+            //if (_useMSSQLSMVerbindung)
+            //{
+            //    // DB Verbindung  MSSQL
+            //    using (CVAVTContext context = new CVAVTContext())
+            //    {
+            //        // Zum füllen der Leiter Liste
+            //        var leiterListe = context.Leiter.OrderBy(l => l.LeiterName);
+            //        foreach (var leiter in leiterListe)
+            //        {
+            //            LeiterListe.Add(leiter);
+            //        }
+            //    }
+            //    _aktivitaet = aktivitaet;
 
-            }
-            else
-            {
+            //}
+            //else
+            
                 // DB Verbindung  SQLite
                 using (SQLiteKontext context = new SQLiteKontext())
                 {
@@ -100,7 +100,7 @@ namespace CVAVT.ViewModels
                 }
                 _aktivitaet = aktivitaet;
 
-            }
+            
         }
 
         /// <summary>
@@ -133,38 +133,38 @@ namespace CVAVT.ViewModels
         /// </summary>
         private void EditSave()
         {
-            if (_useMSSQLSMVerbindung)
-            {
-                using (CVAVTContext context = new CVAVTContext())
-                {
-                    Aktivitaet aktivEd = context.Aktivitaet.Where(a => a.AktivitaetenId == _aktivitaet.AktivitaetenId).FirstOrDefault();
-                    if (aktivEd != null)
-                    {
-                        aktivEd.AktivitaetenName = AktivitaetenName;
-                        // Für Combobox
-                        aktivEd.LeiterIdfk = SelectedLeiter.LeiterId;
-                        // ----
-                        aktivEd.AktivitaetenArt = AktivitaetenArt;
+            //if (_useMSSQLSMVerbindung)
+            //{
+            //    using (CVAVTContext context = new CVAVTContext())
+            //    {
+            //        Aktivitaet aktivEd = context.Aktivitaet.Where(a => a.AktivitaetenId == _aktivitaet.AktivitaetenId).FirstOrDefault();
+            //        if (aktivEd != null)
+            //        {
+            //            aktivEd.AktivitaetenName = AktivitaetenName;
+            //            // Für Combobox
+            //            aktivEd.LeiterIdfk = SelectedLeiter.LeiterId;
+            //            // ----
+            //            aktivEd.AktivitaetenArt = AktivitaetenArt;
 
-                        // Umänderungen damit Datum und Uhrzeit besser und richtig verarbeitet werden
-                        aktivEd.AktivitaetenDatum = CombineDateAndTime(AktivitaetenDatum, AktivitaetenZeit);
-                        aktivEd.AktivitaetenZeit = CombineDateAndTime(AktivitaetenDatum, AktivitaetenZeit);
-                        // -- ursprünglich
-                        //aktivEd.AktivitaetenDatum = AktivitaetenDatum;
-                        //aktivEd.AktivitaetenZeit = AktivitaetenZeit;
-                        // -------
-                        aktivEd.AktivitaetenDauer = AktivitaetenDauer;
-                        aktivEd.AktivitaetenMaxTeilnehmer = AktivitaetenMaxTeilnehmer;
-                        aktivEd.AktivitaetenVorwissenNoetig = AktivitaetenVorwissenNoetig;
-                        aktivEd.AktivitaetenInformation = AktivitaetenInformation;
-                        context.SaveChanges();
+            //            // Umänderungen damit Datum und Uhrzeit besser und richtig verarbeitet werden
+            //            aktivEd.AktivitaetenDatum = CombineDateAndTime(AktivitaetenDatum, AktivitaetenZeit);
+            //            aktivEd.AktivitaetenZeit = CombineDateAndTime(AktivitaetenDatum, AktivitaetenZeit);
+            //            // -- ursprünglich
+            //            //aktivEd.AktivitaetenDatum = AktivitaetenDatum;
+            //            //aktivEd.AktivitaetenZeit = AktivitaetenZeit;
+            //            // -------
+            //            aktivEd.AktivitaetenDauer = AktivitaetenDauer;
+            //            aktivEd.AktivitaetenMaxTeilnehmer = AktivitaetenMaxTeilnehmer;
+            //            aktivEd.AktivitaetenVorwissenNoetig = AktivitaetenVorwissenNoetig;
+            //            aktivEd.AktivitaetenInformation = AktivitaetenInformation;
+            //            context.SaveChanges();
 
-                    }
-                }
+            //        }
+            //    }
 
-            }
-            else
-            {
+            //}
+            //else
+            
                 using (SQLiteKontext context = new SQLiteKontext())
                 {
                     Aktivitaet aktivEd = context.Aktivitaet.Where(a => a.AktivitaetenId == _aktivitaet.AktivitaetenId).FirstOrDefault();
@@ -191,7 +191,7 @@ namespace CVAVT.ViewModels
 
                     }
                 }
-            }
+            
             Verlassen();
 
 

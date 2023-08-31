@@ -78,27 +78,27 @@ namespace CVAVT.ViewModels
         public int AktivitaetenIstTeilnehmer { get; set; }
 
         // Properties für Datenbank auswahl
-        public ICommand MSSQLSMVerbindungCmd { get; }
-        public ICommand SQLiteVerbindungCmd { get; }
+        //public ICommand MSSQLSMVerbindungCmd { get; }
+        //public ICommand SQLiteVerbindungCmd { get; }
 
-        private bool _useMSSQLSMVerbindung = false; // Standardmäßig SQLite auswählen
+        //private bool _useMSSQLSMVerbindung = false; // Standardmäßig SQLite auswählen
 
-        public bool UseMSSQLSMVerbindung
-        {
-            get { return _useMSSQLSMVerbindung; }
-            set
-            {
-                _useMSSQLSMVerbindung = value;
-                OnPropertyChanged(nameof(UseMSSQLSMVerbindung)); // Benachrichtigen Sie die Ansicht über die Änderung
-                OnPropertyChanged(nameof(UseSQLiteVerbindung)); // Stellen Sie sicher, dass sich die andere Verbindung aktualisiert
-            }
-        }
+        //public bool UseMSSQLSMVerbindung
+        //{
+        //    get { return _useMSSQLSMVerbindung; }
+        //    set
+        //    {
+        //        _useMSSQLSMVerbindung = value;
+        //        OnPropertyChanged(nameof(UseMSSQLSMVerbindung)); // Benachrichtigen Sie die Ansicht über die Änderung
+        //        OnPropertyChanged(nameof(UseSQLiteVerbindung)); // Stellen Sie sicher, dass sich die andere Verbindung aktualisiert
+        //    }
+        //}
 
-        public bool UseSQLiteVerbindung
-        {
-            get { return !_useMSSQLSMVerbindung; } // Verbindung umkehren
-            set { UseMSSQLSMVerbindung = !value; } // Beim Setzen auf die andere Verbindung umschalten
-        }
+        //public bool UseSQLiteVerbindung
+        //{
+        //    get { return !_useMSSQLSMVerbindung; } // Verbindung umkehren
+        //    set { UseMSSQLSMVerbindung = !value; } // Beim Setzen auf die andere Verbindung umschalten
+        //}
 
 
         // Konstruktor
@@ -115,8 +115,8 @@ namespace CVAVT.ViewModels
             BeendenCmd = new WpfLibraryLT.RelayCommand(Schliessen);
             ExportAktivitaetenListeCmd = new WpfLibraryLT.RelayCommand(ExportAktivitaetenListe);
             //--- für Datenbank Wechsel
-            MSSQLSMVerbindungCmd = new WpfLibraryLT.RelayCommand(MSSQLSMVerbindung);
-            SQLiteVerbindungCmd = new WpfLibraryLT.RelayCommand(SQLiteVerbindung);
+            // MSSQLSMVerbindungCmd = new WpfLibraryLT.RelayCommand(MSSQLSMVerbindung);
+            // SQLiteVerbindungCmd = new WpfLibraryLT.RelayCommand(SQLiteVerbindung);
             FillList();
         }
 
@@ -128,16 +128,16 @@ namespace CVAVT.ViewModels
         }
 
         // ------ datenbank wechsel
-        private void MSSQLSMVerbindung()
-        {
-            _useMSSQLSMVerbindung = true;
-            FillList();
-        }
-        private void SQLiteVerbindung()
-        {
-            _useMSSQLSMVerbindung = false;
-            FillList();
-        }
+        //private void MSSQLSMVerbindung()
+        //{
+        //    _useMSSQLSMVerbindung = true;
+        //    FillList();
+        //}
+        //private void SQLiteVerbindung()
+        //{
+        //    _useMSSQLSMVerbindung = false;
+        //    FillList();
+        //}
         //---------------------------
 
         private void AktivitaetLoeschen()
@@ -173,59 +173,59 @@ namespace CVAVT.ViewModels
 
             }
         }
+        //private void ShowTeilnehmer()
+        //{
+        //    ShowTeilnehmer(_useMSSQLSMVerbindung);
+        //}
         private void ShowTeilnehmer()
         {
-            ShowTeilnehmer(_useMSSQLSMVerbindung);
-        }
-        private void ShowTeilnehmer(bool useMSSQLSMVerbindung)
-        {
-            TeilnehmerListe window = new TeilnehmerListe(SelectedAktivitaet, useMSSQLSMVerbindung);
+            TeilnehmerListe window = new TeilnehmerListe(SelectedAktivitaet);
             window.Show();
             FillList();
         }
 
+        //private void EditAktivitaet()
+        //{
+        //    EditAktivitaet(_useMSSQLSMVerbindung);
+        //}
+
         private void EditAktivitaet()
         {
-            EditAktivitaet(_useMSSQLSMVerbindung);
-        }
 
-        private void EditAktivitaet(bool useMSSQLSMVerbindung)
-        {
-
-            EditActivityWindow window = new EditActivityWindow(SelectedAktivitaet, useMSSQLSMVerbindung);
+            EditActivityWindow window = new EditActivityWindow(SelectedAktivitaet);
             window.ShowDialog();
             FillList();
         }
+
+        //private void NeuerTeilnehmerMenu()
+        //{
+        //    NeuerTeilnehmerMenu(_useMSSQLSMVerbindung);
+        //}
+
 
         private void NeuerTeilnehmerMenu()
         {
-            NeuerTeilnehmerMenu(_useMSSQLSMVerbindung);
-        }
-
-
-        private void NeuerTeilnehmerMenu(bool useMSSQLSMVerbindung)
-        {
-            NeuerTeilnehmer window = new NeuerTeilnehmer(SelectedAktivitaet, null, useMSSQLSMVerbindung);
+            NeuerTeilnehmer window = new NeuerTeilnehmer(SelectedAktivitaet, null);
             window.ShowDialog();
             FillList();
 
         }
+        //private void NeuLeiter()
+        //{
+        //    NeuLeiter(_useMSSQLSMVerbindung);
+        //}
         private void NeuLeiter()
         {
-            NeuLeiter(_useMSSQLSMVerbindung);
-        }
-        private void NeuLeiter(bool useMSSQLSMVerbindung)
-        {
-            NeuerLeiter window = new NeuerLeiter(useMSSQLSMVerbindung);
+            NeuerLeiter window = new NeuerLeiter();
             window.ShowDialog();
         }
+        //private void NeuAktivitaet()
+        //{
+        //    NeuAktivitaet(_useMSSQLSMVerbindung);
+        //}
         private void NeuAktivitaet()
         {
-            NeuAktivitaet(_useMSSQLSMVerbindung);
-        }
-        private void NeuAktivitaet(bool useMSSQLSMVerbindung)
-        {
-            NeueAktivitaet window = new NeueAktivitaet(null, useMSSQLSMVerbindung);
+            NeueAktivitaet window = new NeueAktivitaet(null);
             window.ShowDialog();
             FillList();
 
@@ -239,9 +239,7 @@ namespace CVAVT.ViewModels
         {
             AktivitaetenListe.Clear();
             // DB zugriff
-            using (DbContext context = _useMSSQLSMVerbindung
-                ? (DbContext)new CVAVTContext(new DbContextOptions<CVAVTContext>()) // MSSQL Verbindung
-                : (DbContext)new SQLiteKontext(new DbContextOptions<SQLiteKontext>())) // SQLite Verbindung
+            using (SQLiteKontext context = new SQLiteKontext()) // SQLite Verbindung
 
             {
                 // Für Filterung vergangener Aktivitäten
@@ -288,22 +286,22 @@ namespace CVAVT.ViewModels
             List<Aktivitaet> aktivitaeten;
             // Für Leiter
             List<Leiter> leiter;
-            if (_useMSSQLSMVerbindung)
-            {
-                using (CVAVTContext context = new CVAVTContext())
-                {
-                    aktivitaeten = context.Aktivitaet.ToList();
-                    leiter = context.Leiter.ToList();
-                }
-            }
-            else
-            {
+            //if (_useMSSQLSMVerbindung)
+            //{
+            //    using (CVAVTContext context = new CVAVTContext())
+            //    {
+            //        aktivitaeten = context.Aktivitaet.ToList();
+            //        leiter = context.Leiter.ToList();
+            //    }
+            //}
+            //else
+            
                 using (SQLiteKontext context = new SQLiteKontext())
                 {
                     aktivitaeten = context.Aktivitaet.ToList();
                     leiter = context.Leiter.ToList();
                 }
-            }
+            
 
 
             // Konverter für Datum und Uhrzeit erstellen

@@ -32,28 +32,28 @@ namespace CVAVT.ViewModels
             }
         }
         // für Datenbank change
-        private bool _useMSSQLSMVerbindung = true;
-        public bool UseMSSQLSMVerbindung
-        {
-            get { return _useMSSQLSMVerbindung; }
-            set
-            {
-                if (_useMSSQLSMVerbindung != value)
-                {
-                    _useMSSQLSMVerbindung = value;
-                    OnPropertyChanged(nameof(UseMSSQLSMVerbindung)); // Stelle sicher, dass das UI über die Änderung informiert wird
-                }
-            }
-        }
+        //private bool _useMSSQLSMVerbindung = true;
+        //public bool UseMSSQLSMVerbindung
+        //{
+        //    get { return _useMSSQLSMVerbindung; }
+        //    set
+        //    {
+        //        if (_useMSSQLSMVerbindung != value)
+        //        {
+        //            _useMSSQLSMVerbindung = value;
+        //            OnPropertyChanged(nameof(UseMSSQLSMVerbindung)); // Stelle sicher, dass das UI über die Änderung informiert wird
+        //        }
+        //    }
+        //}
 
         // Konstruktor
 
-        public NeuerLeiterViewModel(bool useMSSQLSMVerbindung)
+        public NeuerLeiterViewModel()
         {
             EingabeVerwerfenCmd = new WpfLibraryLT.RelayCommand(EingabeVerwerfen);
             EingabeSpeichernCmd = new WpfLibraryLT.RelayCommand(EingabeSpeichern);
             // für Datenbank change
-            _useMSSQLSMVerbindung = useMSSQLSMVerbindung;
+            // _useMSSQLSMVerbindung = useMSSQLSMVerbindung;
         }
         /// <summary>
         /// Funktion Verlassen schließt das Fenster
@@ -86,24 +86,24 @@ namespace CVAVT.ViewModels
                 LeiterName = LeiterName
             };
 
-            if (_useMSSQLSMVerbindung)
-            {
-                // für MSSQL
-                using (CVAVTContext context = new CVAVTContext())
-                {
-                    context.Leiter.Add(neuerLeiter);
-                    context.SaveChanges();
-                }
-            }
-            else
-            {
+            //if (_useMSSQLSMVerbindung)
+            //{
+            //    // für MSSQL
+            //    using (CVAVTContext context = new CVAVTContext())
+            //    {
+            //        context.Leiter.Add(neuerLeiter);
+            //        context.SaveChanges();
+            //    }
+            //}
+            //else
+            
                 // für SQLite
                 using (SQLiteKontext context = new SQLiteKontext())
                 {
                     context.Leiter.Add(neuerLeiter);
                     context.SaveChanges();
                 }
-            }
+            
 
             Verlassen();
 

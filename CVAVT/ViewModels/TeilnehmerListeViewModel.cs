@@ -104,7 +104,7 @@ namespace CVAVT.ViewModels
         }
 
         // Konstruktor
-        public TeilnehmerListeViewModel(Aktivitaet aktivitaet, bool useMSSQLSMVerbindung)
+        public TeilnehmerListeViewModel(Aktivitaet aktivitaet)
         {
             // Für Teilnehmerliste instanzieren
             TeilnehmerListe = new ObservableCollection<Teilnehmer>();
@@ -116,26 +116,26 @@ namespace CVAVT.ViewModels
             // optional
             ExportListeCmd = new WpfLibraryLT.RelayCommand(ExportListe);
             // für Datenbank change
-            _useMSSQLSMVerbindung = useMSSQLSMVerbindung;
+            //_useMSSQLSMVerbindung = useMSSQLSMVerbindung;
 
-            if (_useMSSQLSMVerbindung)
-            {
-                using (CVAVTContext context = new CVAVTContext())
-                {
-                    if (aktivitaet == null)
-                    {
-                        throw new ArgumentNullException(nameof(aktivitaet), "Aktivität darf nicht null sein");
-                    }
-                    else
-                    {
-                        // Die Daten aus aktivität werden in die Propeties geschrieben
-                        AktivitaetenMaxTeilnehmer = aktivitaet.AktivitaetenMaxTeilnehmer;
-                        AktivitaetenIstTeilnehmer = context.Teilnehmer.Count(t => t.AktivitaetIdfk == aktivitaet.AktivitaetenId);
-                    }
-                }
-            }
-            else
-            {
+            //if (_useMSSQLSMVerbindung)
+            //{
+            //    using (CVAVTContext context = new CVAVTContext())
+            //    {
+            //        if (aktivitaet == null)
+            //        {
+            //            throw new ArgumentNullException(nameof(aktivitaet), "Aktivität darf nicht null sein");
+            //        }
+            //        else
+            //        {
+            //            // Die Daten aus aktivität werden in die Propeties geschrieben
+            //            AktivitaetenMaxTeilnehmer = aktivitaet.AktivitaetenMaxTeilnehmer;
+            //            AktivitaetenIstTeilnehmer = context.Teilnehmer.Count(t => t.AktivitaetIdfk == aktivitaet.AktivitaetenId);
+            //        }
+            //    }
+            //}
+            //else
+            
                 using SQLiteKontext context = new SQLiteKontext();
                 {
                     if (aktivitaet == null)
@@ -149,7 +149,7 @@ namespace CVAVT.ViewModels
                         AktivitaetenIstTeilnehmer = context.Teilnehmer.Count(t => t.AktivitaetIdfk == aktivitaet.AktivitaetenId);
                     }
                 }
-            }
+            
 
 
 
@@ -183,19 +183,19 @@ namespace CVAVT.ViewModels
             int selectedAktivitaetId = SelectedAktivitaet.AktivitaetenId;
 
             List<Teilnehmer> teilnehmerListe;
-            if (_useMSSQLSMVerbindung)
-            {
-                using (CVAVTContext context = new CVAVTContext())
-                {
-                    // Filtere die Teilnehmerliste nach der ausgewählten Aktivität
-                    teilnehmerListe = context.Teilnehmer.Where(t => t.AktivitaetIdfk == selectedAktivitaetId).ToList();
+            //if (_useMSSQLSMVerbindung)
+            //{
+            //    using (CVAVTContext context = new CVAVTContext())
+            //    {
+            //        // Filtere die Teilnehmerliste nach der ausgewählten Aktivität
+            //        teilnehmerListe = context.Teilnehmer.Where(t => t.AktivitaetIdfk == selectedAktivitaetId).ToList();
 
-                    // Ohne Filterung werden ALLE teilnehmer von ALLEN aktivitäten angezeigt
-                    //teilnehmerListe = context.Teilnehmer.ToList();
-                }
-            }
-            else
-            {
+            //        // Ohne Filterung werden ALLE teilnehmer von ALLEN aktivitäten angezeigt
+            //        //teilnehmerListe = context.Teilnehmer.ToList();
+            //    }
+            //}
+            //else
+            
                 using (SQLiteKontext context = new SQLiteKontext())
                 {
                     // Filtere die Teilnehmerliste nach der ausgewählten Aktivität
@@ -204,7 +204,7 @@ namespace CVAVT.ViewModels
                     // Ohne Filterung werden ALLE teilnehmer von ALLEN aktivitäten angezeigt
                     //teilnehmerListe = context.Teilnehmer.ToList();
                 }
-            }
+            
             // StringBuilder-Instanz zum Erstellen der CSV-Daten
             StringBuilder csvData = new StringBuilder();
 
@@ -258,20 +258,20 @@ namespace CVAVT.ViewModels
             MessageBoxResult result = MessageBox.Show("Teilnehmer Wirklich Löschen?", "Löschen Bestätigen", MessageBoxButton.YesNo);
             if (result == MessageBoxResult.Yes)
             {
-                if (_useMSSQLSMVerbindung)
-                {
-                    using (CVAVTContext context = new CVAVTContext())
-                    {
-                        Teilnehmer teilN = context.Teilnehmer.Where(a => a.TeilnehmerId == SelectedTeilnehmer.TeilnehmerId).FirstOrDefault();
-                        if (teilN != null)
-                        {
-                            context.Teilnehmer.Remove(teilN);
-                            context.SaveChanges();
-                        }
-                    }
-                }
-                else
-                {
+                //if (_useMSSQLSMVerbindung)
+                //{
+                //    using (CVAVTContext context = new CVAVTContext())
+                //    {
+                //        Teilnehmer teilN = context.Teilnehmer.Where(a => a.TeilnehmerId == SelectedTeilnehmer.TeilnehmerId).FirstOrDefault();
+                //        if (teilN != null)
+                //        {
+                //            context.Teilnehmer.Remove(teilN);
+                //            context.SaveChanges();
+                //        }
+                //    }
+                //}
+                //else
+                
 
                     using (SQLiteKontext context = new SQLiteKontext())
                     {
@@ -282,7 +282,7 @@ namespace CVAVT.ViewModels
                             context.SaveChanges();
                         }
                     }
-                }
+                
 
 
                 FillList();
@@ -296,23 +296,23 @@ namespace CVAVT.ViewModels
             TeilnehmerListe.Clear();
             if (SelectedAktivitaet != null)
             {
-                if (_useMSSQLSMVerbindung)
-                {
-                    using (CVAVTContext context = new CVAVTContext())
-                    {
-                        var teilNehmer = context.Teilnehmer
-                            .Where(t => t.AktivitaetIdfk == SelectedAktivitaet.AktivitaetenId)
-                            .ToList();
+                ////if (_useMSSQLSMVerbindung)
+                ////{
+                ////    using (CVAVTContext context = new CVAVTContext())
+                ////    {
+                ////        var teilNehmer = context.Teilnehmer
+                ////            .Where(t => t.AktivitaetIdfk == SelectedAktivitaet.AktivitaetenId)
+                ////            .ToList();
 
-                        foreach (Teilnehmer member in teilNehmer)
-                        {
-                            TeilnehmerListe.Add(member);
-                        }
+                ////        foreach (Teilnehmer member in teilNehmer)
+                ////        {
+                ////            TeilnehmerListe.Add(member);
+                ////        }
 
-                    }
-                }
-                else
-                {
+                ////    }
+                ////}
+                ////else
+                
                     using (SQLiteKontext context = new SQLiteKontext())
                     {
                         var teilNehmer = context.Teilnehmer
@@ -328,7 +328,7 @@ namespace CVAVT.ViewModels
                         }
 
                     }
-                }
+                
             }
 
             // Setzen Sie das erste Element der Liste als das ausgewählte Teilnehmerobjekt.
