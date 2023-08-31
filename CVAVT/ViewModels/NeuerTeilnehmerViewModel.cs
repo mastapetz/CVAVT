@@ -74,19 +74,19 @@ namespace CVAVT.ViewModels
         public event EventHandler OnRequestCloseWindow;
 
         // für Datenbank change
-        private bool _useMSSQLSMVerbindung = true;
-        public bool UseMSSQLSMVerbindung
-        {
-            get { return _useMSSQLSMVerbindung; }
-            set
-            {
-                if (_useMSSQLSMVerbindung != value)
-                {
-                    _useMSSQLSMVerbindung = value;
-                    OnPropertyChanged(nameof(UseMSSQLSMVerbindung)); // Stelle sicher, dass das UI über die Änderung informiert wird
-                }
-            }
-        }
+        //private bool _useMSSQLSMVerbindung = true;
+        //public bool UseMSSQLSMVerbindung
+        //{
+        //    get { return _useMSSQLSMVerbindung; }
+        //    set
+        //    {
+        //        if (_useMSSQLSMVerbindung != value)
+        //        {
+        //            _useMSSQLSMVerbindung = value;
+        //            OnPropertyChanged(nameof(UseMSSQLSMVerbindung)); // Stelle sicher, dass das UI über die Änderung informiert wird
+        //        }
+        //    }
+        //}
 
         // Konstruktor
         public NeuerTeilnehmerViewModel(Aktivitaet aktivitaet, Teilnehmer teilnehmer)
