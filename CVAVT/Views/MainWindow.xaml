@@ -28,7 +28,7 @@
                 <DataGridTextColumn Binding="{Binding AktivitaetenDatum, StringFormat=\{0:dd.MM.yyyy\}}" Header="Datum" Width="90"></DataGridTextColumn>
                 <DataGridTextColumn Binding="{Binding AktivitaetenZeit, StringFormat=\{0:HH:mm\}}" Header="Uhrzeit" Width="80"></DataGridTextColumn>
                 <DataGridTextColumn Binding="{Binding AktivitaetenDauer}" Header="Dauer" Width="45"></DataGridTextColumn>
-                <DataGridTextColumn Binding="{Binding AktivitaetenIstTeilnehmer, Mode=OneWay}" Header="Ist" Width="25"></DataGridTextColumn>
+                <DataGridTextColumn Binding="{Binding AktivitaetenIstTeilnehmer}" Header="Ist" Width="25"></DataGridTextColumn>
                 <DataGridTextColumn Binding="{Binding AktivitaetenMaxTeilnehmer}" Header="Max" Width="35"></DataGridTextColumn>
                 <DataGridTextColumn Binding="{Binding AktivitaetenVorwissenNoetig}" Header="Vorwissen" Width="65"></DataGridTextColumn>
                 <DataGridTextColumn Binding="{Binding AktivitaetenInformation}" Header="Information" Width="100"></DataGridTextColumn>

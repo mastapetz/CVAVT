@@ -76,29 +76,7 @@ namespace CVAVT.ViewModels
             }
         }
         public int AktivitaetenIstTeilnehmer { get; set; }
-
-        // Properties für Datenbank auswahl
-        //public ICommand MSSQLSMVerbindungCmd { get; }
-        //public ICommand SQLiteVerbindungCmd { get; }
-
-        //private bool _useMSSQLSMVerbindung = false; // Standardmäßig SQLite auswählen
-
-        //public bool UseMSSQLSMVerbindung
-        //{
-        //    get { return _useMSSQLSMVerbindung; }
-        //    set
-        //    {
-        //        _useMSSQLSMVerbindung = value;
-        //        OnPropertyChanged(nameof(UseMSSQLSMVerbindung)); // Benachrichtigen Sie die Ansicht über die Änderung
-        //        OnPropertyChanged(nameof(UseSQLiteVerbindung)); // Stellen Sie sicher, dass sich die andere Verbindung aktualisiert
-        //    }
-        //}
-
-        //public bool UseSQLiteVerbindung
-        //{
-        //    get { return !_useMSSQLSMVerbindung; } // Verbindung umkehren
-        //    set { UseMSSQLSMVerbindung = !value; } // Beim Setzen auf die andere Verbindung umschalten
-        //}
+        public int AktivitaetenMaxTeilnehmer { get; set; }
 
 
         // Konstruktor
@@ -127,19 +105,7 @@ namespace CVAVT.ViewModels
                 OnRequestCloseWindow(this, new EventArgs());
         }
 
-        // ------ datenbank wechsel
-        //private void MSSQLSMVerbindung()
-        //{
-        //    _useMSSQLSMVerbindung = true;
-        //    FillList();
-        //}
-        //private void SQLiteVerbindung()
-        //{
-        //    _useMSSQLSMVerbindung = false;
-        //    FillList();
-        //}
-        //---------------------------
-
+        
         private void AktivitaetLoeschen()
         {
             // Benutzer fragen ob wirklich gelöscht werden soll
@@ -254,7 +220,8 @@ namespace CVAVT.ViewModels
                 // Ansonsten zeige nur zukünftige Aktivitäten ab heute
                 var aktivitaeten = aktivitaetenSet.Include(a => a.LeiterIdfkNavigation)
                     .Where(p => AktivitaetenName.IsNullOrEmpty() ? true : p.AktivitaetenName.StartsWith(AktivitaetenName))
-                    .Where(p => AktivitaetenArt.IsNullOrEmpty() ? true : p.AktivitaetenArt.StartsWith(AktivitaetenArt));
+                    .Where(p => AktivitaetenArt.IsNullOrEmpty() ? true : p.AktivitaetenArt.StartsWith(AktivitaetenArt))
+                     ;
                 // --------------------------- für Blättern,
                 // noch nicht implementiert
                 //.Skip(_position).Take(Anzahl);

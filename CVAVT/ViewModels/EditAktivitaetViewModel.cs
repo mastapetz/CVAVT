@@ -45,19 +45,19 @@ namespace CVAVT.ViewModels
         }
         // -------------------------------
         // für Datenbank change
-        private bool _useMSSQLSMVerbindung = true;
-        public bool UseMSSQLSMVerbindung
-        {
-            get { return _useMSSQLSMVerbindung; }
-            set
-            {
-                if (_useMSSQLSMVerbindung != value)
-                {
-                    _useMSSQLSMVerbindung = value;
-                    OnPropertyChanged(nameof(UseMSSQLSMVerbindung)); // Stelle sicher, dass das UI über die Änderung informiert wird
-                }
-            }
-        }
+        //private bool _useMSSQLSMVerbindung = true;
+        //public bool UseMSSQLSMVerbindung
+        //{
+        //    get { return _useMSSQLSMVerbindung; }
+        //    set
+        //    {
+        //        if (_useMSSQLSMVerbindung != value)
+        //        {
+        //            _useMSSQLSMVerbindung = value;
+        //            OnPropertyChanged(nameof(UseMSSQLSMVerbindung)); // Stelle sicher, dass das UI über die Änderung informiert wird
+        //        }
+        //    }
+        //}
 
 
         // Konstruktor
@@ -67,26 +67,7 @@ namespace CVAVT.ViewModels
             EditSaveCmd = new WpfLibraryLT.RelayCommand(EditSave);
             EditAbbrechenCmd = new WpfLibraryLT.RelayCommand(EditAbbrechen);
 
-            // DB Verbindung zum füllen derLeiter Liste
-            // für Datenbank change
-            //_useMSSQLSMVerbindung = useMSSQLSMVerbindung;
 
-            //if (_useMSSQLSMVerbindung)
-            //{
-            //    // DB Verbindung  MSSQL
-            //    using (CVAVTContext context = new CVAVTContext())
-            //    {
-            //        // Zum füllen der Leiter Liste
-            //        var leiterListe = context.Leiter.OrderBy(l => l.LeiterName);
-            //        foreach (var leiter in leiterListe)
-            //        {
-            //            LeiterListe.Add(leiter);
-            //        }
-            //    }
-            //    _aktivitaet = aktivitaet;
-
-            //}
-            //else
             
                 // DB Verbindung  SQLite
                 using (SQLiteKontext context = new SQLiteKontext())
@@ -98,9 +79,25 @@ namespace CVAVT.ViewModels
                         LeiterListe.Add(leiter);
                     }
                 }
-                _aktivitaet = aktivitaet;
+            if (aktivitaet != null)
+            {
+                // Die Daten aus aktivität werden in die Properties geschrieben
+                AktivitaetenName = aktivitaet.AktivitaetenName;
+                // Für Combobox
+                SelectedLeiter = aktivitaet.LeiterIdfkNavigation;
+                // ----
+                AktivitaetenArt = aktivitaet.AktivitaetenArt;
+                AktivitaetenDatum = aktivitaet.AktivitaetenDatum;
+                AktivitaetenZeit = aktivitaet.AktivitaetenZeit;
+                AktivitaetenDauer = aktivitaet.AktivitaetenDauer;
+                AktivitaetenMaxTeilnehmer = aktivitaet.AktivitaetenMaxTeilnehmer;
+                AktivitaetenVorwissenNoetig = aktivitaet.AktivitaetenVorwissenNoetig;
+                AktivitaetenInformation = aktivitaet.AktivitaetenInformation;
+            }
+            _aktivitaet = aktivitaet;
 
-            
+
+
         }
 
         /// <summary>

@@ -44,6 +44,8 @@ public partial class SQLiteKontext : DbContext
             entity.Property(e => e.AktivitaetenDatum).HasColumnType("DATE");
             entity.Property(e => e.AktivitaetenZeit).HasColumnType("DATETIME");
             entity.Property(e => e.LeiterIdfk).HasColumnName("LeiterIDFK");
+            entity.Property(e => e.AktivitaetenMaxTeilnehmer).HasColumnName("AktivitaetenMaxTeilnehmer");
+            entity.Property(e => e.AktivitaetenInformation).HasColumnName("AktivitaetenInformation");
 
             entity.HasOne(d => d.LeiterIdfkNavigation).WithMany(p => p.Aktivitaet)
                 .HasForeignKey(d => d.LeiterIdfk)
