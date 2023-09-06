@@ -125,7 +125,7 @@ namespace CVAVT.ViewModels
             {
                 if (PruefHelfer.FelderGueltig(TeilnehmerName))
                 {
-                    if (AktivitaetenIstTeilnehmer < AktivitaetenMaxTeilnehmer)
+                    if (AktivitaetenIstTeilnehmer < AktivitaetenMaxTeilnehmer || AktivitaetenMaxTeilnehmer == null)
                     {
                         // Neuer Eintrag
                         Teilnehmer teilnehmer = new Teilnehmer();
