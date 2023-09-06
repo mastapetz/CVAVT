@@ -26,6 +26,17 @@ namespace CVAVT.ViewModels
 
         // Eventhandler
         public event EventHandler OnRequestCloseWindow;
+        // für ausgewählten Teilnehmer
+        private Teilnehmer _selectedTeilnehmer;
+        public Teilnehmer SelectedTeilnehmer
+        {
+            get { return _selectedTeilnehmer; }
+            set
+            {
+                _selectedTeilnehmer = value;
+                OnPropertyChanged("SelectedTeilnehmer");
+            }
+        }
         // Für das Ende der Zellenbearbeitung
         public void DataGrid_CellEditEnding(object sender, DataGridCellEditEndingEventArgs e)
         {
@@ -34,12 +45,14 @@ namespace CVAVT.ViewModels
                 var editedTeilnehmer = e.Row.Item as Teilnehmer;
                 if (editedTeilnehmer != null)
                 {
-                    // Änderungen speichern
-                    using (CVAVTContext context = new CVAVTContext())
+                    if (PruefHelfer.FelderGueltig(editedTeilnehmer.TeilnehmerName)) // muss vor using erfolgen, da sonst nicht der Name aus
+                                                                                    // dem ViewModel verwendet wird sondern der bearbeitete
+                                                                                    // Name aus der Zelle. Daher muss vor dem Speichern die
+                                                                                    // Überprüfung erfolgen
                     {
-                        if (PruefHelfer.FelderGueltig(TeilnehmerName))
+                        // Änderungen speichern
+                        using (CVAVTContext context = new CVAVTContext())
                         {
-
                             context.Entry(editedTeilnehmer).State = EntityState.Modified;
                             context.SaveChanges();
                         }
@@ -68,17 +81,7 @@ namespace CVAVT.ViewModels
 
         public ObservableCollection<Teilnehmer> TeilnehmerListe { get; set; }
 
-        // für ausgewählten Teilnehmer
-        private Teilnehmer _selectedTeilnehmer;
-        public Teilnehmer SelectedTeilnehmer
-        {
-            get { return _selectedTeilnehmer; }
-            set
-            {
-                _selectedTeilnehmer = value;
-                OnPropertyChanged("SelectedTeilnehmer");
-            }
-        }
+
 
         // für Ausgewählte Aktivität
         private Aktivitaet _selectedAktivitaet;

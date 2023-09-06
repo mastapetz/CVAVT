@@ -22,10 +22,13 @@
         </Grid.RowDefinitions>
 
         <!-- CellEditEnding Um direkte änderungen im Datagrid zu sehen bei commit-->
-        <!-- durch  Namenszuweisung ist es klarer für eventhendling-->
+        <!-- durch  Namenszuweisung ist es klarer für eventhandling-->
+
         <DataGrid x:Name="TeilnehmerListeGrid" ItemsSource="{Binding TeilnehmerListe}" SelectedItem="{Binding SelectedTeilnehmer}" 
+                  DataContext="{Binding}"
                   CellEditEnding="DataGrid_CellEditEnding"
                   CanUserAddRows="False" AutoGenerateColumns="False" Grid.Column="2" Grid.RowSpan="3" Grid.ColumnSpan="2" Margin="0,25,0,0" >
+
             <DataGrid.Columns>
                 <DataGridTextColumn Binding="{Binding TeilnehmerName, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" Header="Name" Width="50*"></DataGridTextColumn>
                 <DataGridTemplateColumn Header="Löschen" Width="25*">
@@ -57,7 +60,6 @@
                 <RowDefinition Height="45*"/>
                 <RowDefinition Height="45*"/>
             </Grid.RowDefinitions>
-            <!--<Button Command="{Binding NeuTeilnehmerCmd}" Content="Neuer Teilnehmer" HorizontalAlignment="Center"  Grid.Row="2" VerticalAlignment="Center" Width="110"/>-->
             <Button Command="{Binding ExportListeCmd}" ToolTip="Liste Exportieren" Content="Export Liste" HorizontalAlignment="Center"  Grid.Row="3" VerticalAlignment="Center" Width="110" Background="Green"/>
             <Button Command="{Binding SchliessenCmd}" ToolTip="Fenster Schließen" Content="Schließen" HorizontalAlignment="Center"  Grid.Row="4" VerticalAlignment="Center" Width="110" Background="Red"/>
             <Label Content="Ist" HorizontalAlignment="Left" Margin="10,0,0,0" VerticalAlignment="Center"/>
