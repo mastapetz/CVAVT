@@ -2,6 +2,8 @@
 #nullable disable
 using System;
 using System.Collections.Generic;
+using System.Configuration;
+using System.Windows;
 using Microsoft.EntityFrameworkCore;
 
 namespace CVAVT.Models;
@@ -27,8 +29,18 @@ public partial class CVAVTContext : DbContext
     public virtual DbSet<ViewTeilnehmerIstAnzahl> ViewTeilnehmerIstAnzahl { get; set; }
 
     protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
-#warning To protect potentially sensitive information in your connection string, you should move it out of source code. You can avoid scaffolding the connection string by using the Name= syntax to read it from configuration - see https://go.microsoft.com/fwlink/?linkid=2131148. For more guidance on storing connection strings, see http://go.microsoft.com/fwlink/?LinkId=723263.
-        => optionsBuilder.UseSqlServer("Data Source=DESKTOP-0O4SDSG\\SQLEXPRESS;Initial Catalog=CVAVT;Integrated Security=True; Encrypt=False");
+    {
+        try
+        {
+            //optionsBuilder.UseSqlServer("Data Source=DESKTOP-0O4SDSG\\SQLEXPRESS;Initial Catalog=CVAVT;Integrated Security=True; Encrypt=False");
+            optionsBuilder.UseSqlServer(ConfigurationManager.ConnectionStrings["VereinsDatenbank"].ConnectionString);
+        }
+        catch (Exception ex)
+        {
+            MessageBox.Show("Fehler beim Verbindungsaufbau zur Datenbank. Stellen Sie sicher, dass der Connectionstring in der App.config-Datei korrekt ist.", "Verbindungsfehler", MessageBoxButton.OK, MessageBoxImage.Error);
+            Environment.Exit(1);
+        }
+    }
 
     protected override void OnModelCreating(ModelBuilder modelBuilder)
     {
