@@ -253,31 +253,41 @@ namespace CVAVT.ViewModels
         {
             AktivitaetenListe.Clear();
             // DB zugriff
-            using (CVAVTContext context = new CVAVTContext())
+            try
             {
-                // Für Filterung vergangener Aktivitäten
-                DateTime heute = DateTime.Today;
-
-                // Zeige alle Aktivitäten, wenn VergangeneAnzeigen auf true gesetzt ist
-                // Ansonsten zeige nur zukünftige Aktivitäten ab heute
-                var aktivitaeten = context.Aktivitaet.Include(a => a.LeiterIdfkNavigation)
-                    .Where(p => AktivitaetenName.IsNullOrEmpty() ? true : p.AktivitaetenName.StartsWith(AktivitaetenName))
-                    .Where(p => AktivitaetenArt.IsNullOrEmpty() ? true : p.AktivitaetenArt.StartsWith(AktivitaetenArt));
-                // --------------------------- für Blättern,
-                // noch nicht implementiert
-                //.Skip(_position).Take(Anzahl);
-
-                if (!VergangeneAnzeigen)
+                using (CVAVTContext context = new CVAVTContext())
                 {
-                    // Zeige nur zukünftige Aktivitäten ab heute
-                    aktivitaeten = aktivitaeten.Where(p => p.AktivitaetenDatum >= heute);
+                    // Für Filterung vergangener Aktivitäten
+                    DateTime heute = DateTime.Today;
+
+                    // Zeige alle Aktivitäten, wenn VergangeneAnzeigen auf true gesetzt ist
+                    // Ansonsten zeige nur zukünftige Aktivitäten ab heute
+                    var aktivitaeten = context.Aktivitaet.Include(a => a.LeiterIdfkNavigation)
+                        .Where(p => AktivitaetenName.IsNullOrEmpty() ? true : p.AktivitaetenName.StartsWith(AktivitaetenName))
+                        .Where(p => AktivitaetenArt.IsNullOrEmpty() ? true : p.AktivitaetenArt.StartsWith(AktivitaetenArt));
+                    // --------------------------- für Blättern,
+                    // noch nicht implementiert
+                    //.Skip(_position).Take(Anzahl);
+
+                    if (!VergangeneAnzeigen)
+                    {
+                        // Zeige nur zukünftige Aktivitäten ab heute
+                        aktivitaeten = aktivitaeten.Where(p => p.AktivitaetenDatum >= heute);
+                    }
+
+
+                    foreach (Aktivitaet aktivity in aktivitaeten)
+                    {
+                        AktivitaetenListe.Add(aktivity);
+                    }
                 }
 
+            }
+            catch (Exception ex)
+            {
 
-                foreach (Aktivitaet aktivity in aktivitaeten)
-                {
-                    AktivitaetenListe.Add(aktivity);
-                }
+                MessageBox.Show("Fehler beim Verbindungsaufbau zur Datenbank. Stellen Sie sicher, dass der Connectionstring in der App.config-Datei korrekt ist.", "Verbindungsfehler", MessageBoxButton.OK, MessageBoxImage.Error);
+                Environment.Exit(1);
             }
             // Aktualisiere die Anzahl der Ist-Teilnehmer für die ausgewählte Aktivität
             if (SelectedAktivitaet != null)
